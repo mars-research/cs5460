@@ -18,3 +18,6 @@ result
 
 # vim 
 *.swp
+
+# wsl
+*:Zone.Identifier
