@@ -347,7 +347,7 @@ $ a.out < t.sh
 
 # Submit your work
 
-Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/702170/). Pack your shell, `sh.c` into a zip archive and submit it. Please name the C file `sh.c`. You can resubmit as many times as you wish. If you have any problems with the structure the autograder will tell you. The structure of the zip file should be the following:
+Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893/). Pack your shell, `sh.c` into a zip archive and submit it. Please name the C file `sh.c`. You can resubmit as many times as you wish. If you have any problems with the structure the autograder will tell you. The structure of the zip file should be the following:
 
 ``` {style="position: relative;"}
 /
