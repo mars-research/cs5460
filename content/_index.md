@@ -75,7 +75,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 **Jan 14**  
 - [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video]())
 - Reading: [OSTEP: Chapter 5: Interlude: Process API](http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf)
-- [Homework 1 - Shell](./homework/hw1-shell/)
+
 
 
 **March 6**
