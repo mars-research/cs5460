@@ -6,17 +6,15 @@ title: Homework 1 - Shell
 ShowBreadCrumbs: false
 ---
 
-This assignment will teach you how to use the Unix system call interface and the shell by implementing a small shell, which we will refer to as the 5460/6450 shell. You will also learn how to use GDB to debug your code.
+This assignment will teach you how to use the Unix system call interface and the shell by implementing a small shell, which we will refer to as the 5460/6450 shell. You will also learn how to use Visual Studio code to debug your code.
 
 You can do this assignment on any operating system that supports the Unix API (Linux CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don\'t need to set up xv6 for this assignment** Submit your programs and the shell through Gradescope (see instructions at the bottom of this page).
 
 **NOTE: YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK**. It\'s ok to show your work to your future employer as a private Git repo, however any public release is prohibited.
 
-For **Mac / OSX** users. The support of 32 bit applications is depricated in the latest version of your system. So if you already updated your system to macOS Catalina or have updated your XCode then we recommend you to do the homework at the CADE machines.
+**NOTE 1:** We are aware that there are several tutorials on writing shells online. This assignment itself borrows heavily from Stephen Brennan\'s [blog post](https://brennan.io/2015/01/16/write-a-shell-in-c/). We strongly encourage you to do this assignment without referring to the actual code in those implementations. You are welcome to look at broad concepts (which we also try to explain here), but the actual implementation should be your work.
 
-**NOTE:** We are aware that there are several tutorials on writing shells online. This assignment itself borrows heavily from Stephen Brennan\'s [blog post](https://brennan.io/2015/01/16/write-a-shell-in-c/). We strongly encourage you to do this assignment without referring to the actual code in those implementations. You are welcome to look at broad concepts (which we also try to explain here), but the actual implementation should be your work.
-
-**NOTE:** We recently were made aware of the [GNU readline library](https://tiswww.case.edu/php/chet/readline/rltop.html). Bash (and other shells) rely heavily on it for auto-complete, moving the cursor around when entering input, and even reverse-search. For those interested, this is a really interesting read on the [history of `readline`](https://twobithistory.org/2019/08/22/readline.html). For the purposes of this assignment, using `readline` is not allowed, as it would make several implementation details entirely trivial. We want you to learn by implementing a shell, including it\'s intricacies.
+**NOTE 2:** We recently were made aware of the [GNU readline library](https://tiswww.case.edu/php/chet/readline/rltop.html). Bash (and other shells) rely heavily on it for auto-complete, moving the cursor around when entering input, and even reverse-search. For those interested, this is a really interesting read on the [history of `readline`](https://twobithistory.org/2019/08/22/readline.html). For the purposes of this assignment, using `readline` is not allowed, as it would make several implementation details entirely trivial. We want you to learn by implementing a shell, including it\'s intricacies.
 
 **TIP:** While building this assignment, several parts, like adding support for I/O redirection and pipes might not be immediately obvious, and are quite involved. We encourage you to take a look at xv6\'s shell to get design clues ([sh.c](https://github.com/mit-pdos/xv6-public/blob/master/sh.c)).
 
@@ -61,7 +59,7 @@ The main job of a shell is to execute commands. One way to break this down is:
 2.  **Parse** the command string by separating it into a program string and its argument string.
 3.  **Execute** the program, passing to it the appropriate arguments.
 
-The `sh_loop()` function, hence can look something like the following.\
+The `sh_loop()` function, hence can look something like the following.
 
 ``` {style="position: relative;"}
 void sh_loop(void)
@@ -195,7 +193,7 @@ CADE allows you to SSH off-campus using the 2FA Authentication, but VSCode has a
 3. It should redirect you to **Article KB0000538**, and you should be able to download the GlobalProtect Client from (https://vpn.utah.edu)
 4. Install the VPN, launch it, authenticate using your uNID and Duo, and you should be able to follow the same steps as the On-Campus instructions to SSH into your CADE Machine. 
 
-### Debugging C with VSCode
+### Debugging C with VSCode (5 points)
 
 VSCode's Debugger for C uses GDB in the backend, but allows you to use VSCode Debugger's rich interface to navigate all the information. You may want to download [sh_t.c](https://users.cs.utah.edu/~aburtsev/5460/hw/hw1-shell/sh_t.c) and change the command you ran to build sh.c to
 
