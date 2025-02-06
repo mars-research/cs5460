@@ -1,5 +1,5 @@
-volatile int bar(int a, int b, int c) {
-    int x; 
+int bar(int a, int b, int c){
+    int x;
     x = a + b + c;
     x += 6;
     return x;

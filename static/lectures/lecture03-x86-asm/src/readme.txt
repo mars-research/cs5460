@@ -3,13 +3,13 @@ To build a simple object file that fits on one screen
 
   gcc -m32 -O -c main.c
 
-To look at disassembly -d disas (GCC syntax):
+To look at disassembly -d disas (GCC syntax), use -r to show relocations:
   
-  objdump -d main.o
+  objdump -d -r main.o
 
 Same as above but Intel syntax:
 
-  objdump -M intel -d main.o
+  objdump -M intel -d -r main.o
 
 Build with debug info
   gcc -m32 -fno-pic -O -g -c main.c

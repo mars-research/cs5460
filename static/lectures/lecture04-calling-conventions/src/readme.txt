@@ -4,7 +4,7 @@ To build a simple object file that fits on one screen
   gcc -m32 -fno-pic -g -c main.c
   gcc -m32 -O -fno-omit-frame-pointer -c foo.c
 
-To look at disassembly -d disas (Intel syntax):
+To look at disassembly -d disas (Intel syntax), -r (show relocations):
 
-  objdump -M intel -d main.o
+  objdump -M intel -d -r main.o
 
