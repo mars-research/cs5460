@@ -118,6 +118,8 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 
 
+**Feb 4** 
+- [**Homework 2 - ELF**](./homework/hw2-elf/)
 
 **March 6**
 - Midterm exam (regular time and place)
