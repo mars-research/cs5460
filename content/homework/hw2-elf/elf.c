@@ -1,8 +1,9 @@
-unsigned int main(int a, int b) {
-    return a + b; 
+int b = 3, c = 4, d;
+
+int quadruple(int a) {
+    return a * c + b * d;
 }
 
-//void main(void) {
-//    sum(a, b)
-//};
-
+int magic() {
+    return 14 * b;
+}
