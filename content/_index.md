@@ -111,7 +111,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 
 **Feb 6** 
-- [Lecture 06 - Segmentation and Paging (part 2)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video]())
+- [Lecture 06 - Segmentation and Paging (part 2)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video](https://youtube.com/live/QADhnUCLGTI))
 - Reading: [OSTEP: Chapter 18 Paging: introduction: only Sections 18.1 - 18.3](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf)
 - Reading: [OSTEP: Chapter 20: only Section 20.3 Multi-level Page Tables](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-smalltables.pdf)
 - Reading: [Intel 64 and IA-32 architectures software developer's manual volume 3A: System programming guide, part 1 (Chapter 3: 3.1-3.4.5 and Chapter 4: 4.2-4.3)](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf)
