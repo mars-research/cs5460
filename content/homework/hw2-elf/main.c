@@ -10,7 +10,7 @@
 #ifndef __i386__
 #error Extra Credit: Implement x86-64 support
 #endif
-#include<stdbool.h>
+
 #include <errno.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -19,7 +19,6 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include <stddef.h>
 
 // ## Definitions
 //
@@ -27,7 +26,7 @@
 // - https://sourceware.org/git/?p=elfutils.git;a=blob;f=libelf/elf.h
 
 #ifndef Elf32_Ehdr
-void* load_base;
+
 // ### ELF Header
 typedef struct {
     uint8_t  e_ident[16];
@@ -168,16 +167,6 @@ void *load_multiple(FILE *f, size_t offset, size_t size, size_t entry_size, size
 
     return entries;
 }
-void *get_sm(Elf32_Sym *syms, char *strtab, int num_syms, const char *name) {
-        for (int i = 0; i < num_syms; ++i) {
-        if (strcmp(&strtab[syms [i].st_name], name) == 0) {
-        return (void *)(syms[i].st_value);
-        }
-    }
-        return NULL;
-}
-
-
 
 int main(int argc, char* argv[]) {
     Elf32_Ehdr elf;
@@ -189,13 +178,8 @@ int main(int argc, char* argv[]) {
     const char *filename = argv[1];
     const char *funcname = argc == 3 ? argv[2] : NULL;
 
-        // Get size of vaddr
-    size_t max_vaddr = 0;
-    size_t min_vaddr = SIZE_MAX;
-
-
-
-FILE* f = fopen(filename, "r");
+    // Open ELF file
+    FILE* f = fopen(filename, "r");
     if (f == NULL) {
         ABORT("Failed to open %s: %s", filename, strerror(errno));
     }
@@ -217,15 +201,17 @@ FILE* f = fopen(filename, "r");
     size_t phtotal = phnum * elf.e_phentsize;
     Elf32_Phdr *phs = (Elf32_Phdr*)load_multiple(f, sizeof(Elf32_Ehdr), phtotal, sizeof(Elf32_Phdr), NULL);
 
-
+    // Get size of vaddr
+    size_t max_vaddr = 0;
+    size_t min_vaddr = SIZE_MAX;
     for (int i = 0; i < phnum; ++i) {
 
         if (phs[i].p_type != PT_LOAD) {
             continue;
         }
 
-        if (phs[i].p_vaddr > max_vaddr) {
-            max_vaddr = phs[i].p_vaddr;
+        if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr) {
+            max_vaddr = phs[i].p_vaddr + phs[i].p_memsz;
         }
         if (phs[i].p_vaddr < min_vaddr) {
             min_vaddr = phs[i].p_vaddr;
@@ -278,7 +264,6 @@ FILE* f = fopen(filename, "r");
     }
     free(phs);
 
-
     // Read section headers
     if (elf.e_shentsize != sizeof(Elf32_Shdr)) {
         ABORT("File has unexpected section header size: %d\n", elf.e_shentsize);
@@ -289,16 +274,12 @@ FILE* f = fopen(filename, "r");
 
     size_t relnum;
     Elf32_Rel *rels = NULL;
-     Elf32_Sym *syms= NULL;
-    char *strtab= NULL;
-    size_t num_syms=0,strtab_size=0;
-    bool string_table=false;
 
 
     for (int i = 0; i < elf.e_shnum; i++) {
         Elf32_Shdr *sh = shs + i;
 
-       switch (sh->sh_type) {
+        switch (sh->sh_type) {
             case SHT_REL: {
                 if (rels) {
                     ABORT("Loading multiple relocation sections isn't supported\n");
@@ -306,32 +287,11 @@ FILE* f = fopen(filename, "r");
                 rels = (Elf32_Rel*)load_multiple(f, sh->sh_shoff, sh->sh_size, sizeof(Elf32_Rel), &relnum);
                 LOG("Loaded relocation table\n");
                 break;
-            
             }
-            case SHT_SYMTAB:{
-                syms=(Elf32_Sym*)load_multiple(f, sh->sh_shoff, sh->sh_size, sizeof(Elf32_Sym), &num_syms);
-                LOG("Loaded symbol table\n");
-                break;
-           }case SHT_STRTAB: {
-            if (i != elf.e_shstrndx && !string_table) {
-                
-                strtab = (char*)load_multiple(f, sh->sh_shoff, sh->sh_size, 1, NULL);
-                LOG("Loaded string table\n");
-                
-            }
-            break;
-        }
 
         }
     }
-
-
-
-
     free(shs);
-
-
-
 
     if (rels) {
         for (int j = 0; j < relnum; ++j) {
@@ -340,16 +300,8 @@ FILE* f = fopen(filename, "r");
             uint8_t r_type = ELF32_R_TYPE(rel->r_info);
 
             // YOUR CODE HERE
-            uint32_t r_offset = rel->r_offset;
 
-        switch (r_type) {
-            case R_386_RELATIVE: {
-                uint32_t *final_addr = (uint32_t)((uint8_t*)load_base + r_offset - min_vaddr);
-                    *final_addr += (uint32_t)load_base - min_vaddr;
-            }
         }
-            
-    }
 
         free(rels);
     }
@@ -357,30 +309,17 @@ FILE* f = fopen(filename, "r");
 
     LOG("Loaded binary\n");
 
-   void *addr_value = get_sm(syms, strtab, num_syms, "magic");
-    if (funcname && syms && strtab && addr_value) {
-     if (strcmp(funcname, "magic") == 0) {
-        LOG("Calling function: %s at address: %p\n", funcname, addr_value);
-        // Cast the address to the correct function type and call it
-        int (*func)(int) = (int (*)(int))((uint8_t *)load_base + (ptrdiff_t)addr_value - min_vaddr);
-        ret = func(4);
-        printf("ret = %d\n", ret);
-    } else if (!addr_value && funcname && strcmp(funcname, "magic") == 0) {
-        ABORT("Function '%s' not found in symbol table\n", funcname);
-    }
-    }
     if (elf.e_entry) {
         quadruple = (int (*)(int))((uint8_t*)load_base + elf.e_entry - min_vaddr);
     }
-    
-    
-   if (quadruple && (!funcname || strcmp(funcname, "magic") != 0)){
+
+
+    if (quadruple) {
         ret = quadruple(4);
         printf("ret = %d\n", ret); 
     }
 
     return 0; 
 }
-
 
 // vim: et:ts=4:sw=4
