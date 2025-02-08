@@ -582,7 +582,11 @@ For the extra credit, we ask you to implement support for reading the symbol tab
 
     ./main elf magic
 ```
-Submit your work
+AI Disclosure Section: 
+----------------
+If you used AI tools to solve this assignment, please include a section titled "AI Tools Disclosure:" at the end of the `explain.txt` document. In this section, disclose the tool and the prompts used. ("No" is a valid answer that gives you full points but be honest (i.e., tell us if you tried, or used it for some questions). Note, that we do not recommend using AI for this assignment as it seems to deprive you of the chance to understand the basic principles and organization of the POSIX interface which is a standard for a range of modern datacenter (Linux/FreeBSD), embedded (Linux), mobile (Android), and desktop (MacOS) systems)
+
+Submit your work 
 ----------------
 Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893). Please zip all of your files (main.c, Makefile) and submit them. The structure of the zip file should be the following:
 ``` {style="position: relative;"}
