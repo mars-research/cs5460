@@ -9,8 +9,7 @@ Homework 2: ELF files
 
 This assignment will make you more familiar with organisation of ELF files. Technically, you can do this assignment on any operating system that supports the Unix API (Linux CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don't need to set up xv6 for this assignment** Submit your programs and the shell through Gradescope (see instructions at the bottom of this page).
 
-**NOTE:** Two versions of `main.c` are now available one with a solution [\>main_solution.c](./main_solution.c) and one without [\>main.c](./main.c). You are encouraged to attempt solving the assignment yourself using the provided [\>main.c](./main.c) without solutions before referring to the solution version.
-The version with solutions is provided for reference only and should not be submitted as your own work. 
+**NOTE:** Two versions of `main.c` are now available one without solutions [\>main.c](./main.c) for you to complete and one with solutions [\>main_solution.c](./main_solution.c) for reference only. You must first attempt to solve the assignment using the provided `main.c` without solutions. The version with solutions is strictly for reference and should not be submitted as your own work.
 
 **YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK**. It's ok to show your work to your future employer as a private Git repo, however any public release is prohibited. For **Mac / OSX** users. The support of 32 bit applications is deprecated in the latest version of your system. So if you already updated your system to MacOS Catalina or have updated your XCode then we recommend you to do the homework at the CADE machines.
 
