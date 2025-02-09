@@ -143,7 +143,7 @@ static int page_align(int v) {
 
 void *load_multiple(FILE *f, size_t offset, size_t size, size_t entry_size, size_t *num_ptr) {
     if (size % entry_size) {
-        ABORT("Size not a multiple of entries: %lu %lu %lu\n", entry_size, size);
+        ABORT("Size not a multiple of entries, size: %lu, entry_size: %lu\n", size, entry_size);
     }
 
     void *entries = malloc(size);
