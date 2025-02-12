@@ -119,6 +119,10 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Intel 64 and IA-32 architectures software developer's manual volume 3A: System programming guide, part 1 (Chapter 3: 3.1-3.4.5 and Chapter 4: 4.2-4.3)](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf)
 - [**Homework 2 - ELF**](./homework/hw2-elf/)
 
+**Feb 11** 
+- [Lecture 06 - Segmentation and Paging (part 3)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video](https://youtube.com/live/q6-70qitj5I))
+
+
 **March 6**
 - Midterm exam (regular time and place)
 
