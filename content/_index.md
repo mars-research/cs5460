@@ -122,6 +122,11 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 **Feb 11** 
 - [Lecture 06 - Segmentation and Paging (part 3)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video](https://youtube.com/live/q6-70qitj5I))
 
+**Feb 13**
+- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/tOOFmZLfKTw))
+- Reading: [Appendix B: The boot loader](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf) and [Chapter 1: Code: the first address space](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf).
+- Reading (optional): [How Does an Intel Processor Boot](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/)?
+- Reading (optional): [Intel SGX explained](https://eprint.iacr.org/2016/086.pdf) (sections 2.9.1 The Motherboard, 2.9.2 The Intel Management Engine (ME), and 2.13 Platform Initialization (Booting))
 
 **March 6**
 - Midterm exam (regular time and place)
