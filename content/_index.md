@@ -128,6 +128,14 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading (optional): [How Does an Intel Processor Boot](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/)?
 - Reading (optional): [Intel SGX explained](https://eprint.iacr.org/2016/086.pdf) (sections 2.9.1 The Motherboard, 2.9.2 The Intel Management Engine (ME), and 2.13 Platform Initialization (Booting))
 
+**Feb 18**
+- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/IY4ij-9B_7c))
+
+**Feb 20**
+-[Lecture 08 - System Init](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/t7UnnRWz4k4))
+- Reading: [Chapter 1: Operating system organization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
 **March 6**
 - Midterm exam (regular time and place)
 
