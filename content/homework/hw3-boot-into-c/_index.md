@@ -1,9 +1,13 @@
 # Homework 3: Boot into C
 
-This assignment will teach you to build a minimal bootable code that boots on real hardware into C. Technically, you can do this assignment on any operating system
-that supports the Unix API and can run Qemu (CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don't need to set up xv6 for
-this assignment, but if you're running on CADE you'll have to install QEMU**, see [QEMU setup instructions](./xv6-setup.md). Submit your programs and the shell through
-Gradescope (see instructions at the bottom of this page).
+This assignment will teach you to build a minimal bootable code that boots on
+real hardware into C. Technically, you can do this assignment on any operating
+system that allows you to use GCC, make and QEMU (CADE machines, your laptop
+that runs Linux or Linux VM, e.g., WSL on Windows, and even MacOS with cross
+compilation via nix, etc.). **You don't need to set up xv6 for this assignment,
+but if you're running on CADE you'll have to install QEMU**, see [QEMU setup
+instructions](../../xv6-setup). Submit your code through Gradescope (see
+instructions at the bottom of this page).
 
 > **NOTE: YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK.** It's ok to show your work to your future employer as a private Git repo, however
 any public release is prohibited. For Mac / OSX users: the support of 32-bit applications is deprecated in the latest version of your system. So if you already updated
