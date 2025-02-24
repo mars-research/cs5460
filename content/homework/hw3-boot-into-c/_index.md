@@ -625,16 +625,13 @@ $ grub2-mkrescue -o hello.iso build/isofiles
 ```
 The `-o` flag controls the output filename, which we choose to be `hello.iso`. And then we pass it the directory to make the ISO out of, which is the build/isofiles directory we just set up.
 
-Note, if you're on a CADE machine, likely you don't have the GRUB i386 module (we have no control over cade unfortunately, but that's ok). We have a fix: use the wget command to download the [i386 module](./gr.zip) to the project directory and unzip it. Like this:
+Note, if you're on a CADE machine, likely you don't have the GRUB i386 module, so add the following option `-d /home/cs5460/grub/lib/grub/i386-pc` (to use the i386) to the grub2-mkrescue command.
+
 ```
-wget https://users.cs.utah.edu/~aburtsev/5460/hw/hw3-boot-into-c/gr.zip
-unzip gr.zip
+$ grub2-mkrescue -d /home/cs5460/grub/lib/grub/i386-pc -o hello.iso build/isofiles
 ```
-You then need to add the following option `-d lib/grub/i386-pc` (to use the i386) to the grub2-mkrescue command.
-```
-$ grub2-mkrescue -d lib/grub/i386-pc -o hello.iso build/isofiles
-```
-Do not include this option or the lib folder in your final submission. Use it only for your development on CADE
+
+Do not include this option in your final submission. Use it only for your development on CADE
 
 After this, you have an `hello.iso` file with our teeny kernel on it. You could burn this to a USB stick or CD and run it on an actual computer if you wanted to! But doing so would be really annoying during development. So in the next section, we'll use an emulator, QEMU, to run the ISO file on our development machine.
 

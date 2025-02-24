@@ -4,17 +4,22 @@ Xv6 is a real operating system kernel, and hence, it needs real hardware to boot
 
 ## SSH into CADE
 
-To configure your xv6 environment, login to your server
+To configure your xv6 environment, login into one of CADE servers, e.g., using the campus VPN, pick a random 
+server by replacing `XX` with a random number:
 
-# Make sure Qemu is in your path (Use bash for all the following commands)
+```
+ssh <your-uid>@lab1-XX.eng.utah.edu
+```
+
+### Make sure Qemu is in your path (Use bash for all the following commands)
 
 I have build a version of Qemu emulator for you. You only need to add it to your path. You can either add it every time you log in to the circinus machine by exporting the PATH variable, or you can add this line to .bash_profile file in your home folder.
 ```
-export PATH=$PATH:/home/u0478645/cs5460/qemu-install-new/bin
+export PATH=$PATH:/home/cs5460/qemu-install/bin
 ```
 If you decide to add the PATH permanently to your .bash_profile the line should look something like
 ```
-export PATH=/home/u0478645/cs5460/qemu-install-new/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:$HOME/bin:$PATH
+export PATH=/home/cs5460/qemu-install/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:$HOME/bin:$PATH
 ```
 Add this line to your ~/.bash_profile and ~/.bashrc file and then restart bash(this step is necessary if you are on CADE)
 
@@ -91,10 +96,6 @@ export PATH=$PATH:$HOME/cs5460/qemu-install/bin
 If you decide to add the PATH permanently to your .bash_profile the line should look something like
 ```
 export PATH=$HOME/cs5460/qemu-install/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:$HOME/bin:$PATH
-```
-Add this line to your ~/.bash_profile and ~/.bashrc file and then restart bash(this step is necessary if you are on CADE)
-```
-export LD_LIBRARY_PATH=/home/cs5460/usr/lib
 ```
 
 ### Xv6 on Mac 
