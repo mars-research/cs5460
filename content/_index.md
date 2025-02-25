@@ -137,8 +137,8 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **Feb 25**
--[Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
--[**Homework 3 - Boot Into C**](./homework/hw3-boot-into-c/)
+- [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
+- [**Homework 3 - Boot Into C**](./homework/hw3-boot-into-c/)
 
 
 **March 4**
