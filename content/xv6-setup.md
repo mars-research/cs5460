@@ -26,22 +26,35 @@ Add this line to your ~/.bash_profile and ~/.bashrc file and then restart bash(t
 
 ### Clone, build, and boot xv6
 
-Change back into the cs5460 folder and clone xv6 repository.
+If you haven't done this, create `cs5460` folder for all projects in this class. 
+
+```
+cd ~/
+mkdir cs5460
+```
+
+Change into the `cs5460` folder and clone the xv6 repository.
+
 ```
 cd ~/cs5460
 git clone https://github.com/mit-pdos/xv6-public.git
 Cloning into xv6...
 ...
 ```
+
 Build xv6 (you only will see a bunch of output from the make command that invokes the gcc compiler on all kernel files, links the kernel with ld, creates the kernel file system with all user-level programs that will be available inside xv6, and so on):
+
 ```
 $ cd xv6-public 
 $ make 
 ```
+
 You're now ready to run xv6.
+
 ```
 $ make qemu-nox ...  
 ```
+
 You are now running xv6 on top a hardware platform that is emulated by the Qemu emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
 
 You can find more information about QEMU monitor and GDB debugger [here](https://pdos.csail.mit.edu/6.828/2018/labguide.html), feel free to explore them.
