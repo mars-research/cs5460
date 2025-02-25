@@ -103,7 +103,7 @@ ready to cry yourself to sleep.
 ### Writing our own Multiboot header
 
 I said we were gonna get to the code, and then I went on about more history. Sorry about that! It's code time for real! You can download the entire folder that contains
-skeletons for the homework files [here](./src/) or save it file by file. Inside your homework folder there is a file called `multiboot_header.asm`. Open it in your favorite editor. I
+skeletons for the homework files [here](./src.tgz) or save it file by file. Inside your homework folder there is a file called `multiboot_header.asm`. Open it in your favorite editor. I
 use `vim`, but you should feel free to use anything you'd like.
 
 ```sh
