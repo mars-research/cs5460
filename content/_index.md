@@ -142,7 +142,8 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 
 **March 4**
-- Midterm exam (regular time and place)
+- Midterm review
+- Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
 
