@@ -1061,6 +1061,38 @@ Remember if you're using your own code, disable the -curses flag in the Makefile
 make qemu-nox
 ```
 
+## Debugging with VSCode Debugger
+
+Create a `launch.json` file as before, using the Debugging Panel in VSCode. Within the `launch.json`, add the following configuration: 
+
+```
+{
+    "name": "Debug QEMU",
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "${workspaceRoot}/build/kernel.bin",
+    "cwd": "${workspaceFolder}",
+    "miDebuggerPath": "/usr/local/bin/gdb",
+    "miDebuggerServerAddress": "127.0.0.1:1234",
+    "MIMode": "gdb",
+    "stopAtEntry": true,
+    "setupCommands": [
+	{
+	    "description": "Pretty Printing",
+	    "text": "-enable-pretty-printing",
+	    "ignoreFailures": false
+	},
+	{
+	    "description": "Set architecture",
+	    "text": "set arch i386:x86-64",
+	    "ignoreFailures": false
+	}
+    ]
+}
+```
+
+Now, in your terminal, launch the QEMU GDB process using `make qemu-gdb` or `make qemu-gdb-nox`, and then use the **Debug QEMU** option in the Debugging tab, and you should be good to go!
+
 ## Debugging with GDB
 Another intersting skill to learn while working on this homework is debugging kernels with GDB. To do this we will be using GDB's remote debugging feature and QEMU's remote GDB debugging stub. Remote debugging is a very important technique for kernel development in general: the basic idea is that the main debugger (GDB in this case) runs separately from the program being debugged (the xv6 kernel atop QEMU) - they could be on completely separate machines, in fact.
 ### Finding and breaking at an address
