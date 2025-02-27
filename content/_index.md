@@ -140,16 +140,19 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
 - [**Homework 3 - Boot Into C**](./homework/hw3-boot-into-c/)
 
+**Feb 27**
+- [Lecture 09 - Interrupts and Exceptions](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/89fLiN1xc8o))
+- Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
 
 **March 4**
 - Midterm review
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
-
 **March 6**
-- Midterm exam (regular time and place)
-
+- **Midterm exam** (regular time and place)
+- Exam rules: _no AI tools, no internet search, no communication or help, everything else is allowed, your laptop (in fact the exam is on Gradescope so you need a device), you can compile and run code, use IDEs, debuggers, program whatever you want, all documents reachable from the class web site are allowed (i.e., books, intel manual, etc. and you can search them)_.
 
 **March 11**
 - No class (Spring Break)
@@ -158,7 +161,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - No class (Spring Break)
 
 **April 29**
-- Final exam 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
-
+- **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
+- Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
