@@ -146,7 +146,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 
 **March 4**
-- Midterm review
+- [Midterm review](./lectures/lecture-midterm-recap/lecture-midterm-recap.pdf) ([video](https://youtube.com/live/aj5OOUeraTc)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
