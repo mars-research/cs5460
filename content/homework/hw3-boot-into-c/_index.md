@@ -877,6 +877,13 @@ Now in our assembly code we're ready to reload the GDT like this:
 ```
     lgdt [gdtdesc]
 ```
+
+Of course, don't foget to decrale `gdtdesc` as extern inside `boot.asm` like this 
+
+```
+    extern gdtdesc
+```
+
 Finally, to start using the GDT we have to perform a long jump to make sure that the CS register is reloaded from the new GDT. We do it by jumping to the label right below the current jump instruction/
 ```
     jmp SEG_KCODE:reload_cs
