@@ -685,7 +685,24 @@ See the `i386` module issue on CADE above.
 ## Automation with Make
 Typing all of these commands out every time we want to build the project is tiring and error-prone. It's nice to be able to have a single command that builds our entire project. To do this, we'll use make. Download this [Makefile](./src/Makefile) and look over it.
 
-To make this Makefile working move create boot folder in the same directory as Makefile and put previously created grub.cfg into boot folder.
+To make this Makefile working, create `boot` folder in the same directory as `Makefile` and put previously created `grub.cfg` into boot folder. Your tree should 
+look like this: 
+
+```
+\>tree
+.
+|-- Makefile
+|-- boot
+|   `-- grub.cfg
+|-- boot.asm
+|-- console.c
+|-- console.h
+|-- linker.ld
+|-- main.c
+|-- mmu.h
+`-- multiboot_header.asm
+```
+
 
 The makefile starts by defining several variables `kernel`, `iso`, `linker_script`, and `grub_cfg` that define names of the output files we want to make. `CFLAGS` is a variable that defines all flags to the GCC compiler.
 ```
