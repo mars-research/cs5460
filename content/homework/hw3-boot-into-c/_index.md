@@ -1367,7 +1367,7 @@ Boot on real hardware. I.e., try booting your code on a real desktop or laptop b
 Change the descriptor privilege level in the GDT to 3. Analyse (understand and explain) what happens.
 
 ### Submit your work
-Submit your solution through [Gradescope CS5460/6460 Operating Systems](https://www.gradescope.com/courses/947893). **Please zip all of your files and submit them. If you have done extra credit then place files required for extra credit part into separate folders extra1, extra2, extra3 or extra4. The structure of the zip file should be the following:**
+Submit your solution through [Gradescope CS5460/6460 Operating Systems](https://www.gradescope.com/courses/947893). **Please zip all of your files and submit them. If you have done extra credit then place files required for extra credit part into separate folders extra1, extra2 and extra3. The structure of the zip file should be the following:**
 ```
 /
   - Makefile
@@ -1386,13 +1386,8 @@ Submit your solution through [Gradescope CS5460/6460 Operating Systems](https://
     - main.c
     - ...
   - /extra2                         -- optional
-    - Makefile
-    - console.c
-    - console.h
-    - main.c
-    - ...
-  - /extra3                         -- optional
     - Video or a textfile with link to a video (no Rick Roll please)
-  - /extra4                         -- optional
-    - explanation.txt	  
+    
+  - /extra3                         -- optional
+    - explanation.txt
 ```
