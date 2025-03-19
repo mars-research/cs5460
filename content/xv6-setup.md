@@ -33,27 +33,32 @@ cd ~/
 mkdir cs5460
 ```
 
-Change into the `cs5460` folder and clone the xv6 repository.
+Clone this [xv6 repository](https://github.com/sohambagchi/xv6-public). 
 
-```
-cd ~/cs5460
-git clone https://github.com/mit-pdos/xv6-public.git
-Cloning into xv6...
-...
-```
+```bash
+$ cd ~/cs5460
+$ git clone https://github.com/sohambagchi/xv6-public.git
 
-Build xv6 (you only will see a bunch of output from the make command that invokes the gcc compiler on all kernel files, links the kernel with ld, creates the kernel file system with all user-level programs that will be available inside xv6, and so on):
-
-```
-$ cd xv6-public 
-$ make 
+  Cloning into xv6-public...
 ```
 
-You're now ready to run xv6.
+After the repository has been cloned, go ahead and build xv6. You will see a bunch of output from the make command that invokes the gcc compiler on all kernel files, links the kernel with ld, creates the kernel file system with all user-level programs that will be available inside xv6, and so on. 
 
+```bash
+$ cd xv6-public
+$ make
 ```
-$ make qemu-nox ...  
+
+Now you're ready to run xv6!
+
+```bash
+$ make qemu-nox
 ```
+
+> This is a fork of the official [x86 version of xv6 by MIT-PDOS](https://github.com/mit-pdos/xv6-public/), combined with some of the modifications from [NYU's fork of xv6](https://github.com/AnubisLMS/xv6) which allow easy debugging with vscode. Feel free to explore the other repositories, but for the labs use the one from [https://github.com/sohambagchi/xv6-public](https://github.com/sohambagchi/xv6-public).
+
+
+> If you are using x86-xv6 from a different repository, replicate the changes from [this commit](https://github.com/sohambagchi/xv6-public/commit/20c2e7ad780eb2d658f7040dd4c65a5db6742a96) into your `.gdbinit.tmpl` and `Makefile`, and create the `launch.json.tmpl` file according to the contents in this commit. 
 
 You are now running xv6 on top a hardware platform that is emulated by the Qemu emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
 
