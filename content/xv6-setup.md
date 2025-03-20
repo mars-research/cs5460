@@ -33,13 +33,13 @@ cd ~/
 mkdir cs5460
 ```
 
-Clone this [xv6 repository](https://github.com/sohambagchi/xv6-public). 
+Clone this [xv6 repository](https://github.com/mars-research/xv6-cs5460). 
 
 ```bash
 $ cd ~/cs5460
-$ git clone https://github.com/sohambagchi/xv6-public.git
+$ git clone https://github.com/mars-research/xv6-cs5460.git
 
-  Cloning into xv6-public...
+  Cloning into xv6-5460...
 ```
 
 After the repository has been cloned, go ahead and build xv6. You will see a bunch of output from the make command that invokes the gcc compiler on all kernel files, links the kernel with ld, creates the kernel file system with all user-level programs that will be available inside xv6, and so on. 
@@ -55,7 +55,7 @@ Now you're ready to run xv6!
 $ make qemu-nox
 ```
 
-> This is a fork of the official [x86 version of xv6 by MIT-PDOS](https://github.com/mit-pdos/xv6-public/), combined with some of the modifications from [NYU's fork of xv6](https://github.com/AnubisLMS/xv6) which allow easy debugging with vscode. Feel free to explore the other repositories, but for the labs use the one from [https://github.com/sohambagchi/xv6-public](https://github.com/sohambagchi/xv6-public).
+> This is a fork of the official [x86 version of xv6 by MIT-PDOS](https://github.com/mit-pdos/xv6-public/), combined with some of the modifications from [NYU's fork of xv6](https://github.com/AnubisLMS/xv6) which allow easy debugging with vscode. Feel free to explore the other repositories, but for the labs use the one from [https://github.com/mars-research/xv6-cs5460](https://github.com/mars-research/xv6-cs5460).
 
 
 > If you are using x86-xv6 from a different repository, replicate the changes from [this commit](https://github.com/sohambagchi/xv6-public/commit/20c2e7ad780eb2d658f7040dd4c65a5db6742a96) into your `.gdbinit.tmpl` and `Makefile`, and create the `launch.json.tmpl` file according to the contents in this commit. 
