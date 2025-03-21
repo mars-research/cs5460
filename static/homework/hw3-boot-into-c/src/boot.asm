@@ -26,6 +26,7 @@ start:
 
 
     call main
+loop:
     hlt ; Halt the processor.
-
+    jmp loop
 

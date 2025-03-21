@@ -164,6 +164,10 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 09 - Interrupts and Exceptions (part 2)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/Gf84CFB3uWw))
 - Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
+**March 20**
+- [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/5_gOW3waRWA))
+- Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
 
 
 **April 29**
