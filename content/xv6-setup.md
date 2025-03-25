@@ -57,6 +57,7 @@ $ make qemu-nox
 
 > This is a fork of the official [x86 version of xv6 by MIT-PDOS](https://github.com/mit-pdos/xv6-public/), combined with some of the modifications from [NYU's fork of xv6](https://github.com/AnubisLMS/xv6) which allow easy debugging with vscode. Feel free to explore the other repositories, but for the labs use the one from [https://github.com/mars-research/xv6-cs5460](https://github.com/mars-research/xv6-cs5460).
 
+> You will need [this VSCode Extension (Native Debug)](https://marketplace.visualstudio.com/items?itemName=webfreak.debug) to integrate QEMU-GDB with VSCode
 
 > If you are using x86-xv6 from a different repository, replicate the changes from [this commit](https://github.com/sohambagchi/xv6-public/commit/20c2e7ad780eb2d658f7040dd4c65a5db6742a96) into your `.gdbinit.tmpl` and `Makefile`, and create the `launch.json.tmpl` file according to the contents in this commit. 
 
