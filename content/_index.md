@@ -168,6 +168,8 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/5_gOW3waRWA))
 - Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
+**March 25**
+- [Homework 4 - System Calls](https://mars-research.github.io/cs5460/homework/hw4-system-call/): Make sure you're using the [correct patched version of xv6](https://github.com/mars-research/xv6-cs5460)
 
 
 **April 29**

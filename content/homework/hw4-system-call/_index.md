@@ -7,6 +7,8 @@ This homework teaches you how to set up xv6, start debugging it and finally exte
 
 You will program the xv6 operating system. We suggest you use a custom version of xv6 that includes small modifications that support VSCode Debugger integration. For this assignment (and for future xv6 assignments), follow the xv6 [setup instructions](https://mars-research.github.io/cs5460/xv6-setup/). After you\'re done with them, you\'ll be ready to start working on the assignment.
 
+- Custom XV6 Repo: [here](https://github.com/mars-research/xv6-cs5460)
+- Native Debug VSCode Extension (make sure you have this for better VSCode->GDB integration): [here](https://marketplace.visualstudio.com/items?itemName=webfreak.debug)
 
 ## Exercise 1: Debugging xv6
 
