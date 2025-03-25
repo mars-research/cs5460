@@ -11,6 +11,8 @@ You will program the xv6 operating system. We suggest you use a custom version o
 
 ## Exercise 1: Debugging xv6
 
+Use the shortcut `Ctrl/Cmd + K Ctrl/Cmd + O` to open a directory after launching VSCode and connecting to your remote server (CADE presumably). The shortcut will open a panel for you to navigate into the correct directory. If your directory does not exist yet, you can use the Terminal / Command-Line, and follow the xv6 [setup instructions](https://mars-research.github.io/cs5460/xv6-setup/). 
+
 This first part of the assignment teaches you to debug the xv6 kernel with VSCode and GDB. First, let's start the debugger and set a breakpoint on the `main` function.
 
 From inside your `xv6-public` folder, launch QEMU with a VSCode-integrated GDB server:
