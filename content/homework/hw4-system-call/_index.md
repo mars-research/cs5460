@@ -2,9 +2,10 @@
 
 # HW4: System Calls
 
-This homework asks you to extend the xv6 kernel with several simple system calls.
+This homework teaches you how to set up xv6, start debugging it and finally extend it with a simple system call.
 
-You will program the xv6 operating system. We are supplying a custom version of xv6 that includes VSCode Debugger integrations natively. For this assignment (and for future xv6 assignments), follow the xv6 [setup instructions](https://mars-research.github.io/cs5460/xv6-setup/). After you\'re done with them, you\'ll be ready to start working on the assignment.
+
+You will program the xv6 operating system. We suggest you use a custom version of xv6 that includes small modifications that support VSCode Debugger integration. For this assignment (and for future xv6 assignments), follow the xv6 [setup instructions](https://mars-research.github.io/cs5460/xv6-setup/). After you\'re done with them, you\'ll be ready to start working on the assignment.
 
 
 ## Exercise 1: Debugging xv6
