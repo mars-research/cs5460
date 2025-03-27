@@ -209,6 +209,12 @@ In order to make your new `ptest` program available to run from the xv6 shell, a
 
 Your strategy for making the `pcreate` system call should be to clone all of the pieces of code that are specific to some existing system call, for example the \"uptime\" system call or \"read\". You should grep for uptime in all the source files, using `grep -n uptime *.[chS]`. You can also copy the code from the `exec()` system call to create the new process. 
 
+### Hints
+
+You will want to allocate a new process similar to how it's done in `fork()` or `userinit()`.
+
+Since it's the new process you will have to create a correct trapframe, look at how it's done in `userinit()`
+
 ## Extra credit (10%)
 
 Use your new `pcreate()` implementation to create the first process in the system, i.e., instead of using the assembly sequence use internals of `pcreate()` to load the ELF binary of the `shell` process from disk. 
