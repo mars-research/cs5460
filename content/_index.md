@@ -169,8 +169,12 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **March 25**
-- [Homework 4 - System Calls](https://mars-research.github.io/cs5460/homework/hw4-system-call/): Make sure you're using the [correct patched version of xv6](https://github.com/mars-research/xv6-cs5460)
+- [Lecture 10 - Creating Processes](./lectures/lecture10-creating-processes/lecture10-creating-processes.pptx) ([video](https://youtube.com/live/V9jk3Shm838))
+- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
+**March 27**
+- [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/P4ZZASCxA00))
+- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **April 29**
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
