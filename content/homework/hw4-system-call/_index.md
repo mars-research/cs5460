@@ -15,10 +15,10 @@ Use the shortcut `Ctrl/Cmd + K Ctrl/Cmd + O` to open a directory after launching
 
 This first part of the assignment teaches you to debug the xv6 kernel with VSCode and GDB. First, let's start the debugger and set a breakpoint on the `main` function.
 
-From inside your `xv6-public` folder, launch QEMU with a VSCode-integrated GDB server:
+From inside your `xv6-cs5460` folder, launch QEMU (our version of the repo will automatically generate a json template in `.vscode/launch.json` which will allow your vscode to attach gdb to this qemu process:
 
 ``` {style="position: relative;"}
-CADE$ make qemu-nox-vscode
+CADE$ make qemu-nox-gdb
 ...
 ```
 
@@ -28,21 +28,19 @@ Congratulations! The VSCode debugger is connected to xv6. If you shift to the **
 
 
 ``` {style="position: relative;"}
-GNU gdb 6.8-debian
-Copyright (C) 2008 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later 
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-and "show warranty" for details.
-This GDB was configured as "x86_64-linux-gnu".
-+ target remote localhost:26000
-The target architecture is assumed to be i8086
-[f000:fff0]    0xffff0: ljmp   $0xf000,$0xe05b
+Reading symbols from /home/u0478645/projects/cs5460/xv6-cs5460/kernel...
+Warning: 'set target-async', an alias for the command 'set mi-async', is deprecated.
+Use 'set mi-async'.
+
 0x0000fff0 in ?? ()
 + symbol-file kernel
+add symbol table from file "kernel"
+Continue with 'c' or 'continue'
 ```
 
-What you see on the screen is the assembly code of the BIOS that QEMU executes as part of the platform initialization. The BIOS starts at address `0xfff0` (you can read more about it in the [How Does an Intel Processor Boot?](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/) blog post. You can single step through the BIOS machine code with the `si` (single instruction) GDB command if you like, but it\'s hard to make sense of what is going on so lets skip it for now and get to the point when QEMU starts executing the xv6 kernel.
+The GDB is ready to start running the assembly code of the BIOS that QEMU executes as part of the platform initialization. The BIOS starts at address `0xfff0` (you can read more about it in the [How Does an Intel Processor Boot?](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/) blog post. You can single step through the BIOS machine code with the `si` (single instruction) GDB command if you like, but it\'s hard to make sense of what is going on so lets skip it for now and get to the point when QEMU starts executing the xv6 kernel.
+
+At the bottom of your Debug Console you can enter GDB commands, like `c` (short for `continue`) to continue booting (you can also click the continue button at the top).
 
 > **Note:** if you need to exit GDB you can press **Ctrl-C** and then **Ctrl-D**. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
 
@@ -98,10 +96,82 @@ Dump of assembler code for function entry:
 End of assembler dump.
 ```
 
-Now you can set a breakpoint at the assembly instruction that initializes the stack (`0x80100028 <+28>:    mov    $0x8010b5c0,%esp`) and trace what is happening to the 
-stack by single stepping execution with the step instruction (`si`) command.  
+You can also set a breakpoint at the entry point of the kernel (before the
+instruction that initializes the stack, i.e.,`0x80100028 <+28>:    mov
+$0x8010b5c0,%esp`and trace what is happening to the stack by single stepping
+execution with the step instruction (`si`) command. 
 
-Eventually you will reach the C code of the `freerange()` function where you set your original breakpoint. 
+**Note** There is a little trick here. The kernel is linked to run at 2GB + 1MB, but since the boot loader loads it at the 1MB address, the entry point of the kernel ELF file is still set to to the 1MB range. E.g., you can verify this by running `readelf` like this: 
+
+```
+\>readelf kernel -a
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Intel 80386
+  Version:                           0x1
+  Entry point address:               0x10000c
+```
+
+While the actual linked address of the `entry` symbol is `0x8010000c` 
+
+```
+\>readelf kernel -a |grep entry
+    83: 8010000c     0 NOTYPE  GLOBAL DEFAULT    1 entry
+```
+
+Ok, so to set a breakpoint we will subtract these 2GB (`0x80000000` in hex) like this: on start in the Debug Console use the `b` (breakpoint) command: 
+
+```
+>b *0x10000c
+```
+
+If you restart the GDB session, set the breakpoint, and hit continue you will
+break on the entry point of the kernel (you can re-watch the boot section to
+recall what is going on). 
+
+**Note** since the `entry` is linked at 2MB + 1GB but the instruction pointer
+is at 1MB mark GDB cannot match the addresses and show you a disassembly. To
+force the disassembly of the current code use this command (disassemble
+instructions pointed by the `eip` + 16 bytes): 
+
+```
+disas $eip,+16
+Dump of assembler code from 0x10000c to 0x10001c:
+=> 0x0010000c:	mov    %cr4,%eax
+   0x0010000f:	or     $0x10,%eax
+   0x00100012:	mov    %eax,%cr4
+   0x00100015:	mov    $0x109000,%eax
+   0x0010001a:	mov    %eax,%cr3
+End of assembler dump.
+```
+
+This is the power of GDB... such tricks are hard or impossible to do with VSCode. 
+
+Now use `si` (step instruction) or `ni` (next instruction) to single step until you reach `freerange()`. You can monitor what is going on on the stack after each instruction
+
+Eventually you will reach the C code of the `freerange()` function where you set your original breakpoint.
+
+Note, it's a bit annoying to invoke one by one, so you can combine them in user-defined functions, like for example a command that single steps and prints the disassembly in a single shot. Add this to the `.gdbinit.tmpl` file: 
+
+```
+define mystep
+  si
+  disas $eip,+16
+end
+```
+
+Now you can use `mystep` as a GDB command. You can also add stack dumping there so you can monitor the stack changes.
+
+ 
+
+**Remember** your goal is to explain every value you see when you dump the stack. 
+
 
 ## Part 2 (80%): process create system call
 
@@ -138,6 +208,10 @@ main(int argc, char *argv[])
 In order to make your new `ptest` program available to run from the xv6 shell, add `_ptest` to the `UPROGS` definition in `Makefile`.
 
 Your strategy for making the `pcreate` system call should be to clone all of the pieces of code that are specific to some existing system call, for example the \"uptime\" system call or \"read\". You should grep for uptime in all the source files, using `grep -n uptime *.[chS]`. You can also copy the code from the `exec()` system call to create the new process. 
+
+## Extra credit (10%)
+
+Use your new `pcreate()` implementation to create the first process in the system, i.e., instead of using the assembly sequence use internals of `pcreate()` to load the ELF binary of the `shell` process from disk. 
 
 
 ## Submit your work
