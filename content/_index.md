@@ -176,6 +176,9 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/P4ZZASCxA00))
 - Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
+**March 30**
+- [**Homework 4 - System Calls**](./homework/hw4-system-call)
+
 **April 29**
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
