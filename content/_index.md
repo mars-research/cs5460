@@ -173,11 +173,17 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **March 27**
-- [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/P4ZZASCxA00))
+- [Lecture 10 - Creatting Processes (part 2)](./lectures/lecture10-creating-processes/lecture10-creating-processes.pptx) ([video](https://youtube.com/live/P4ZZASCxA00))
 - Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **March 30**
 - [**Homework 4 - System Calls**](./homework/hw4-system-call)
+
+**April 1**
+- [Lecture 11 - Context Switch](./lectures/) ([video](https://youtube.com/live/dd0dgK28Wno))
+- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
+
 
 **April 29**
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
