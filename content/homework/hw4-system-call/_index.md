@@ -227,13 +227,13 @@ Submit your solution through as a compressed zip file of your xv6 source tree (a
 ``` {style="position: relative;"}
 CADE$ cd xv6-public
 CADE$ make clean
-CADE$ cd ..
-CADE$ zip -r hw4.zip xv6-public
+CADE$ zip -r ../hw4.zip .
 ```
+
+Or, if you are using the original xv6 repository (not recommended):
 
 ``` {style="position: relative;"}
 CADE$ cd xv6-cs5460
 CADE$ make clean
-CADE$ cd ..
-CADE$ zip -r hw4.zip xv6-cs5460
+CADE$ zip -r ../hw4.zip .
 ```
