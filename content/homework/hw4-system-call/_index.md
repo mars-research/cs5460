@@ -222,11 +222,18 @@ Use your new `pcreate()` implementation to create the first process in the syste
 
 ## Submit your work
 
-Submit your solution through as a compressed tar file of your xv6 source tree (after running make clean). You can use the following command to create a compressed tar file.
+Submit your solution through as a compressed zip file of your xv6 source tree (after running make clean). You can use the following command to create a compressed zip file.
 
 ``` {style="position: relative;"}
 CADE$ cd xv6-public
 CADE$ make clean
 CADE$ cd ..
-CADE$ zip -r hw5.zip xv6-public
+CADE$ zip -r hw4.zip xv6-public
+```
+
+``` {style="position: relative;"}
+CADE$ cd xv6-cs5460
+CADE$ make clean
+CADE$ cd ..
+CADE$ zip -r hw4.zip xv6-cs5460
 ```
