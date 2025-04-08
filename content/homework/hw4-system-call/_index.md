@@ -225,7 +225,7 @@ Use your new `pcreate()` implementation to create the first process in the syste
 Submit your solution through as a compressed zip file of your xv6 source tree (after running make clean). You can use the following command to create a compressed zip file.
 
 ``` {style="position: relative;"}
-CADE$ cd xv6-public
+CADE$ cd xv6-cs5460
 CADE$ make clean
 CADE$ zip -r ../hw4.zip .
 ```
@@ -233,7 +233,7 @@ CADE$ zip -r ../hw4.zip .
 Or, if you are using the original xv6 repository (not recommended):
 
 ``` {style="position: relative;"}
-CADE$ cd xv6-cs5460
+CADE$ cd xv6-public
 CADE$ make clean
 CADE$ zip -r ../hw4.zip .
 ```
