@@ -183,6 +183,18 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 11 - Context Switch](./lectures/) ([video](https://youtube.com/live/dd0dgK28Wno))
 - Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
+**April 1**
+- [Lecture 11 - Context Switch](./lectures/) ([video](https://youtube.com/live/dd0dgK28Wno))
+- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
+**April 3**
+- [Lecture 11 - Context Switch (part 2)](./lectures/) ([video](https://youtube.com/live/jBUCYKkcoWI))
+- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
+**April 8**
+- [Lecture 11 - File Systems](./lectures/) ([video](https://youtube.com/live/rrMSQk0PFis))
+- Reading: [xv6: Chapter 6: File System](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [OSTEP: Chapter 40: File System Implementation](https://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf)
 
 
 **April 29**
