@@ -217,7 +217,7 @@ Since it's the new process you will have to create a correct trapframe, look at 
 
 ## Extra credit (10%)
 
-Use your new `pcreate()` implementation to create the first process in the system, i.e., instead of using the assembly sequence use internals of `pcreate()` to load the ELF binary of the `shell` process from disk. 
+Use your new `pcreate()` implementation to create the first process in the system, i.e., instead of using the assembly sequence use internals of `pcreate()` to load the ELF binary of the `init` process from disk. 
 
 
 ## Submit your work
