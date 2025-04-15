@@ -183,18 +183,33 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 11 - Context Switch](./lectures/lecture11-context-switch/lecture11-context-switch.pdf) ([video](https://youtube.com/live/dd0dgK28Wno))
 - Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
-**April 1**
-- [Lecture 11 - Context Switch](./lectures/lecture11-context-switch/lecture11-context-switch.pdf) ([video](https://youtube.com/live/dd0dgK28Wno))
-- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
-
 **April 3**
 - [Lecture 11 - Context Switch (part 2)](./lectures/lecture11-context-switch/lecture11-context-switch.pdf) ([video](https://youtube.com/live/jBUCYKkcoWI))
 - Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 
 **April 8**
-- [Lecture 11 - File Systems](./lectures/lecture12-file-system/lecture12-file-system.pdf) ([video](https://youtube.com/live/rrMSQk0PFis))
+- [Lecture 12 - File Systems](./lectures/lecture12-file-system/lecture12-file-system.pdf) ([video](https://youtube.com/live/rrMSQk0PFis))
 - Reading: [xv6: Chapter 6: File System](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 - Reading: [OSTEP: Chapter 40: File System Implementation](https://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf)
+
+**April 10**
+- [Lecture 12 - File Systems (part 2)](./lectures/lecture12-file-system/lecture12-file-system.pdf) ([video](https://youtube.com/live/byOHgi16xMI))
+- Reading: [xv6: Chapter 6: File System](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [OSTEP: Chapter 40: File System Implementation](https://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf)
+
+
+**April 15**
+- [Lecture 13 - Synchronization](./lectures/lecture13-synchronization/lecture13-synchronization.pdf) ([video](https://youtube.com/live/YcgkfdFWIGQ))
+- Reading: [xv6: Chapter 4: Locking and synchronization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
+**April 17**
+- [Lecture 13 - Synchronization (part 2)](./lectures/lecture13-synchronization/lecture13-synchronization.pdf) ([video]())
+- Reading: [xv6: Chapter 4: Locking and synchronization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+
+**April 22**
+- [Final review]() ([video]()
+- Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
+
 
 
 **April 29**
