@@ -206,7 +206,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 13 - Synchronization (part 2)](./lectures/lecture13-synchronization/lecture13-synchronization.pdf) ([video]())
 - Reading: [xv6: Chapter 4: Locking and synchronization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
 - [**Homework 5 - Infinite files for xv6**](./homework/hw5-infinite-files)
-- 
+  
 **April 22**
 - [Final review]() ([video]()
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
