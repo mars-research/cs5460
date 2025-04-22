@@ -208,7 +208,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [**Homework 5 - Infinite files for xv6**](./homework/hw5-infinite-files)
   
 **April 22**
-- [Final review]() ([video]()
+- [Final review](./lectures/lecture-final-recap/lecture-final-recap.pdf) ([video]()
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
