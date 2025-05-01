@@ -365,7 +365,7 @@ exit
 
 Xv6 has the following file system layout:
 
-![File system layout](./fs.png)
+![File system layout](../fs.png)
 
 Block 1 contains the super block. Blocks 2 through 31 contain the log header and the log.
 
