@@ -157,6 +157,8 @@ xv6 uses `entrypgdir` as the boot-time page table
 
 What happens if you set entry `0` in `entrypgdir` to 0? Explain your answer, be specific, which line in xv6 will trigger an exception?
 
+**Answer**
+
 Since xv6 is still executing at lower addresses (i.e., around 1MB) the moment we load `entrypgdir` into `CR3` the address from which we try to execute the next instruction will not be mapped and will trigger a page fault. I.e., the `0` entry maps addresses from 0 to 4MB. 
 
 ```
@@ -194,6 +196,8 @@ Since xv6 is still executing at lower addresses (i.e., around 1MB) the moment we
  
  What happens if you set entry `512` (i.e., `KERNBASE>>PDXSHIFT`) in `entrypgdir` to 0? Explain your answer, be specific, which line in xv6 will trigger an exception?
 
+**Answer**
+
 The kernel will crash when it will try to jump to the high addresses 
 at around 2GB + 1MB. Remember the kernel is linked and relocated to run 
 at 2GB + 1MB, while a short assembly sequence starts executing at 1MB, it will eventually try to jump to `main`. Line `66` will trigger a fault.
@@ -201,6 +205,8 @@ at 2GB + 1MB, while a short assembly sequence starts executing at 1MB, it will e
 ## Q4
 
 Alice starts the `cat` process on her xv6 system. When `cat` starts running, how many entries in the `cat`'s page table directory (i.e., root of the page table) are non-zero (i.e., configured by the kernel and have the present flag set)? Explain your answer.
+
+**Answer**
 
 We first identify the size of the `cat` binary. Use `readelf -a` to see that has one loadable section of size `0x00b4c`. Alternatively you can just guess that it's small and fits in one page, or use `objdump` to see the address of the last assembly instruction and guess that the data and BSS sections are small. 
 
@@ -286,7 +292,7 @@ And then patches the `swtch` to work. Can you sketch the assembly code for the n
  51   ret
  ```
 
-Here Alice saves all callee-saved register into the `struct context` which is passed on the stack and is saved into `eax` and then restores the registers from the `to` context (in `edx`). She saves esp as part of the context but leaves the return address on the stack. 
+Here Alice saves all callee-saved register into the `struct context` which is passed on the stack and is saved into `eax` and then restores the registers from the `to` context (in `edx`). She saves esp as part of the context but leaves the return address on the stack. Of course, changes are needed at other places, e.g., `allocproc()` but they are minor. 
 
 ## Q6
 
@@ -320,7 +326,7 @@ Below is the source code of the `loaduvm()` function that loads the text and dat
 
 Alice is wondering what happens if she replaces `walkpgdir()` with `P2V(addr+i)` and then passes the result into `readi()`. Can you explain what can go wrong?
 
-** Answer **
+**Answer**
 
 First, `addr + i` is a virtual address so it doesn't make sense to use the `P2V` macro on it as it will result in a rogue address (i.e., addr + i - 2GB). So a blind `readi(ip, P2V(addr+i), ...)` will likely result into a readi into the 0x0 - 2GB = 2GB address which is mapped with the write permissions in the kernel. The `readi()` succeeds by overwriting just a few pages around 2GBs (depending on the size of the text/data/bss sections of the process we're creating) however of course when the user process starts running it will have zeroes (clean pages) instead of its code and data section. It will eventually crash. 
 
@@ -345,6 +351,8 @@ On her xv6 system, Alice types `echo hello` in the xv6 shell and hits enter. If 
  12   exit();
  13 }
 ```
+
+**Answer**
 
 At a high level the shell will get a command from the command prompt, fork itself (`fork()` system call), exec the child into `echo` passing command line arguments (`exec()` system call) and will wait for the child to complete (`wait()` system call). The child will do a series of `write()` system calls to implement `printf` and then calls `exit()` system call. The trace will look something like: 
 
