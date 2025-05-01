@@ -215,6 +215,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **April 29**
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
+- [Exam and solutions](./exams/final)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
