@@ -111,7 +111,7 @@ For the first process xv6 sets up the `cs` segment to `DPL_USER` explicitly. Lat
 
 So `cs` stays as `DPL_USER`. Finally, the `iret` instruction in `trapret` loads the `tf->cs` into the `CS` register of the CPU changing the privilege level. 
 
-**Note** this question assumes that you did HW5 and thought of how to exit into user level. 
+**Note** this question assumes that you did HW4 (system calls) and thought of how to exit into user level. 
 
 ## Q2.2
 
