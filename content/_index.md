@@ -18,7 +18,7 @@ title: Home
   - Navya: Mondays 12.00pm-1.00pm [MEB 3515](https://map.utah.edu/index.html?code=MEB) 
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
 - PollEverywhere link: [PollEv.com/antonburtsev](http://PollEv.com/antonburtsev)
-- Previous years: [2024](https://users.cs.utah.edu/~aburtsev/5460/)
+- Previous years: [2025](./2025)
 
 ---
 
@@ -66,12 +66,13 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 # Schedule
 
-**Jan 7**  
-- [Lecture 0 - Logistics](./lectures/lecture00-logistics/lecture00-logistics.pdf) ([video](https://youtube.com/live/lLwee3ElfyA))  
-- [Lecture 1 - Introduction](./lectures/lecture01-intro/lecture01-intro.pdf) ([video](https://youtube.com/live/lLwee3ElfyA))  
-- Reading: [OSTEP: 2 Introduction](http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf)  
-- Reading (optional, to help you with C): [The C Programming Language](https://archive.org/details/TheCProgrammingLanguageFirstEdition) (look at Chapter 5 Pointers and Arrays) by Brian Kernighan and Dennis Ritchie (first edition is freely available, second edition is in print and is available from all major bookstores)
+**Jan 6**  
+- [Lecture 0 - Logistics](./lectures/lecture00-logistics/lecture00-logistics.pdf) ([video](https://youtube.com/live/NIewEe9dBgs))  
+- [Lecture 1 - Introduction](./lectures/lecture01-intro/lecture01-intro.pdf) ([video](https://youtube.com/live/NIewEe9dBgs))  
+<!--- Reading: [OSTEP: 2 Introduction](http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf)  -->
+- Reading (optional, to help you with C): [The C Programming Language](https://ia903407.us.archive.org/35/items/the-ansi-c-programming-language-by-brian-w.-kernighan-dennis-m.-ritchie.org/The%20ANSI%20C%20Programming%20Language%20by%20Brian%20W.%20Kernighan%2C%20Dennis%20M.%20Ritchie.pdf) (look at Chapter 5 Pointers and Arrays) by Brian Kernighan and Dennis Ritchie
 		
+<!--
 
 **Jan 9**  
 - [Lecture 02 - OS Interfaces (part 1)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/0cZx8caiIS8))
@@ -149,11 +150,13 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Midterm review](./lectures/lecture-midterm-recap/lecture-midterm-recap.pdf) ([video](https://youtube.com/live/aj5OOUeraTc)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
+-->
 
-**March 6**
+**March 5**
 - **Midterm exam** (regular time and place)
-- Exam rules: _no AI tools, no internet search, no communication or help, everything else is allowed, your laptop (in fact the exam is on Gradescope so you need a device), you can compile and run code, use IDEs, debuggers, program whatever you want, all documents reachable from the class web site are allowed (i.e., books, intel manual, etc. and you can search them)_.
+- Exam rules: _paper books and printouts are allowed, no devices_. 
 
+<!--
 **March 11**
 - No class (Spring Break)
 
@@ -211,11 +214,11 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Final review](./lectures/lecture-final-recap/lecture-final-recap.pdf) ([video](https://youtube.com/live/guIvwQlmknw)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
-
+-->
 
 **April 29**
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
-- [Exam and solutions](./exams/final)
+<!--- [Exam and solutions](./exams/final)-->
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
