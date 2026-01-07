@@ -71,7 +71,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 **Jan 6**  
 - [Lecture 0 - Logistics](./lectures/lecture00-logistics/lecture00-logistics.pdf) ([video](https://youtube.com/live/NIewEe9dBgs))  
 - [Lecture 1 - Introduction](./lectures/lecture01-intro/lecture01-intro.pdf) ([video](https://youtube.com/live/NIewEe9dBgs))  
-<!--- Reading: [OSTEP: 2 Introduction](http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf)  -->
+- Reading: [OSTEP: 2 Introduction](http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf)  
 - Reading (optional, to help you with C): [The C Programming Language](https://ia903407.us.archive.org/35/items/the-ansi-c-programming-language-by-brian-w.-kernighan-dennis-m.-ritchie.org/The%20ANSI%20C%20Programming%20Language%20by%20Brian%20W.%20Kernighan%2C%20Dennis%20M.%20Ritchie.pdf) (look at Chapter 5 Pointers and Arrays) by Brian Kernighan and Dennis Ritchie
 		
 <!--
