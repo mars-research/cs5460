@@ -44,8 +44,9 @@ specifically, Unix Version 6 which was developed in the 1970s, on the modern har
 xv6 is only 9,000 lines of C code, but it can run real processes, and perform many 
 functions of a traditional operating system, e.g., Windows, Linux, and Mac OS. 
 Due to its small size, it is possible to read the source code and understand the entire 
-operating system. Moreover, xv6 is accompanied by a [book](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
-describing its architecture and a [printout of its source code](https://pdos.csail.mit.edu/6.828/2018/xv6/xv6-rev11.pdf).  
+operating system. Moreover, xv6 is accompanied by a [book](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
+describing its architecture and a [printout of its source code](https://xv6-64.gitlab.io/xv6-64/xv6-64.pdf).
+**Note, we are using x86 64 bit version of xv6 in this class, not x86 32bit version and not RISC-V**.  
 Homework assignments will help you to deepen the
 understanding of the principles and internal organization of a simple, but real
 operating system.
@@ -77,7 +78,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **Jan 9**  
 - [Lecture 02 - OS Interfaces (part 1)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/0cZx8caiIS8))
-- Reading: [xv6: Chapter 0: Operating system interfaces](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [xv6: Chapter 0: Operating system interfaces](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Video (optional): [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0)
 
 **Jan 14**  
@@ -87,7 +88,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 **Jan 16**  
 - [Lecture 02 - OS Interfaces (part 3)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf)
 - [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/X7ivo7TT0D8))
-- Reading: [Reading: xv6 Book: Appendix A: PC Hardware](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Reading: xv6 Book: Appendix A: PC Hardware](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: [Reading: x86 Assembly Guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
 
 **Jan 21**  
@@ -126,7 +127,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **Feb 13**
 - [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/tOOFmZLfKTw))
-- Reading: [Appendix B: The boot loader](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf) and [Chapter 1: Code: the first address space](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf).
+- Reading: [Appendix B: The boot loader](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf) and [Chapter 1: Code: the first address space](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf).
 - Reading (optional): [How Does an Intel Processor Boot](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/)?
 - Reading (optional): [Intel SGX explained](https://eprint.iacr.org/2016/086.pdf) (sections 2.9.1 The Motherboard, 2.9.2 The Intel Management Engine (ME), and 2.13 Platform Initialization (Booting))
 
@@ -135,8 +136,8 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **Feb 20**
 -[Lecture 08 - System Init](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/t7UnnRWz4k4))
-- Reading: [Chapter 1: Operating system organization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
-- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 1: Operating system organization](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
+- Reading: [Chapter 2: Page tables](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **Feb 25**
 - [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
@@ -144,7 +145,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **Feb 27**
 - [Lecture 09 - Interrupts and Exceptions](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/89fLiN1xc8o))
-- Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 3: Traps, interrupts and drivers](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 
 **March 4**
@@ -166,49 +167,49 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 **March 18**
 - [Lecture 09 - Interrupts and Exceptions (part 2)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/Gf84CFB3uWw))
-- Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 3: Traps, interrupts and drivers](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **March 20**
 - [Lecture 09 - Interrupts and Exceptions (part 3)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/5_gOW3waRWA))
-- Reading: [Chapter 3: Traps, interrupts and drivers](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 3: Traps, interrupts and drivers](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **March 25**
 - [Lecture 10 - Creating Processes](./lectures/lecture10-creating-processes/lecture10-creating-processes.pptx) ([video](https://youtube.com/live/V9jk3Shm838))
-- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 2: Page tables](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **March 27**
 - [Lecture 10 - Creatting Processes (part 2)](./lectures/lecture10-creating-processes/lecture10-creating-processes.pptx) ([video](https://youtube.com/live/P4ZZASCxA00))
-- Reading: [Chapter 2: Page tables](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 2: Page tables](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **March 30**
 - [**Homework 4 - System Calls**](./homework/hw4-system-call)
 
 **April 1**
 - [Lecture 11 - Context Switch](./lectures/lecture11-context-switch/lecture11-context-switch.pdf) ([video](https://youtube.com/live/dd0dgK28Wno))
-- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **April 3**
 - [Lecture 11 - Context Switch (part 2)](./lectures/lecture11-context-switch/lecture11-context-switch.pdf) ([video](https://youtube.com/live/jBUCYKkcoWI))
-- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [Chapter 1. Subsection: Running the first process, Chapter 5 - Scheduling (up until Drivers)](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **April 8**
 - [Lecture 12 - File Systems](./lectures/lecture12-file-system/lecture12-file-system.pdf) ([video](https://youtube.com/live/rrMSQk0PFis))
-- Reading: [xv6: Chapter 6: File System](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [xv6: Chapter 6: File System](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: [OSTEP: Chapter 40: File System Implementation](https://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf)
 
 **April 10**
 - [Lecture 12 - File Systems (part 2)](./lectures/lecture12-file-system/lecture12-file-system.pdf) ([video](https://youtube.com/live/byOHgi16xMI))
-- Reading: [xv6: Chapter 6: File System](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [xv6: Chapter 6: File System](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: [OSTEP: Chapter 40: File System Implementation](https://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf)
 
 
 **April 15**
 - [Lecture 13 - Synchronization](./lectures/lecture13-synchronization/lecture13-synchronization.pdf) ([video](https://youtube.com/live/YcgkfdFWIGQ))
-- Reading: [xv6: Chapter 4: Locking and synchronization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [xv6: Chapter 4: Locking and synchronization](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
 **April 17**
 - [Lecture 13 - Synchronization (part 2)](./lectures/lecture13-synchronization/lecture13-synchronization.pdf) ([video](https://youtube.com/live/-cabHMty2OU))
-- Reading: [xv6: Chapter 4: Locking and synchronization](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+- Reading: [xv6: Chapter 4: Locking and synchronization](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - [**Homework 5 (extra credit) - Infinite files for xv6**](./homework/hw5-infinite-files)
   
 **April 22**
