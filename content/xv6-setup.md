@@ -11,9 +11,9 @@ server by replacing `XX` with a random number:
 ssh <your-uid>@lab1-XX.eng.utah.edu
 ```
 
-### Make sure Qemu is in your path (Use bash for all the following commands)
+### Make sure QEMU is in your path (Use bash for all the following commands)
 
-I have build a version of Qemu emulator for you. You only need to add it to your path. You can either add it every time you log in to the circinus machine by exporting the PATH variable, or you can add this line to .bash_profile file in your home folder.
+I have built a version of the QEMU emulator for you. You only need to add it to your path. You can either add it every time you log in to the circinus machine by exporting the PATH variable, or you can add this line to .bash_profile file in your home folder.
 ```
 export PATH=$PATH:/home/cs5460/qemu-install/bin
 ```
@@ -60,7 +60,7 @@ $ make qemu-nox
 
 > If you are using x86-xv6 from a different repository, replicate the changes from [this commit](https://github.com/sohambagchi/xv6-public/commit/20c2e7ad780eb2d658f7040dd4c65a5db6742a96) into your `.gdbinit.tmpl` and `Makefile`, and create the `launch.json.tmpl` file according to the contents in this commit. 
 
-You are now running xv6 on top a hardware platform that is emulated by the Qemu emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
+You are now running xv6 on top a hardware platform that is emulated by the QEMU emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
 
 You can find more information about QEMU monitor and GDB debugger [here](https://pdos.csail.mit.edu/6.828/2018/labguide.html), feel free to explore them.
 
@@ -78,11 +78,11 @@ Change into this new directory
 ```
 cd cs5460
 ```
-Clone the qemu distribution into the qemu folder
+Clone the QEMU distribution into the qemu folder
 ```
 git clone https://gitlab.com/qemu-project/qemu.git qemu 
 ```
-Change into qemu folder. Configure qemu with minimal settings and the prefix pointing to the install folder
+Change into qemu folder. Configure QEMU with minimal settings and the prefix pointing to the install folder
 ```
 ./configure --disable-kvm --disable-werror --prefix=/home/<YourUID>/cs5460/qemu-install --target-list="i386-softmmu x86_64-softmmu"
 ```
@@ -102,7 +102,7 @@ For example, for me this becomes:
 ```
 ./configure --disable-kvm --disable-werror --prefix=/home/u0478645/cs5460/qemu-install --target-list="i386-softmmu x86_64-softmmu"
 ```
-Make and install qemu (this will take some time)
+Make and install QEMU (this will take some time)
 ```
 make -j 16
 make install
@@ -118,7 +118,7 @@ export PATH=$HOME/cs5460/qemu-install/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/gam
 
 ### Xv6 on Mac 
 
-On the new ARM-based CPUs you need to cross-compile everything to get the x86 qemu running. The easiest way to do this is to use the Nix environment we provide:
+On the new ARM-based CPUs you need to cross-compile everything to get the x86 QEMU running. The easiest way to do this is to use the Nix environment we provide:
 
 ```
 git clone https://github.com/mars-research/xv6-cs5460.git
@@ -132,15 +132,15 @@ nix develop
 
 You can now build xv6 inside the Nix shell.
 
-### XV6 in Docker
+### Xv6 in Docker
 
-In case you want to use run xv6 on your own machine using docker containers, you can try it out as well. I have successfully built XV6 using the grantbot/xv6 image hosted in the [docker hub](https://hub.docker.com/r/grantbot/xv6/)
+In case you want to use run xv6 on your own machine using docker containers, you can try it out as well. I have successfully built xv6 using the grantbot/xv6 image hosted in the [docker hub](https://hub.docker.com/r/grantbot/xv6/)
 
 
-In my localmachine, I downloaded the XV6 source code as follows :
+In my localmachine, I downloaded the xv6 source code as follows :
 ```
-localhost$ mkdir XV6_Dev
-localhost$ cd XV6_Dev
+localhost$ mkdir xv6_dev
+localhost$ cd xv6_dev
 localhost$ git clone https://gitlab.com/xv6-64/xv6-64.git
 Cloning into 'xv6-64'...
 ...
@@ -151,10 +151,10 @@ docker pull grantbot/xv6
 ```
 Then you can start the container using
 ```
-docker run -v '/{Path to local XV6 folder}/XV6_Dev':/home/a/XV6_Dev/ -i -t grantbot/xv6
+docker run -v '/{Path to local xv6 folder}/xv6_dev':/home/a/xv6_dev/ -i -t grantbot/xv6
 ```
-Once you have the bash prompt you can type the following to start XV6,
+Once you have the bash prompt you can type the following to start xv6:
 ```
-cd ~/XV6_Dev/xv6-64
+cd ~/xv6_dev/xv6-64
 make qemu-nox
 ```
