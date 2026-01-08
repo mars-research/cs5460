@@ -8,17 +8,17 @@ title: Home
 
 - Instructor: [Anton Burtsev](https://users.cs.utah.edu/~aburtsev/) (anton.burtsev@utah.edu)
 - Time and place: Tue/Thu, 9:10am - 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
-- Canvas: [https://utah.instructure.com/courses/1221030](https://utah.instructure.com/courses/1221030)
-- Piazza (questions): [https://piazza.com/utah/spring2026/cs6460001spring2026/home](https://piazza.com/utah/spring2026/cs6460001spring2026/home)
+- Canvas: <https://utah.instructure.com/courses/1221030>
+- Piazza (questions): <https://piazza.com/utah/spring2026/cs6460001spring2026/home>
 - Piazza sign up link and code are on Canvas
-- Gradescope (homework assignments and quizzes): [https://www.gradescope.com/courses/1213502](https://www.gradescope.com/courses/1213502)
+- Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
   - Anton: Tuesday, 11:00am-12:00pm [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
   - Thalia - TBD
   - Hanwen - TBD
   - Manvik - TBD
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
-- PollEverywhere link: [PollEv.com/antonburtsev](http://PollEv.com/antonburtsev)
+- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/antonburtsev)
 - Previous years: [2025](./2025)
 
 ---

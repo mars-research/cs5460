@@ -124,7 +124,7 @@ On the new ARM-based CPUs you need to cross-compile everything to get the x86 QE
 git clone https://github.com/mars-research/xv6-cs5460.git
 ```
 
-Install Nix (follow the Nix installation instructions online: (https://nixcademy.com/posts/nix-on-macos/)[https://nixcademy.com/posts/nix-on-macos/], then enter
+Install Nix (follow the Nix installation instructions online: <https://nixcademy.com/posts/nix-on-macos/>), then enter
 
 ```
 nix develop
