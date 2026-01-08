@@ -33,9 +33,9 @@ activities, and the interface between software and hardware. Most importantly,
 you will study the interactions between these concepts, and how to manage the
 complexity introduced by the interactions.
 
-To master the concepts, cs5460/6460 is organized in as a series of lectures,
+To master the concepts, cs5460/6460 is organized as a series of lectures,
 and homeworks. The lectures (and the book readings) familiarize you with the
-main concepts. The homrworks force you to understand the concepts at a deep
+main concepts. The homeworks force you to understand the concepts at a deep
 level.
 
 The lectures are based on [xv6](https://xv6-64.gitlab.io/xv6-64/),

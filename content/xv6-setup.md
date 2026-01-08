@@ -4,7 +4,7 @@ Xv6 is a real operating system kernel, and hence, it needs real hardware to boot
 
 ## SSH into CADE
 
-To configure your xv6 environment, login into one of CADE servers, e.g., using the campus VPN, pick a random 
+To configure your xv6 environment, login to one of CADE servers, e.g., using the campus VPN, pick a random
 server by replacing `XX` with a random number:
 
 ```
@@ -21,12 +21,12 @@ If you decide to add the PATH permanently to your .bash_profile the line should 
 ```
 export PATH=/home/cs5460/qemu-install/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:$HOME/bin:$PATH
 ```
-Add this line to your ~/.bash_profile and ~/.bashrc file and then restart bash(this step is necessary if you are on CADE)
+Add this line to your ~/.bash_profile and ~/.bashrc file and then restart bash (this step is necessary if you are on CADE)
 
 
 ### Clone, build, and boot xv6
 
-If you haven't done this, create `cs5460` folder for all projects in this class. 
+If you haven't done this, create a `cs5460` folder for all projects in this class.
 
 ```
 cd ~/
@@ -60,9 +60,9 @@ $ make qemu-nox
 
 > If you are using x86-xv6 from a different repository, replicate the changes from [this commit](https://github.com/sohambagchi/xv6-public/commit/20c2e7ad780eb2d658f7040dd4c65a5db6742a96) into your `.gdbinit.tmpl` and `Makefile`, and create the `launch.json.tmpl` file according to the contents in this commit. 
 
-You are now running xv6 on top a hardware platform that is emulated by the QEMU emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
+You are now running xv6 on top of a hardware platform that is emulated by the QEMU emulator. You are now done with the xv6 setup and can continue moving to any homeworks that are currently assigned. To exit xv6 running under QEMU you can terminate it with **Ctrl-A X**.
 
-You can find more information about QEMU monitor and GDB debugger [here](https://pdos.csail.mit.edu/6.828/2018/labguide.html), feel free to explore them.
+You can find more information about the QEMU monitor and GDB debugger in [MIT's guide](https://pdos.csail.mit.edu/6.828/2018/labguide.html). Feel free to explore them.
 
 ## Alternative ways to install xv6 if you feel like it (not required for this class)
 
@@ -82,12 +82,12 @@ Clone the QEMU distribution into the qemu folder
 ```
 git clone https://gitlab.com/qemu-project/qemu.git qemu 
 ```
-Change into qemu folder. Configure QEMU with minimal settings and the prefix pointing to the install folder
+Change into the qemu folder. Configure QEMU with minimal settings and the prefix pointing to the install folder
 ```
 ./configure --disable-kvm --disable-werror --prefix=/home/<YourUID>/cs5460/qemu-install --target-list="i386-softmmu x86_64-softmmu"
 ```
 If on CADE, you likely need to build an older version just to ensure compatibility with CADE libraries that are a bit behind. Checkout 
-and older version: 
+an older version:
 
 ```
 git checkout remotes/origin/stable-6.0
@@ -134,10 +134,10 @@ You can now build xv6 inside the Nix shell.
 
 ### Xv6 in Docker
 
-In case you want to use run xv6 on your own machine using docker containers, you can try it out as well. I have successfully built xv6 using the grantbot/xv6 image hosted in the [docker hub](https://hub.docker.com/r/grantbot/xv6/)
+In case you want to run xv6 on your own machine using docker containers, you can try it out as well. I have successfully built xv6 using the grantbot/xv6 image hosted on [Docker Hub](https://hub.docker.com/r/grantbot/xv6/).
 
 
-In my localmachine, I downloaded the xv6 source code as follows :
+On my local machine, I downloaded the xv6 source code as follows:
 ```
 localhost$ mkdir xv6_dev
 localhost$ cd xv6_dev
@@ -145,7 +145,7 @@ localhost$ git clone https://gitlab.com/xv6-64/xv6-64.git
 Cloning into 'xv6-64'...
 ...
 ```
-Next, you will need to setup Docker, if you don't have it already on your machine. I followed the instructions from here. You will find similar instructions for other OS as well in the docker website. Once you have the setup ready, download the ***grantbot/xv6*** image using
+Next, you will need to setup Docker, if you don't already have it on your machine. Once you have the setup ready, download the ***grantbot/xv6*** image using
 ```
 docker pull grantbot/xv6
 ```
