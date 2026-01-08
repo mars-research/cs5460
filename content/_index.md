@@ -38,7 +38,7 @@ and homeworks. The lectures (and the book readings) familiarize you with the
 main concepts. The homrworks force you to understand the concepts at a deep
 level.
 
-The lectures are based on [xv6](https://pdos.csail.mit.edu/6.828/2016/xv6.html),
+The lectures are based on [xv6](https://xv6-64.gitlab.io/xv6-64/),
 a modern re-implementation of one of the early UNIX operating systems, 
 specifically, Unix Version 6 which was developed in the 1970s, on the modern hardware. 
 xv6 is only 9,000 lines of C code, but it can run real processes, and perform many 

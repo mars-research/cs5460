@@ -33,19 +33,18 @@ cd ~/
 mkdir cs5460
 ```
 
-Clone this [xv6 repository](https://github.com/mars-research/xv6-cs5460). 
+Clone the [xv6-64 repository](https://gitlab.com/xv6-64/xv6-64).
 
 ```bash
 $ cd ~/cs5460
-$ git clone https://github.com/mars-research/xv6-cs5460.git
-
-  Cloning into xv6-5460...
+$ git clone https://gitlab.com/xv6-64/xv6-64.git
+Cloning into 'xv6-64'...
 ```
 
 After the repository has been cloned, go ahead and build xv6. You will see a bunch of output from the make command that invokes the gcc compiler on all kernel files, links the kernel with ld, creates the kernel file system with all user-level programs that will be available inside xv6, and so on. 
 
 ```bash
-$ cd xv6-public
+$ cd xv6-64
 $ make
 ```
 
@@ -142,8 +141,8 @@ In my localmachine, I downloaded the XV6 source code as follows :
 ```
 localhost$ mkdir XV6_Dev
 localhost$ cd XV6_Dev
-localhost$ git clone git://github.com/mit-pdos/xv6-public.git
-Cloning into xv6...
+localhost$ git clone https://gitlab.com/xv6-64/xv6-64.git
+Cloning into 'xv6-64'...
 ...
 ```
 Next, you will need to setup Docker, if you don't have it already on your machine. I followed the instructions from here. You will find similar instructions for other OS as well in the docker website. Once you have the setup ready, download the ***grantbot/xv6*** image using
@@ -156,6 +155,6 @@ docker run -v '/{Path to local XV6 folder}/XV6_Dev':/home/a/XV6_Dev/ -i -t grant
 ```
 Once you have the bash prompt you can type the following to start XV6,
 ```
-cd ~/XV6_Dev/
+cd ~/XV6_Dev/xv6-64
 make qemu-nox
 ```
