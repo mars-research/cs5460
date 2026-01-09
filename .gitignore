@@ -21,3 +21,6 @@ result
 
 # wsl
 *:Zone.Identifier
+
+# macOS
+.DS_Store

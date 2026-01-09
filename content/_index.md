@@ -8,17 +8,17 @@ title: Home
 
 - Instructor: [Anton Burtsev](https://users.cs.utah.edu/~aburtsev/) (anton.burtsev@utah.edu)
 - Time and place: Tue/Thu, 9:10am - 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
-- Canvas: [https://utah.instructure.com/courses/1221030](https://utah.instructure.com/courses/1221030)
-- Piazza (questions): [https://piazza.com/utah/spring2026/cs6460001spring2026/home](https://piazza.com/utah/spring2026/cs6460001spring2026/home)
+- Canvas: <https://utah.instructure.com/courses/1221030>
+- Piazza (questions): <https://piazza.com/utah/spring2026/cs6460001spring2026/home>
 - Piazza sign up link and code are on Canvas
-- Gradescope (homework assignments and quizzes): [https://www.gradescope.com/courses/1213502](https://www.gradescope.com/courses/1213502)
+- Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
   - Anton: Tuesday, 11:00am-12:00pm [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
   - Thalia - TBD
   - Hanwen - TBD
   - Manvik - TBD
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
-- PollEverywhere link: [PollEv.com/antonburtsev](http://PollEv.com/antonburtsev)
+- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/antonburtsev)
 - Previous years: [2025](./2025)
 
 ---
@@ -33,12 +33,12 @@ activities, and the interface between software and hardware. Most importantly,
 you will study the interactions between these concepts, and how to manage the
 complexity introduced by the interactions.
 
-To master the concepts, cs5460/6460 is organized in as a series of lectures,
+To master the concepts, cs5460/6460 is organized as a series of lectures,
 and homeworks. The lectures (and the book readings) familiarize you with the
-main concepts. The homrworks force you to understand the concepts at a deep
+main concepts. The homeworks force you to understand the concepts at a deep
 level.
 
-The lectures are based on [xv6](https://pdos.csail.mit.edu/6.828/2016/xv6.html),
+The lectures are based on [xv6](https://xv6-64.gitlab.io/xv6-64/),
 a modern re-implementation of one of the early UNIX operating systems, 
 specifically, Unix Version 6 which was developed in the 1970s, on the modern hardware. 
 xv6 is only 9,000 lines of C code, but it can run real processes, and perform many 
