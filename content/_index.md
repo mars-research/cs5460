@@ -74,13 +74,13 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [OSTEP: 2 Introduction](http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf)  
 - Reading (optional, to help you with C): [The C Programming Language](https://ia903407.us.archive.org/35/items/the-ansi-c-programming-language-by-brian-w.-kernighan-dennis-m.-ritchie.org/The%20ANSI%20C%20Programming%20Language%20by%20Brian%20W.%20Kernighan%2C%20Dennis%20M.%20Ritchie.pdf) (look at Chapter 5 Pointers and Arrays) by Brian Kernighan and Dennis Ritchie
 		
-<!--
 
-**Jan 9**  
-- [Lecture 02 - OS Interfaces (part 1)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/0cZx8caiIS8))
+**Jan 8**  
+- [Lecture 02 - OS Interfaces (part 1)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/5F-f0opqzQ0))
 - Reading: [xv6: Chapter 0: Operating system interfaces](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Video (optional): [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0)
 
+<!--
 **Jan 14**  
 - [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/UzqupNygAZ4))
 - Reading: [OSTEP: Chapter 5: Interlude: Process API](http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf)
