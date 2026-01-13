@@ -13,8 +13,8 @@ title: Home
 - Piazza sign up link and code are on Canvas
 - Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
-  - Anton: Tuesday, 11:00am-12:00pm [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
-  - Thalia - TBD
+  - Anton: Tuesdays 11:00am-12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
+  - Thalia: Thursdays 11:00am-12:00pm or by appointment in MEB 2180
   - Hanwen - TBD
   - Manvik - TBD
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
