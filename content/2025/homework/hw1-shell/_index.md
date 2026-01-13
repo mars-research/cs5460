@@ -296,9 +296,9 @@ int sh_execute(char **args)
 ### Task 
 * Implement `sh_launch(char **args)`
 Use the UNIX process interface:
-* `fork()`
-* `exec*()` (preferably a PATH-searching variant such as `execvp`)
-* `wait()` or `waitpid()`
+  * `fork()`
+  * `exec*()` (preferably a PATH-searching variant such as `execvp`)
+  * `wait()` or `waitpid()`
 * Handle execution failures by printing an error message.
 * Return an appropriate value, so the shell loop continues correctly.
 
