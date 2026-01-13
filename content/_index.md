@@ -224,4 +224,4 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
 
 
-[**Homework 1 - Shell**](./homework/hw1-shell/)
+[**Homework 1 - Shell**](/content/2025/homework/hw1-shell/)
