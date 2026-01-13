@@ -13,10 +13,10 @@ title: Home
 - Piazza sign up link and code are on Canvas
 - Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
-  - Anton: Tuesday, 11:00am-12:00pm [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
-  - Thalia - TBD
+  - Anton: Tuesdays 11:00am-12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
+  - Thalia: Thursdays 11:00am-12:00pm or by appointment in MEB 2180
   - Hanwen - TBD
-  - Manvik - TBD
+  - Manvik - Thursdays 4:00pm-5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
 - Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/cs5460)
 - Previous years: [2025](./2025)
@@ -96,7 +96,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
 - Reading: [PC Assembly Language. Paul A. Carter: Section 4 Subprograms (4.1 - 4.5)](https://pdos.csail.mit.edu/6.828/2014/readings/pcasm-book.pdf)
 - Reading: [Wikipedia: x86 calling conventions](https://en.wikipedia.org/wiki/X86_calling_conventions)
-- [**Homework 1 - Shell**](./homework/hw1-shell/)
+- [**Homework 1 - Shell**](./2025/homework/hw1-shell/)
 
 **Jan 23**  
 - [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/fqmWbjVrcAg))
@@ -222,5 +222,3 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
 <!--- [Exam and solutions](./exams/final)-->
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
-
-
