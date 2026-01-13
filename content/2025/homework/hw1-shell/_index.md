@@ -247,22 +247,38 @@ Now, let's take a look at how you can use GDB to debug your crashing programs. F
 Launch the debugger without any breakpoints, and the program should crash when execution reaches line 71. <img src="20250113183913.png" width="550"/>
 The **Call Stack** on the left will show you the flow of execution. We can see that the exception has occurred on line 71, in the function `sh_split_line`, which was called by `sh_loop` in line 104, which was called by `main` in line 115. 
 
+## utsh: Incremental Shell Construction Assignment
 
-## Part 1: Executing programs (30 Points)
+In this assignment, you will extend a small UNIX shell (`utsh`) to support:
+* Executing external programs
+* I/O redirection (<, >)
+* Pipes (|)
 
-**NOTE:** For the rest of this assignment, *you* will be doing all the implementation. You are free to modify any functions that we provide, including their signatures. What we provide is a template which we encourage you to use, as we expect it will make things easier for you.
+You are responsible for all implementation. The provided code is only a template—you may modify any function, including signatures, as needed.
+
+Rather than implementing everything at once, you will follow a guided sequence of steps. Each step includes:
+
+- An implementation task
+- A required explanation checkpoint
+- A required testing checkpoint
+
+The goal is not just to make the shell work, but to understand and explain how process creation, file descriptors, and inter-process communication work.
+
+### Part 1: Executing Programs (30 Points)
+#### Objective
+
+Extend the shell so it can execute external programs such as:
+```  {style="position: relative;"}
+utsh$ ls
+bar.txt foo.txt utsh sh.c
+utsh$
+```
+
+### Implementation
 
 Now, finally we can come to the part where we make our tiny shell do what it was created for: starting to execute programs! By now, our shell should start and offer the user a prompt:
 
 ``` {style="position: relative;"}
-utsh$
-```
-
-In this part of the assignment, you have to extend the shell to allow simple execution of external programs, for instance `ls `:
-
-``` {style="position: relative;"}
-utsh$ ls
-bar.txt foo.txt utsh sh.c
 utsh$
 ```
 
@@ -277,10 +293,20 @@ int sh_execute(char **args)
   return sh_launch(args);   // launch
 }
 ```
+#### Task 
+* Implement `sh_launch(char **args)`
+Use the UNIX process interface:
+* `fork()`
+* `exec*()` (preferably a PATH-searching variant such as `execvp`)
+* `wait()` or `waitpid()`
+* Handle execution failures by printing an error message.
+* Return an appropriate value, so the shell loop continues correctly.
 
-You should do this by implementing the `sh_launch ` function. Use the UNIX interface that we\'ve discussed in class (the functions to cone processes, i.e., `fork()`, executing new processes, i.e., `exec()`, working with file descriptors i.e., `close(), dup(), open(), wait()`, etc. to implement the various shell features.
+Your shell must:
 
-Remember to return an appropriate return value from `sh_launch` as the main loop ` sh_loop` depends on it. Feel free to modify how you use the `status` variable in `sh_loop`. Print an error message when `exec` fails.
+* Execute programs using absolute paths (e.g., `/bin/ls`)
+* Execute programs using PATH lookup (e.g., `ls`)
+* Pass arguments correctly to the executed program
 
 You might find it useful to look at the manual page for `exec`, for example, type
 
@@ -310,10 +336,32 @@ utsh$
 
 **TIP:** In GDB, if you want to debug child processes, ` set follow-fork-mode child ` is sometimes useful. This is a good [reference](https://sourceware.org/gdb/onlinedocs/gdb/Forks.html) .
 
-## Part 2: I/O redirection (30 Points)
+### Explanation Checkpoint (Submit This)
+Set a breakpoint inside sh_launch after fork() and answer the following:
+- Which process (parent or child) executes the exec call?
+- What happens to the child process’s address space after exec succeeds?
+- Why must the parent call wait()?
+- What would happen if the parent did not wait?
 
-Now that you can execute commands, let us extend the features our shell provides. Now you have to implement I/O redirection commands so that you can run:
+You must copy the relevant lines of code and explain them line by line.
 
+### Testing Checkpoint
+
+Write your own test plan and verify all tests pass. At minimum, your tests must include:
+- Executing a program with no arguments
+- Executing a program with arguments
+- Executing a program using an absolute path
+- Attempting to execute a non-existent program
+
+Document:
+
+- The command you ran
+- The expected output
+- The actual output
+
+### Part 2: I/O redirection (30 Points)
+#### Objective
+Extend the shell to support input and output redirection:
 ``` {style="position: relative;"}
 utsh$ echo "utsh is cool" > x.txt
 utsh$ cat < x.txt
@@ -321,20 +369,75 @@ utsh is cool
 utsh$
 ```
 
-You should extend ` sh_execute ` to recognize \"`>`\" and \"`<`\"characters. Remember to take a look at xv6\'s shell to get design clues.
+#### Design Constraint (Important)
+
+You must implement redirection using the xv6 technique, relying on:
+
+- `close()`
+- `open()`
+
+You should not use dup2() or similar calls that duplicate directly into a specific file descriptor.
+Instead, your implementation must rely on the invariant:
+- `open()` always returns the lowest-numbered unused file descriptor.
+#### Implementation
+
+Now that you can execute commands, let us extend the features our shell provides.
+
+#### Task 
+- Extend sh_execute to recognize < and > tokens
+- In the child process only:
+  - Close the appropriate standard file descriptor:
+    - `close(0)` for input redirection
+    - `close(1)` for output redirection
+  - Call `open()` on the specified file.
+    - The returned file descriptor should now be 0 or 1.
+- Remove redirection tokens and filenames from the argument list before calling exec.
+
+You must:
+- Print an error message if open() fails.
+- Ensure unused file descriptors are closed.
+- Preserve correct behavior for commands with arguments.
+
+You may find xv6’s shell implementation useful for design ideas.
 
 You might find the man pages for `open` and `close` useful. Make sure you print an error message if one of the system calls you are using fails.
 
-## Part 3: Pipes (40 Points)
+#### Explanation Checkpoint (Submit This)
+Set a breakpoint in the child process immediately after the open() call used for redirection.
 
-Finally, you have to implement support for pipes so that you can run command pipelines such as:
+Copy the relevant code and explain:
+- Why close(1); open("x.txt", ...) causes standard output to go to the file
+- Why this works without calling dup() or dup2()
+- What would happen if close(1) were omitted
+- Why redirection must not be performed in the parent process
 
+#### Testing Checkpoint
+
+Write and run a self-designed test suite, including:
+- Output redirection creating a new file
+- Output redirection overwriting an existing file
+- Input redirection from a file
+- Redirection with command arguments
+- Failure cases (e.g., redirecting input from a missing file)
+
+#### Document:
+
+- Command
+- Expected behavior
+- Observed behavior
+
+### Part 3: Pipes (40 Points)
+#### Objective 
+Extend your shell to support pipelines using the xv6 method:
 ``` {style="position: relative;"}
 utsh$ ls | sort | uniq | wc
      11      11      85
 utsh$
 ```
+At minimum, your shell must support a single pipe (cmd1 | cmd2).
+Support for multiple pipes is encouraged.
 
+#### Implementation
 You have to extend ` sh_execute ` to recognize \"`|`\". You might find the man pages for `pipe`, `fork`, `close`, and `dup` useful.
 
 Test that you can run the above pipeline. The `sort` program may be in the directory `/usr/bin/` and in that case you can type the absolute pathname `/usr/bin/sort` to run sort. (In your computer\'s shell you can type `which sort` to find out which directory in the shell\'s search path has an executable named \"sort\".)
@@ -344,7 +447,40 @@ From one of the CADE machines you should be able to run the following command co
 ``` {style="position: relative;"}
 $ a.out < t.sh
 ```
+#### Explanation Checkpoint (Submit This)
 
+Set breakpoints:
+- After pipe() is called
+- After file descriptor setup in each child
+
+Provide a diagram showing file descriptor tables for:
+- Parent
+- Left child
+- Right child
+- An explanation of how closing 0 or 1 forces the pipe end to take that descriptor
+- Why unused pipe ends must be closed in every process
+- What deadlock or blocking behavior could occur if they are not
+
+#### Testing Checkpoint
+
+Run and document the following tests:
+- Single pipe:
+``` {style="position: relative;"}
+utsh$ ls | wc
+```
+- Multi-stage pipeline:
+``` {style="position: relative;"}
+utsh$ ls | sort | uniq | wc
+```
+- Pipe with arguments:
+``` {style="position: relative;"}
+utsh$ echo -e "b\na\nb" | sort | uniq
+```
+
+Include annotated code snippets in your submission.
+Explain:
+- Which tests your shell supports fully
+- Which tests (if any) are unsupported and why
 # Submit your work
 
 Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893). Pack your shell, `sh.c` into a zip archive and submit it. Please name the C file `sh.c`. You can resubmit as many times as you wish. If you have any problems with the structure the autograder will tell you. The structure of the zip file should be the following:
