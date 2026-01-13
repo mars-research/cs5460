@@ -16,7 +16,7 @@ title: Home
   - Anton: Tuesdays 11:00am-12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
   - Thalia: Thursdays 11:00am-12:00pm or by appointment in MEB 2180
   - Hanwen - TBD
-  - Manvik - TBD
+  - Manvik - Thursdays 4:00pm-5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
 - Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/antonburtsev)
 - Previous years: [2025](./2025)
