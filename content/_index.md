@@ -80,11 +80,12 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [xv6: Chapter 0: Operating system interfaces](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Video (optional): [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0)
 
-<!--
+
 **Jan 14**  
-- [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/UzqupNygAZ4))
+- [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/FXdrwtxcBaw))
 - Reading: [OSTEP: Chapter 5: Interlude: Process API](http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf)
 
+<!--
 **Jan 16**  
 - [Lecture 02 - OS Interfaces (part 3)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf)
 - [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/X7ivo7TT0D8))
