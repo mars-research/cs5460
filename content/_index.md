@@ -18,7 +18,7 @@ title: Home
   - Hanwen - TBD
   - Manvik - TBD
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
-- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/antonburtsev)
+- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/cs5460)
 - Previous years: [2025](./2025)
 
 ---
