@@ -265,7 +265,7 @@ Rather than implementing everything at once, you will follow a guided sequence o
 The goal is not just to make the shell work, but to understand and explain how process creation, file descriptors, and inter-process communication work.
 
 ### Part 1: Executing Programs (30 Points)
-#### Objective
+### Objective
 
 Extend the shell so it can execute external programs such as:
 ```  {style="position: relative;"}
@@ -293,7 +293,7 @@ int sh_execute(char **args)
   return sh_launch(args);   // launch
 }
 ```
-#### Task 
+### Task 
 * Implement `sh_launch(char **args)`
 Use the UNIX process interface:
 * `fork()`
@@ -360,7 +360,7 @@ Document:
 - The actual output
 
 ### Part 2: I/O redirection (30 Points)
-#### Objective
+### Objective
 Extend the shell to support input and output redirection:
 ``` {style="position: relative;"}
 utsh$ echo "utsh is cool" > x.txt
@@ -369,7 +369,7 @@ utsh is cool
 utsh$
 ```
 
-#### Design Constraint (Important)
+### Design Constraint (Important)
 
 You must implement redirection using the xv6 technique, relying on:
 
@@ -379,11 +379,11 @@ You must implement redirection using the xv6 technique, relying on:
 You should not use dup2() or similar calls that duplicate directly into a specific file descriptor.
 Instead, your implementation must rely on the invariant:
 - `open()` always returns the lowest-numbered unused file descriptor.
-#### Implementation
+### Implementation
 
 Now that you can execute commands, let us extend the features our shell provides.
 
-#### Task 
+### Task 
 - Extend sh_execute to recognize < and > tokens
 - In the child process only:
   - Close the appropriate standard file descriptor:
@@ -402,7 +402,7 @@ You may find xv6’s shell implementation useful for design ideas.
 
 You might find the man pages for `open` and `close` useful. Make sure you print an error message if one of the system calls you are using fails.
 
-#### Explanation Checkpoint (Submit This)
+### Explanation Checkpoint (Submit This)
 Set a breakpoint in the child process immediately after the open() call used for redirection.
 
 Copy the relevant code and explain:
@@ -411,7 +411,7 @@ Copy the relevant code and explain:
 - What would happen if close(1) were omitted
 - Why redirection must not be performed in the parent process
 
-#### Testing Checkpoint
+### Testing Checkpoint
 
 Write and run a self-designed test suite, including:
 - Output redirection creating a new file
@@ -420,14 +420,14 @@ Write and run a self-designed test suite, including:
 - Redirection with command arguments
 - Failure cases (e.g., redirecting input from a missing file)
 
-#### Document:
+### Document:
 
 - Command
 - Expected behavior
 - Observed behavior
 
 ### Part 3: Pipes (40 Points)
-#### Objective 
+### Objective 
 Extend your shell to support pipelines using the xv6 method:
 ``` {style="position: relative;"}
 utsh$ ls | sort | uniq | wc
@@ -437,7 +437,7 @@ utsh$
 At minimum, your shell must support a single pipe (cmd1 | cmd2).
 Support for multiple pipes is encouraged.
 
-#### Implementation
+### Implementation
 You have to extend ` sh_execute ` to recognize \"`|`\". You might find the man pages for `pipe`, `fork`, `close`, and `dup` useful.
 
 Test that you can run the above pipeline. The `sort` program may be in the directory `/usr/bin/` and in that case you can type the absolute pathname `/usr/bin/sort` to run sort. (In your computer\'s shell you can type `which sort` to find out which directory in the shell\'s search path has an executable named \"sort\".)
@@ -447,7 +447,7 @@ From one of the CADE machines you should be able to run the following command co
 ``` {style="position: relative;"}
 $ a.out < t.sh
 ```
-#### Explanation Checkpoint (Submit This)
+### Explanation Checkpoint (Submit This)
 
 Set breakpoints:
 - After pipe() is called
@@ -461,7 +461,7 @@ Provide a diagram showing file descriptor tables for:
 - Why unused pipe ends must be closed in every process
 - What deadlock or blocking behavior could occur if they are not
 
-#### Testing Checkpoint
+### Testing Checkpoint
 
 Run and document the following tests:
 - Single pipe:
