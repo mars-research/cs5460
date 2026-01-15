@@ -85,13 +85,13 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/FXdrwtxcBaw))
 - Reading: [OSTEP: Chapter 5: Interlude: Process API](http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf)
 
-<!--
 **Jan 16**  
-- [Lecture 02 - OS Interfaces (part 3)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf)
-- [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/X7ivo7TT0D8))
+- [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/AMd87JSnxn4))
 - Reading: [Reading: xv6 Book: Appendix A: PC Hardware](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
-- Reading: [Reading: x86 Assembly Guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
+- Reading: Chapter 3 "Machine-Level Representation of Programs", from Computer Systems: A Programmer's Perspective by Randal E. Bryant and David R. O?Hallaron, 3rd edition.
+- Reading: [x86 64bit Assembly Guide (Intel)](./x86-asm-nasm) or [x86 64bit Assembly Guide (AT&T)](./x86-asm-gnu)
 
+<!--
 **Jan 21**  
 - [Lecture 03 - x86 Assembly (part 2)](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
 - [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
