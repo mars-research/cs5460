@@ -2,21 +2,21 @@
 title: Home
 ---
 
-# CS 5460/6460 - Operating Systems
+# CS 5460/6460 — Operating Systems
 
 ---
 
 - Instructor: [Anton Burtsev](https://users.cs.utah.edu/~aburtsev/) (anton.burtsev@utah.edu)
-- Time and place: Tue/Thu, 9:10am - 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
+- Time and place: Tue/Thu, 9:10am – 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
 - Canvas: <https://utah.instructure.com/courses/1221030>
 - Piazza (questions): <https://piazza.com/utah/spring2026/cs6460001spring2026/home>
 - Piazza sign up link and code are on Canvas
 - Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
-  - Anton: Tuesdays 11:00am-12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
-  - Thalia: Thursdays 11:00am-12:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB)
-  - Hanwen: Thursdays 12:00pm-1:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB) or [zoom](https://utah.zoom.us/j/7059333168) occasionally
-  - Manvik: Thursdays 4:00pm-5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
+  - Anton: Tuesdays 11:00am–12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
+  - Thalia: Thursdays 11:00am–12:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB)
+  - Hanwen: Thursdays 12:00pm–1:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB) or [zoom](https://utah.zoom.us/j/7059333168) occasionally
+  - Manvik: Thursdays 4:00pm–5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
 - Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/cs5460)
 - Previous years: [2025](./2025)
@@ -220,6 +220,6 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 -->
 
 **April 29**
-- **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
+- **Final exam** 8:00am – 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
 <!--- [Exam and solutions](./exams/final)-->
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
