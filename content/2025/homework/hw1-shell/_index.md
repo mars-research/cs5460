@@ -483,11 +483,18 @@ Explain:
 - Which tests (if any) are unsupported and why
 # Submit your work
 
-Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893). Pack your shell, `sh.c` into a zip archive and submit it. Please name the C file `sh.c`. You can resubmit as many times as you wish. If you have any problems with the structure the autograder will tell you. The structure of the zip file should be the following:
+Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893). Pack your shell, `sh.c` into a zip archive and submit it. Please name the C file `sh.c`. You can resubmit as many times as you wish. Along with your implementation in `sh.c`, you must submit a file named `explanations.md`. This file must contain clear, well-organized answers to all explanation checkpoints in the assignment.
+Your submission will be graded on both correctness and clarity, with equal emphasis on:
+
+- Code quality and correctness (`sh.c`)
+- Understanding and explanation (`explanations.md`)
+
+If you have any problems with the structure the autograder will tell you. The structure of the zip file should be the following:
 
 ``` {style="position: relative;"}
 /
   - sh.c
+  - explanations.md
 ```
 
 ## Challenge exercises (total extra 50%, 10% each)
