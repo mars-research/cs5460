@@ -2,23 +2,23 @@
 title: Home
 ---
 
-# CS 5460/6460 - Operating Systems
+# CS 5460/6460 — Operating Systems
 
 ---
 
 - Instructor: [Anton Burtsev](https://users.cs.utah.edu/~aburtsev/) (anton.burtsev@utah.edu)
-- Time and place: Tue/Thu, 9:10am - 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
+- Time and place: Tue/Thu, 9:10am – 10:30am, [WEB L101](https://map.utah.edu/index.html?code=WEB)
 - Canvas: <https://utah.instructure.com/courses/1221030>
 - Piazza (questions): <https://piazza.com/utah/spring2026/cs6460001spring2026/home>
 - Piazza sign up link and code are on Canvas
 - Gradescope (homework assignments and quizzes): <https://www.gradescope.com/courses/1213502>
 - Office hours: 
-  - Anton: Tuesdays 11:00am-12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
-  - Thalia: Thursdays 11:00am-12:00pm or by appointment in MEB 2180
-  - Hanwen - TBD
-  - Manvik - Thursdays 4:00pm-5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
+  - Anton: Tuesdays 11:00am–12:00pm in [Anton's office, MEB 3424](https://map.utah.edu/index.html?code=MEB)
+  - Thalia: Thursdays 11:00am–12:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB)
+  - Hanwen: Thursdays 12:00pm–1:00pm or by appointment in [MEB 2180](https://map.utah.edu/index.html?code=MEB) or [zoom](https://utah.zoom.us/j/7059333168) occasionally
+  - Manvik: Thursdays 4:00pm–5:00pm or by appointment in [MEB 3375](https://map.utah.edu/index.html?code=MEB)
 - Class repo (pull requests): [github](https://github.com/mars-research/cs5460)
-- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/antonburtsev)
+- Poll Everywhere: [PollEv.com/antonburtsev](https://pollev.com/cs5460)
 - Previous years: [2025](./2025)
 
 ---
@@ -80,17 +80,18 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [xv6: Chapter 0: Operating system interfaces](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Video (optional): [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0)
 
-<!--
-**Jan 14**  
-- [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/UzqupNygAZ4))
+
+**Jan 13**  
+- [Lecture 02 - OS Interfaces (part 2)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf) ([video](https://youtube.com/live/FXdrwtxcBaw))
 - Reading: [OSTEP: Chapter 5: Interlude: Process API](http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf)
 
 **Jan 16**  
-- [Lecture 02 - OS Interfaces (part 3)](./lectures/lecture02-os-interface/lecture02-os-interface.pdf)
-- [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/X7ivo7TT0D8))
+- [Lecture 03 - x86 Assembly](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/AMd87JSnxn4))
 - Reading: [Reading: xv6 Book: Appendix A: PC Hardware](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
-- Reading: [Reading: x86 Assembly Guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
+- Reading: Chapter 3 "Machine-Level Representation of Programs", from Computer Systems: A Programmer's Perspective by Randal E. Bryant and David R. O?Hallaron, 3rd edition.
+- Reading: [x86 64bit Assembly Guide (Intel)](./x86-asm-nasm) or [x86 64bit Assembly Guide (AT&T)](./x86-asm-gnu)
 
+<!--
 **Jan 21**  
 - [Lecture 03 - x86 Assembly (part 2)](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
 - [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
@@ -219,6 +220,6 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 -->
 
 **April 29**
-- **Final exam** 8:00am - 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
+- **Final exam** 8:00am – 10:00am (same room) [official schedule](https://registrar.utah.edu/academic-calendars/final-exams-spring.php)
 <!--- [Exam and solutions](./exams/final)-->
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
