@@ -90,7 +90,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Reading: xv6 Book: Appendix A: PC Hardware](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: Chapter 3 "Machine-Level Representation of Programs", from Computer Systems: A Programmer's Perspective by Randal E. Bryant and David R. O?Hallaron, 3rd edition.
 - Reading: [x86 64bit Assembly Guide (Intel)](./x86-asm-nasm) or [x86 64bit Assembly Guide (AT&T)](./x86-asm-gnu)
-
+- [**Homework 1 - Shell**](/cs5460/2025/homework/hw1-shell/)
 <!--
 **Jan 21**  
 - [Lecture 03 - x86 Assembly (part 2)](./lectures/lecture03-x86-asm/lecture03-x86-asm.pdf) ([video](https://youtube.com/live/cIioOwbGERo))
