@@ -95,7 +95,7 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/6SdFtutYOiw))
 - Reading: [PC Assembly Language. Paul A. Carter: Section 4 Subprograms (4.1 - 4.5)](https://pdos.csail.mit.edu/6.828/2014/readings/pcasm-book.pdf)
 - Reading: [Wikipedia: x86 calling conventions](https://en.wikipedia.org/wiki/X86_calling_conventions)
-- [**Homework 1 - Shell**](./2025/homework/hw1-shell/)
+- [**Homework 1 - Shell**](./2026/homework/hw1-shell/)
 
 <!--
 
