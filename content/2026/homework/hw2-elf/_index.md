@@ -3,7 +3,8 @@
 ![](./images/spacer.gif)
 
 [Home](../../index.html) ![](./images/spacer.gif)
-
+WIP
+<!--
 Homework 2: ELF files
 =====================
 
