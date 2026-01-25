@@ -332,6 +332,13 @@ Now we loaded the text section in memory, so we can take an entry point, assign 
 ```
 If we run this program it can either crash or return an incorrect result. Our first goal is to understand why.
 
+### Using AI + Codex
+For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
+To get started we have created a small video on how you can install codex in VS code and start to play around: 
+[Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
+
+Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
+
 Part 1: Explain the crash
 =========================
 
