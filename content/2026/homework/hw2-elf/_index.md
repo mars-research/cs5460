@@ -231,7 +231,7 @@ ELF Header:
 
 The entry point of this file is at address 0x8048124. This is exactly what we told the linker to do --- make the function `quadruple` the entry point ( this is done with the following directive to the linker from the Makefile `-e quadruple`.
 
-You might ask a question: why are we making the `quadruple` function to be the entry point? Otherwise, it's not `main`, and really nothing is special about this function. The reason is that it gives us the way to know where quadruple is in the text section so we can invoke it after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time (we ask you to do this for an extra credit).
+You might ask a question: why are we making the `quadruple` function to be the entry point? Otherwise, it's not `main`, and really nothing is special about this function. The reason is that it gives us the way to know where quadruple is in the text section so we can invoke it after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
 
 Program loading in the kernel
 -----------------------------
@@ -585,18 +585,18 @@ You have to fill in the code in this section of the [main.c](main.c) file:
 **NOTE:** We actually provide a solution to the question above in [\main_solution.c](./main_solution.c). We ask you to attempt to solve the problem yourself and then if unable to make progress refer to the solution. 
 
 
-Extra credit (20%)
------------------
+Part 3:
+==================
 
-For the extra credit, we ask you to implement support for reading the symbol table entries and calling them. In our example, your code should call the `magic` function instead of the default entry point if invoked with the `magic` argument like this:
+For the part 3, we ask you to implement support for reading the symbol table entries and calling them. In our example, your code should call the `magic` function instead of the default entry point if invoked with the `magic` argument like this:
 
 ``` {style="position: relative;"}
 
     ./main elf magic
 ```
-AI Disclosure Section: 
+<!-- AI Disclosure Section: 
 ----------------
-If you used AI tools to solve this assignment, please include a section titled "AI Tools Disclosure:" at the end of the `explain.txt` document. In this section, disclose the tool and the prompts used. ("No" is a valid answer that gives you full points but be honest (i.e., tell us if you tried, or used it for some questions). Note, that we do not recommend using AI for this assignment as it seems to deprive you of the chance to understand the basic principles and organization of the POSIX interface which is a standard for a range of modern datacenter (Linux/FreeBSD), embedded (Linux), mobile (Android), and desktop (MacOS) systems)
+If you used AI tools to solve this assignment, please include a section titled "AI Tools Disclosure:" at the end of the `explain.txt` document. In this section, disclose the tool and the prompts used. ("No" is a valid answer that gives you full points but be honest (i.e., tell us if you tried, or used it for some questions). Note, that we do not recommend using AI for this assignment as it seems to deprive you of the chance to understand the basic principles and organization of the POSIX interface which is a standard for a range of modern datacenter (Linux/FreeBSD), embedded (Linux), mobile (Android), and desktop (MacOS) systems) -->
 
 Submit your work 
 ----------------
