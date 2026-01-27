@@ -501,6 +501,7 @@ If you have any problems with the structure the autograder will tell you. The st
 ``` {style="position: relative;"}
 /
   - sh.c
+  - explanations.md/txt/pdf ( Anything you feel is necessary for the explanation checkpoints. It can be gdb sessions you used to understand it, relevant code sections, short text writeup of your understanding, etc.)
 ```
 
 ## Challenge exercises (total extra 50%, 10% each)
