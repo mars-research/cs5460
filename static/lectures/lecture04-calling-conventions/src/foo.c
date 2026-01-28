@@ -6,7 +6,7 @@ void foo(int a) {
     return;
 }
 
-void main(void) {
+int main(void) {
     foo(4);
-    return;
+    return 0;
 };

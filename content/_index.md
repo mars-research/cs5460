@@ -97,16 +97,17 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading: [Wikipedia: x86 calling conventions](https://en.wikipedia.org/wiki/X86_calling_conventions)
 - [**Homework 1 - Shell**](./2026/homework/hw1-shell/)
 
-<!--
 
-**Jan 23**  
-- [Lecture 04 - Calling Conventions](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/fqmWbjVrcAg))
+**Jan 22**  
+- [Lecture 04 - Calling Conventions and Lecture 05 - Linking and Loading](./lectures/lecture04-calling-conventions/lecture04-calling-conventions.pdf) ([video](https://youtube.com/live/m8EFuPlzsrA))
 - Source code examples: [github](https://github.com/mars-research/cs5460/tree/main/static/lectures/lecture03-x86-asm/src)
 
-**Jan 28**  
-- [Lecture 05 - Linking and Loading](./lectures/lecture05-linking-and-loading/lecture05-linking-and-loading.pdf) ([video](https://youtu.be/SkyJH1wTPjc)
+**Jan 27**  
+- [Lecture 05 - Linking and Loading](./lectures/lecture05-linking-and-loading/lecture05-linking-and-loading.pdf) ([video](https://youtube.com/live/ae7oHp1DKGE)
 - Reading: [Operating Systems from 0 to 1. Chapter 5. The Anatomy of a Program](https://github.com/tuhdo/os01/blob/master/Operating_Systems_From_0_to_1.pdf)
 - Optional reading: This lecture is mostly based on the material of this book: [Linkers and Loaders by John R. Levine](https://books.google.com/books/about/Linkers_and_Loaders.html?id=Id9cYsIdjIwC)
+
+<!--
 
 **Jan 30** 
 - [Lecture 05 - Linking and Loading (part 2)](./lectures/lecture05-linking-and-loading/lecture05-linking-and-loading.pdf) ([video](https://youtube.com/live/uCQcn2VlGgs))
