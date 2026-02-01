@@ -3,12 +3,12 @@
 ![](./images/spacer.gif)
 
 [Home](../../index.html) ![](./images/spacer.gif)
-WIP
-<!--
+
+
 Homework 2: ELF files
 =====================
 
-This assignment will make you more familiar with organisation of ELF files. Technically, you can do this assignment on any operating system that supports the Unix API (Linux CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don't need to set up xv6 for this assignment** Submit your programs and the shell through Gradescope (see instructions at the bottom of this page).
+This assignment will make you more familiar with organisation of ELF files. Technically, you can do this assignment on any operating system that supports the Unix API (Linux CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don't need to set up xv6 for this assignment** Submission through Gradescope.
 
 **YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK**. It's ok to show your work to your future employer as a private Git repo, however any public release is prohibited.
 
@@ -333,7 +333,7 @@ Now we loaded the text section in memory, so we can take an entry point, assign 
 ```
 If we run this program it can either crash or return an incorrect result. Our first goal is to understand why.
 
-### Using AI + Codex
+## Using AI + Codex
 For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
 To get started we have created a small video on how you can install codex in VS code and start to play around: 
 [Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
@@ -342,29 +342,19 @@ Once you have installed codex, we suggest writing small programs and ask codex t
 
 Part 1: Explain the crash
 =========================
+Before relocation, your loader will:
 
-`./main elf` crashed. The first part of the homework asks you to explain the crash. Specifically, you should start the program using Visual Studio debugger as we did for Homework 1.
+- successfully load the program
+- crash or compute the wrong result
 
-Pass "elf" as input to "args" in the launch.json file as shown in the image below. Update the "program" and "cwd" fields to the respective directory where you have main.c and other files to execute.
+Use a debugger and disassembly to explain:
 
-![](./debuggerimage1.png)
+- which instruction fails
+- what address it is trying to access
+- why that address is invalid
+- how this relates to virtual addresses and loading location
 
-
-Refer to HW1 for how to set a breakpoint on main and start the program using VS debugger. 
-
-Once debugging has started, right-click anywhere in the file and select "Open Disassembly View" as shown in the image below to view the assembly code and source code side by side.
-
-![](./debuggerimage2.png)
-
-![](./debuggerimage3.png)
-
-Register information can also be viewed under the variables section on the top left of the window as shown in the above image.
-
-Clicking the small icon on any of the variables will display the binary data (aka "memory") as shown in the image below.
-
-![](./debuggerimage4.png)
-
-To explain the crash (or incorrect execution) you will need to understand what the code is doing at the level of the assemly code when you invoke the `quadruple` function. Specifically, you should explain which instruction causes the crash and why. Or why the computed value is incorrect. You will submit your explanation as a text file on gradescope.
+Submit this explanation as `explain.(txt/md/pdf)`
 
 Part 2: Relocation
 ==================
@@ -539,74 +529,54 @@ For our relocatable ELF file to run correctly we need to process all relocation 
 You have to fill in the code in this section of the [main.c](main.c) file:
 
 ``` {style="position: relative;"}
-    // Read section headers
-    if (elf.e_shentsize != sizeof(Elf32_Shdr)) {
-        ABORT("File has unexpected section header size: %d\n", elf.e_shentsize);
-    }
-    size_t shnum   elf.e_shnum;
-    size_t shtotal = shnum * elf.e_shentsize;
-    Elf32_Shdr *shs = (Elf32_Shdr*)load_multiple(f, elf.e_shoff, shtotal, sizeof(Elf32_Shdr), NULL);
+    // ============================================================
+    // Relocation
+    // ============================================================
+    // At this point, all PT_LOAD segments have been copied into memory,
+    // but the code was *linked* to run at a different virtual address.
+    //
+    // As a result, any instruction that embeds an absolute address
+    // (e.g., accesses to global variables) is still using the *link-time*
+    // virtual address, not the address where we actually loaded the ELF.
+    //
+    // Your task in this section is to fix those addresses.
+    // #####################################################
 
-    size_t relnum;
-    Elf32_Rel *rels = NULL;
+    
+        // YOUR CODE HERE
 
 
-    for (int i = 0; i < elf.e_shnum; i++) {
-        Elf32_Shdr *sh = shs + i;
-
-        switch (sh->sh_type) {
-            case SHT_REL: {
-                if (rels) {
-                    ABORT("Loading multiple relocation sections isn't supported\n");
-                }
-                rels = (Elf32_Rel*)load_multiple(f, sh->sh_shoff, sh->sh_size, sizeof(Elf32_Rel), &relnum);
-                LOG("Loaded relocation table\n");
-                break;
-            }
-
-        }
-    }
-    free(shs);
-
-    if (rels) {
-        for (int j = 0; j < relnum; ++j) {
-            Elf32_Rel *rel = rels + j;
-
-            uint8_t r_type = ELF32_R_TYPE(rel->r_info);
-
-            // YOUR CODE HERE
-
-        }
-
-        free(rels);
-    }
-    fclose(f);
+    // ######################################################
 ```
+Part 3: ELF Analysis
+==================
+Answer the following in `explain.(txt/md/pdf)`
 
-**NOTE:** We actually provide a solution to the question above in [\main_solution.c](./main_solution.c). We ask you to attempt to solve the problem yourself and then if unable to make progress refer to the solution. 
+- Why does the kernel ignore section headers when loading a program?
+- What is the difference between sections and segments?
+- Why is `e_entry`? What does it point to?
+- Why does loading at a different base address (no relocation) break the program?
+- Show Process Virtual Memory Layout Before Loading and After Relocation.  
 
 
-Part 3:
+Part 4:
 ==================
 
-For the part 3, we ask you to implement support for reading the symbol table entries and calling them. In our example, your code should call the `magic` function instead of the default entry point if invoked with the `magic` argument like this:
+For the part 4, we ask you to implement support for reading the symbol table entries and calling them. Call a function by name using the symbol table.
 
 ``` {style="position: relative;"}
 
     ./main elf magic
 ```
-<!-- AI Disclosure Section: 
-----------------
-If you used AI tools to solve this assignment, please include a section titled "AI Tools Disclosure:" at the end of the `explain.txt` document. In this section, disclose the tool and the prompts used. ("No" is a valid answer that gives you full points but be honest (i.e., tell us if you tried, or used it for some questions). Note, that we do not recommend using AI for this assignment as it seems to deprive you of the chance to understand the basic principles and organization of the POSIX interface which is a standard for a range of modern datacenter (Linux/FreeBSD), embedded (Linux), mobile (Android), and desktop (MacOS) systems) -->
 
 Submit your work 
 ----------------
-Submit your solution through Gradescope [Gradescope CS5460/6450 Operating Systems](https://www.gradescope.com/courses/947893). Please zip all of your files (main.c, Makefile) and submit them. The structure of the zip file should be the following:
+Submit your solution through Gradescope. Please zip all of your files (main.c, Makefile) and submit them. The structure of the zip file should be the following:
 ``` {style="position: relative;"}
 
   - Makefile
   - main.c
-  - explain.txt
+  - explain.(txt/md/pdf)
 ```
 
 ![](./images/spacer.gif)

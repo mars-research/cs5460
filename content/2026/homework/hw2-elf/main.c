@@ -293,18 +293,24 @@ int main(int argc, char* argv[]) {
     }
     free(shs);
 
-    if (rels) {
-        for (int j = 0; j < relnum; ++j) {
-            Elf32_Rel *rel = rels + j;
+    // ============================================================
+    // Relocation
+    // ============================================================
+    // At this point, all PT_LOAD segments have been copied into memory,
+    // but the code was *linked* to run at a different virtual address.
+    //
+    // As a result, any instruction that embeds an absolute address
+    // (e.g., accesses to global variables) is still using the *link-time*
+    // virtual address, not the address where we actually loaded the ELF.
+    //
+    // Your task in this section is to fix those addresses.
+    // ######################################################
 
-            uint8_t r_type = ELF32_R_TYPE(rel->r_info);
 
-            // YOUR CODE HERE
+        // YOUR CODE HERE
 
-        }
 
-        free(rels);
-    }
+    // ######################################################
     fclose(f);
 
     LOG("Loaded binary\n");
