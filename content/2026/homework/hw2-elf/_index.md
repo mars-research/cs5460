@@ -241,7 +241,7 @@ The execution of a program starts inside the kernel, in the exec("/bin/wc",...) 
 
 The kernel then loads the parts specified in the `LOAD` directives in the PHT into memory. After that the control can be transferred to the entry point of the program.
 
-Example: load an ELF file
+<!-- Example: load an ELF file
 =========================
 
 While ELF might look a bit intimidating, in practice the loading algorithm is rather simple:
@@ -331,7 +331,7 @@ Now we loaded the text section in memory, so we can take an entry point, assign 
          printf("ret = %d\n", ret);
      }
 ```
-If we run this program it can either crash or return an incorrect result. Our first goal is to understand why.
+If we run this program it can either crash or return an incorrect result. Our first goal is to understand why. -->
 
 ## Using AI + Codex
 For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
