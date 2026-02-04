@@ -340,8 +340,15 @@ To get started we have created a small video on how you can install codex in VS 
 
 Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
 
-Part 1: Explain the crash
+Part 1: Build the loader
 =========================
+In this part of the assignment, your task is to build the ELF loader from scratch. You are given only the required header files, structure definitions, and some helper functions. All loader functionality must be implemented by you.
+Use the loader to load `elf.c`
+Note: You don't need to perform relocation yet!
+
+Part 2: Explain the crash
+=========================
+Test your loader with `elf1.c`
 Before relocation, your loader will:
 
 - successfully load the program
@@ -349,205 +356,15 @@ Before relocation, your loader will:
 
 Use a debugger and disassembly to explain:
 
-- which instruction fails
+- Which instruction fails
 - what address it is trying to access
 - why that address is invalid
 - how this relates to virtual addresses and loading location
+- Try to perform relocation and then try again! Explain why it works now!
+
 
 Submit this explanation as `explain.(txt/md/pdf)`
 
-Part 2: Relocation
-==================
-
-Now we're finally ready to start the second part of the assignment: relocating the loaded elf. Specifically, our goal is to learn how to relocate a binary. In the step above we loaded the binary in memory, but it crashes as it was linked to run at an address which is different from the one we loaded it at. Below we will relocate `elf` to run correctly by patching all references to the global variables that need to be relocated.
-
-To preform the relocation, we need to access the relocation table (a table inside the ELF file that contains all information for how to do the relocation).
-
-To access the relocation table, we first read the section header table.
-``` {style="position: relative;"}
-
-    // Read section headers
-     if (elf.e_shentsize != sizeof(Elf32_Shdr)) {
-         ABORT("File has unexpected section header size: %d\n", elf.e_shentsize);
-     }
-     size_t shnum   elf.e_shnum;
-     size_t shtotal = shnum * elf.e_shentsize;
-     Elf32_Shdr *shs = (Elf32_Shdr*)load_multiple(f, elf.e_shoff, shtotal, sizeof(Elf32_Shdr), NULL);
-
-     size_t relnum;
-     Elf32_Rel *rels = NULL;
-
-
-     for (int i = 0; i < elf.e_shnum; i++) {
-         Elf32_Shdr *sh = shs + i;
-
-         switch (sh->sh_type) {
-             case SHT_REL: {
-                 if (rels) {
-                     ABORT("Loading multiple relocation sections isn't supported\n");
-                 }
-                 rels = (Elf32_Rel*)load_multiple(f, sh->sh_shoff, sh->sh_size, sizeof(Elf32_Rel), &relnum);
-                 LOG("Loaded relocation table\n");
-                 break;
-             }
-
-         }
-     }
-     free(shs);
-```
-
-The section table contains a number of entries that contain various information used by the linker (as we discussed above). Specifically, each entry has the following C type definition:
-
-``` {style="position: relative;"}
- 
-typedef struct {
-	Elf32_Word	sh_name;
-	Elf32_Word	sh_type;
-	Elf32_Word	sh_flags;
-	Elf32_Addr	sh_addr;
-	Elf32_Off	sh_offset;
-	Elf32_Word	sh_size;
-	Elf32_Word	sh_link;
-	Elf32_Word	sh_info;
-	Elf32_Word	sh_addralign;
-	Elf32_Word	sh_entsize;
-} Elf32_Shdr;
-```
-The `sh_type` defines the type of the entry. The following types are defined by the ELF standard (we only list a subset of types we need in this homework, see ELF standard for a complete list):
-
-``` {style="position: relative;"}
-
-// Section Header Types (sh_type)
-#define SHT_SYMTAB  2 // Symbol table
-#define SHT_STRTAB  3 // String table
-#define SHT_RELA    4 // Relocation entries with addends
-#define SHT_REL     9 // Relocation entries without addends
-```
-
-Section attribute flags are:
-``` {style="position: relative;"}
-
-#define SHF_WRITE 0x01 // Writable section
-#define	SHF_ALLOC 0x02 // Exists in memory
-
-```
-
-To relocate a file we will have to iterate through all section header entries of our ELF file and pick the one that has the `SHT_REL` type (there is another relocation type `SHT_RELA` but for simplicity we don't care about it in this homework).
-
-Relocation entires in the table are continuous and the number of entries in a given table can be found by dividing the size of the table (given by `sh_size` in the section header) by the size of each entry (given by `sh_entsize`).
-
-In practice, each relocation table is specific to a single section, so a single file may have multiple relocation tables (but all entries within a given table will be the same relocation structure type). In our case we will only deal with one relocation table. And abort the code if we see another one:
-
-``` {style="position: relative;"}
-
-if (rels) {
-    ABORT("Loading multiple relocation sections isn't supported\\n");
-}
-```
-Each relocation entry has the following type:
-
-``` {style="position: relative;"}
-
-typedef struct {
-	Elf32_Addr		r_offset;
-	Elf32_Word		r_info;
-} Elf32_Rel;
-```
-
-The value stored in `r_info`, as the upper byte designates the entry in the symbol table to which the relocation applies, whereas the lower byte stores the type of relocation that should be applied.
-
-``` {style="position: relative;"}
-
-#define ELF32_R_TYPE(val) ((val) & 0xff)
-#define ELF32_R_SYM(val)  ((val) >> 8)
-```
-
-We use the following macros to access type and symbol table entry.
-
-The value in `r_offset` gives the relative position of the symbol that is being relocated, within its section.
-
-The real messy part about relocation is that there can be different kinds of relocation actions. You can find the complete list defined by the ELF standard here: [32-bit x86: Relocation Types](https://docs.oracle.com/cd/E19120-01/open.solaris/819-0690/chapter6-26/index.html). We define just two types below:
-
-``` {style="position: relative;"}
-#define R_386_32          1               // Direct 32 bit
-#define R_386_RELATIVE    8               // Adjust by program base
-
-```
-
-Many types of relocation require accessing the relocation value stored in the symbol table. For example, the `R_386_32` relocation type requires you to read the value (addend) from the relocation address specified by the `r_offset` field of the relocation entry and add it to the value (symbol) stored in the symbol table that corresponds to the symbol being relocated (i.e., pointed by the `ELF32_R_SYM(r_info)`.
-
-In our example, the `elf` is compiled to require the `R_386_RELATIVE` relocation. Specifically, this relocation type just asks you to read the value (addend) from the relocation address specified by the `r_offset` field of the relocation entry and add it to the base address at which the ELF is loaded. This is simple -- no need to access the symbol table, just read the value that is already there, add the base address and write it back.
-
-Just to illustrate it with an example of relocating the access to `b` in the `magic` function:
-``` {style="position: relative;"}
-
-
-08048144 :
- 8048144:       55                      push   ebp
- 8048145:       89 e5                   mov    ebp,esp
- 8048147:       a1 d4 81 04 08          mov    eax,ds:0x80481d4
- 804814c:       6b c0 0e                imul   eax,eax,0xe
- 804814f:       5d                      pop    ebp
- 8048150:       c3                      ret
-```
-
-Right now `b` is in the data section at address `0x80481d4`.
-
-The relocation table contains the following entries
-
-``` {style="position: relative;"}
-
-$ readelf -r elf
-
-Relocation section '.rel.text' at offset 0x104 contains 4 entries:
- Offset     Info    Type            Sym.Value  Sym. Name
-08048128  00000008 R_386_RELATIVE
-08048134  00000008 R_386_RELATIVE
-08048139  00000008 R_386_RELATIVE
-08048148  00000008 R_386_RELATIVE
-```
-
-For example the last entry tells us that `magic` tries to access `b` at address `0x08048148` which is exactly where the `mov` instruction tries to load `b`:
-``` {style="position: relative;"}
-
-8048147:       a1 d4 81 04 08          mov    eax,ds:0x80481d4
-```
-
-The code was supposed to be loaded at address 0x080480b4 but since we loaded it at address we've got from `mmap()` (i.e., the `load_base` in our code) we will relocate by (`load_base - min_vaddr`). Also, note that the offsets are in the virtual address space of the program, but since we loaded the segments starting from `load_base` you have to compute the correct offsets making sure they point into the loaded code in memory.
-
-Ready to relocate
------------------
-
-For our relocatable ELF file to run correctly we need to process all relocation entries present in the file. At a high level our algorithm is the following:
-
-1.  Read the elf header (similar to how we do this to read the program header).
-2.  Read the section header table.
-3.  Iterate over all section headers finding the ones that has type `SHT_REL` (i.e., the relocation table).
-4.  Once found you iterate through all entries in the relocation table (remember it will have `sh_size/sh_entsize` entries) and they will be of type `Elf32_Rel`
-5.  For each entry perform relocation
-
-You have to fill in the code in this section of the [main.c](main.c) file:
-
-``` {style="position: relative;"}
-    // ============================================================
-    // Relocation
-    // ============================================================
-    // At this point, all PT_LOAD segments have been copied into memory,
-    // but the code was *linked* to run at a different virtual address.
-    //
-    // As a result, any instruction that embeds an absolute address
-    // (e.g., accesses to global variables) is still using the *link-time*
-    // virtual address, not the address where we actually loaded the ELF.
-    //
-    // Your task in this section is to fix those addresses.
-    // #####################################################
-
-    
-        // YOUR CODE HERE
-
-
-    // ######################################################
-```
 Part 3: ELF Analysis
 ==================
 Answer the following in `explain.(txt/md/pdf)`
@@ -559,15 +376,10 @@ Answer the following in `explain.(txt/md/pdf)`
 - Show Process Virtual Memory Layout Before Loading and After Relocation.  
 
 
-Part 4:
+Part 4: (Extra Credit, 30%):
 ==================
+Modify your ELF loader to handle relocation for ELF binaries that make use of the Global Offset Table (GOT).
 
-For the part 4, we ask you to implement support for reading the symbol table entries and calling them. Call a function by name using the symbol table.
-
-``` {style="position: relative;"}
-
-    ./main elf magic
-```
 
 Submit your work 
 ----------------

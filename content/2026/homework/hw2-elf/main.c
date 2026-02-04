@@ -199,24 +199,8 @@ int main(int argc, char* argv[]) {
         // Read section headers
     // ############################
 
-
-    // ============================================================
-    // Relocation
-    // ============================================================
-    // At this point, all PT_LOAD segments have been copied into memory,
-    // but the code was *linked* to run at a different virtual address.
-    //
-    // As a result, any instruction that embeds an absolute address
-    // (e.g., accesses to global variables) is still using the *link-time*
-    // virtual address, not the address where we actually loaded the ELF.
-    //
-    // Your task in this section is to fix those addresses.
     // ######################################################
-
-
-        // YOUR CODE HERE
-
-
+        // Perform Relocation
     // ######################################################
 
     LOG("Loaded binary\n");
