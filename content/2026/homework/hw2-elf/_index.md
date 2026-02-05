@@ -16,9 +16,9 @@ This assignment will make you more familiar with organisation of ELF files. Tech
 Part 1: Take a look at ELF files
 --------------------------------
 
-At a high level this homework first shows you how to implement a simple ELF loader [\main.c](./main.c) file) (we use it to load a simple ELF object file compiled from [elf.c](./elf.c)), and then asks you to relocate it to run at the address at which you load it. However, before starting on this lets make ourselves familiar with ELF files.
+At a high level this homework first shows you how to implement a simple ELF loader [main.c](./main.c) file) (we use it to load a simple ELF object file compiled from [elf.c](./elf.c)), and then asks you to relocate it to run at the address at which you load it. However, before starting on this lets make ourselves familiar with ELF files.
 
-We provide a simple [Makefile](Makefile) that compiles elf and main as ELF executables. Look over the makefile and then compile both files by running:
+We provide a simple [Makefile](Makefile) that compiles [elf.c](./elf.c) and [main.c](./main.c) as ELF executables. Look over the makefile and then compile both files by running:
 
 ``` {style="position: relative;"}
 make
@@ -35,13 +35,13 @@ It's actually pretty simple and well thought-out.
 
 ELF has the same layout for all architectures, however endianness and word size can differ; relocation types, symbol types and the like may have platform-specific values, and of course the contained code is arch specific.
 
-The ELF files are used by two tools: 1) linker and 2) loader. A linker combines multiple ELF files into an executable or a library and a loader loads the executable ELF file in the memory of the process. On real operating systems loading may require relocation (e.g., if the file is dynamically linked it has to be linked again with all the shared libraries it depends on). In this homework we will not do any relocation (it's too complicated), we'll simply load an ELF file in memory and run it.
+The ELF files are used by two tools: 1) linker and 2) loader. A linker combines multiple ELF files into an executable or a library and a loader loads the executable ELF file in the memory of the process. On real operating systems loading may require relocation (e.g., if the file is dynamically linked it has to be linked again with all the shared libraries it depends on). 
 
 Linker and loader need two different views of the ELF file, i.e., they access it differently---the linker needs to know where the DATA, TEXT, BSS, and other sections are to merge them with sections from other libraries. If relocation is required the linker needs to know where the symbol tables and relocation information is.
 
 The loader, however, does not need any of these details. It simply needs to know which parts of the ELF file are code (executable), which are data and read-only data, and where to put the BSS in the memory of a process.
 
-Hence the ELF file provides two separate views on the data inside the ELF file: 1) a more detailed view for the linker, and 2) a bit more high-level view for the loader. To provide these view each ELF file contains two arrays: Section Header Table (for the linker), and Program Header Table (for the loader). Both tables are simply arrays of entries that contain information about each part of the ELF file (e.g., where the sections for the linker and section for the loader are inside the ELF file).
+Hence the ELF file provides two separate views on the data inside the ELF file: 1) a more detailed view for the linker, and 2) a bit more high-level view for the loader. To provide these views each ELF file contains two arrays: Section Header Table (for the linker), and Program Header Table (for the loader). Both tables are simply arrays of entries that contain information about each part of the ELF file (e.g., where the sections for the linker and section for the loader are inside the ELF file).
 
 Here is a simple figure of a typical ELF file that starts with the ELF header. The header contains pointers to the locations of Section Header Table and Program Header Table within the ELF file. Then each tables have entries that point to the starting locations of individual sections and segments.
 
