@@ -232,7 +232,7 @@ ELF Header:
 
 The entry point of this file is at address 0x8048124. This is exactly what we told the linker to do --- make the function `quadruple` the entry point ( this is done with the following directive to the linker from the Makefile `-e quadruple`.
 
-You might ask a question: why are we making the `quadruple` function to be the entry point? Otherwise, it's not `main`, and really nothing is special about this function. The reason is that it gives us the way to know where quadruple is in the text section so we can invoke it after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
+You might ask a question: why are we making the `quadruple()` function to be the entry point? Or in other words, why do we pick it instead of `main()`? The reason is that it gives us the way to know where `quadruple()` is in the text section so we can invoke it right after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
 
 Program loading in the kernel
 -----------------------------
@@ -241,18 +241,24 @@ The execution of a program starts inside the kernel, in the exec("/bin/wc",...) 
 
 The kernel then loads the parts specified in the `LOAD` directives in the PHT into memory. After that the control can be transferred to the entry point of the program.
 
+Part 1: Build a simple ELF loader
+=========================
+
+In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
+
+Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c)
+
+Note: You don't need to perform relocation yet!
+
 ## Using AI + Codex
+
 For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
 To get started we have created a small video on how you can install codex in VS code and start to play around: 
 [Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
 
 Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
 
-Part 1: Build the loader
-=========================
-In this part of the assignment, your task is to build the ELF loader from scratch. You are given only the required header files, structure definitions, and some helper functions. All loader functionality must be implemented by you.
-Use the loader to load `elf.c`
-Note: You don't need to perform relocation yet!
+
 
 Part 2: Explain the crash
 =========================
