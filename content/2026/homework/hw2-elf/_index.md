@@ -27,7 +27,7 @@ make
 Lets take a look at the ELF files we compiled. We will use the readelf tool
 
 ``` {style="position: relative;"}
-$ readelf -a elf
+$ readelf -a elf_explain
 ```
 ELF is the file format used for object files (`.o`'s), binaries, shared libraries and core dumps in Linux.
 
@@ -60,74 +60,61 @@ Lets take a look at what inside the ELF file. Run this command
 
 ``` {style="position: relative;"}
 
-readelf -a elf
+readelf -a elf_explain
 
 ```
 
 If you scroll down to the **Section headers** you will see all "sections" of the ELF file that the linker can use:
 
- ``` {style="position: relative;"}
-
+```
 Section Headers:
-  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
-  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .note.gnu.build-i NOTE            080480b4 0000b4 000024 00   A  0   0  4
-  [ 2] .gnu.hash         GNU_HASH        080480d8 0000d8 000018 04   A  3   0  4
-  [ 3] .dynsym           DYNSYM          080480f0 0000f0 000010 10   A  4   1  4
-  [ 4] .dynstr           STRTAB          08048100 000100 000001 00   A  0   0  1
-  [ 5] .rel.text         REL             08048104 000104 000020 08  AI  3   6  4
-  [ 6] .text             PROGBITS        08048124 000124 00002d 00 WAX  0   0  1
-  [ 7] .eh_frame         PROGBITS        08048154 000154 000000 00   A  0   0  4
-  [ 8] .dynamic          DYNAMIC         08048154 000154 000080 08  WA  4   0  4
-  [ 9] .data             PROGBITS        080481d4 0001d4 000008 00  WA  0   0  4
-  [10] .bss              NOBITS          080481dc 0001dc 000004 00  WA  0   0  4
-  [11] .comment          PROGBITS        00000000 0001dc 00002d 01  MS  0   0  1
-  [12] .symtab           SYMTAB          00000000 00020c 000180 10     13  16  4
-  [13] .strtab           STRTAB          00000000 00038c 000050 00      0   0  1
-  [14] .shstrtab         STRTAB          00000000 0003dc 000079 00      0   0  1
+  [Nr] Name              Type             Address           Offset Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000 0000000000000000  0000000000000000           0     0     0
+  [ 1] .note.gnu.pr[...] NOTE             0000000000400190  00000190 0000000000000020  0000000000000000   A       0     0     8
+  [ 2] .note.gnu.bu[...] NOTE             00000000004001b0  000001b0 0000000000000024  0000000000000000   A       0     0     4
+  [ 3] .gnu.hash         GNU_HASH         00000000004001d8  000001d8 000000000000001c  0000000000000000   A       4     0     8
+  [ 4] .dynsym           DYNSYM           00000000004001f8  000001f8 0000000000000018  0000000000000018   A       5     1     8
+  [ 5] .dynstr           STRTAB           0000000000400210  00000210 0000000000000001  0000000000000000   A       0     0     1
+  [ 6] .rela.text        RELA             0000000000400218  00000218 0000000000000060  0000000000000018  AI       4     7     8
+  [ 7] .text             PROGBITS         0000000000400278  00000278 0000000000000055  0000000000000000 WAX       0     0     1
+  [ 8] .eh_frame         PROGBITS         00000000004002d0  000002d0 0000000000000000  0000000000000000   A       0     0     8
+  [ 9] .dynamic          DYNAMIC          00000000004002d0  000002d0 0000000000000110  0000000000000010  WA       5     0     8
+  [10] .data             PROGBITS         00000000004003e0  000003e0 0000000000000008  0000000000000000  WA       0     0     4
+  [11] .bss              NOBITS           00000000004003e8  000003e8 0000000000000008  0000000000000000  WA       0     0     4
+  [12] .comment          PROGBITS         0000000000000000  000003e8 000000000000002b  0000000000000001  MS       0     0     1
+  [13] .symtab           SYMTAB           0000000000000000  00000418 0000000000000120  0000000000000018          14     4     8
+  [14] .strtab           STRTAB           0000000000000000  00000538 0000000000000042  0000000000000000           0     0     1
+  [15] .shstrtab         STRTAB           0000000000000000  0000057a 000000000000008d  0000000000000000           0     0     1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
   C (compressed), x (unknown), o (OS specific), E (exclude),
-  p (processor specific)
+  D (mbind), l (large), p (processor specific)
 ```
 
-The elf.c is a simple program, but it still has .text, `.data`, `.bss`, and `.rel.text` (relocation) sections and a bunch of sections that contain symbol information and a ton of other stuff.
+The elf_explain.c is a simple program, but it still has .text, `.data`, `.bss`, and `.rel.text` (relocation) sections and a bunch of sections that contain symbol information and a ton of other stuff.
 
-Since `elf.c` has two initialized and one uninitialized global variables the ELF has data section of 8 bytes and the BSS section of 4 bytes (each variable is a 4 byte integer).
+Since `elf_explain.c` has two initialized and one uninitialized global variables the ELF has data section of 8 bytes and the BSS section of 4 bytes (each variable is a 4 byte integer).
 
-The program is linked elf.c to run at address 0x08048000 which is the default program linking address on UNIX systems (the reasons are choosing this address are historical and not entirely clear but it is what it is (see this short email for some quesses [Reorganizing the address space](https://lwn.net/Articles/91985/)
+The program is linked elf.c to run at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
 
 The symbol table contains the following symbols
 
 ``` {style="position: relative;"}
-
-Symbol table '.symtab' contains 24 entries:
-   Num:    Value  Size Type    Bind   Vis      Ndx Name
-     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND
-     1: 080480b4     0 SECTION LOCAL  DEFAULT    1
-     2: 080480d8     0 SECTION LOCAL  DEFAULT    2
-     3: 080480f0     0 SECTION LOCAL  DEFAULT    3
-     4: 08048100     0 SECTION LOCAL  DEFAULT    4
-     5: 08048104     0 SECTION LOCAL  DEFAULT    5
-     6: 08048124     0 SECTION LOCAL  DEFAULT    6
-     7: 08048154     0 SECTION LOCAL  DEFAULT    7
-     8: 08048154     0 SECTION LOCAL  DEFAULT    8
-     9: 080481d4     0 SECTION LOCAL  DEFAULT    9
-    10: 080481dc     0 SECTION LOCAL  DEFAULT   10
-    11: 00000000     0 SECTION LOCAL  DEFAULT   11
-    12: 00000000     0 FILE    LOCAL  DEFAULT  ABS elf.c
-    13: 00000000     0 FILE    LOCAL  DEFAULT  ABS
-    14: 08048154     0 OBJECT  LOCAL  DEFAULT    8 _DYNAMIC
-    15: 080481d4     0 OBJECT  LOCAL  DEFAULT    9 _GLOBAL_OFFSET_TABLE_
-    16: 080481d4     4 OBJECT  GLOBAL DEFAULT    9 b
-    17: 08048124    32 FUNC    GLOBAL DEFAULT    6 quadruple
-    18: 080481d8     4 OBJECT  GLOBAL DEFAULT    9 c
-    19: 080481dc     0 NOTYPE  GLOBAL DEFAULT   10 __bss_start
-    20: 080481dc     4 OBJECT  GLOBAL DEFAULT   10 d
-    21: 08048144    13 FUNC    GLOBAL DEFAULT    6 magic
-    22: 080481dc     0 NOTYPE  GLOBAL DEFAULT    9 _edata
-    23: 080481e0     0 NOTYPE  GLOBAL DEFAULT   10 _end
+Symbol table '.symtab' contains 12 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS elf_explain.c
+     2: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
+     3: 00000000004002d0     0 OBJECT  LOCAL  DEFAULT    9 _DYNAMIC
+     4: 00000000004003e0     4 OBJECT  GLOBAL DEFAULT   10 b
+     5: 0000000000400278    60 FUNC    GLOBAL DEFAULT    7 quadruple
+     6: 00000000004003e4     4 OBJECT  GLOBAL DEFAULT   10 c
+     7: 00000000004003e8     0 NOTYPE  GLOBAL DEFAULT   11 __bss_start
+     8: 00000000004003e8     4 OBJECT  GLOBAL DEFAULT   11 d
+     9: 00000000004002b4    25 FUNC    GLOBAL DEFAULT    7 magic
+    10: 00000000004003e8     0 NOTYPE  GLOBAL DEFAULT   10 _edata
+    11: 00000000004003f0     0 NOTYPE  GLOBAL DEFAULT   11 _end
 ```
 
 I.e., it contains names of the two functions quadruple and magic, three global variables b, c, and d. Other symbols like \_\_bss\_start, \_edata, and \_end are added by the linker to mark the start and end of the BSS, TEXT, and DATA sections.
@@ -142,23 +129,27 @@ In our elf example the program header defines four segments, but only two of the
 ``` {style="position: relative;"}
 
 Program Headers:
-  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
-  LOAD           0x0000b4 0x080480b4 0x080480b4 0x00128 0x0012c RWE 0x4
-  DYNAMIC        0x000154 0x08048154 0x08048154 0x00080 0x00080 RW  0x4
-  NOTE           0x0000b4 0x080480b4 0x080480b4 0x00024 0x00024 R   0x4
-  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10
+  Type           Offset             VirtAddr           PhysAddr           FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000258 0x0000000000000260  RWE    0x8
+  DYNAMIC        0x00000000000002d0 0x00000000004002d0 0x00000000004002d0 0x0000000000000110 0x0000000000000110  RW     0x8
+  NOTE           0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000020 0x0000000000000020  R      0x8
+  NOTE           0x00000000000001b0 0x00000000004001b0 0x00000000004001b0 0x0000000000000024 0x0000000000000024  R      0x4
+  GNU_PROPERTY   0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000020 0x0000000000000020  R      0x8
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000 0x0000000000000000 0x0000000000000000  RW     0x10
 ```
 
 
-The only loadable section is linked to be loaded at address 0x080480b4. We can also look at the mappings of sections to segments (we will discuss what sections are below):
+The only loadable section is linked to be loaded at address 0x400190. We can also look at the mappings of sections to segments (we will discuss what sections are below):
 
 ``` {style="position: relative;"}
  Section to Segment mapping:
   Segment Sections...
-   00     .note.gnu.build-id .gnu.hash .dynsym .dynstr .rel.text .text .eh_frame .dynamic .data .bss
-   01     .dynamic
-   02     .note.gnu.build-id
-   03
+   00     .note.gnu.property .note.gnu.build-id .gnu.hash .dynsym .dynstr .rela.text .text .eh_frame .dynamic .data .bss 
+   01     .dynamic 
+   02     .note.gnu.property 
+   03     .note.gnu.build-id 
+   04     .note.gnu.property 
+   05     
 ```
 
 
@@ -167,36 +158,47 @@ In other works, inside the first loadable segment the linker placed the followin
 
 ``` {style="position: relative;"}
 
-$ objdump -d -M intel elf
+$ objdump -d -M intel elf_explain
 
-elf:     file format elf32-i386
+elf_explain:     file format elf64-x86-64
 
 
 Disassembly of section .text:
 
-08048124 :
- 8048124:       55                      push   ebp
- 8048125:       89 e5                   mov    ebp,esp
- 8048127:       a1 d8 81 04 08          mov    eax,ds:0x80481d8
- 804812c:       0f af 45 08             imul   eax,DWORD PTR [ebp+0x8]
- 8048130:       89 c2                   mov    edx,eax
- 8048132:       8b 0d d4 81 04 08       mov    ecx,DWORD PTR ds:0x80481d4
- 8048138:       a1 dc 81 04 08          mov    eax,ds:0x80481dc
- 804813d:       0f af c1                imul   eax,ecx
- 8048140:       01 d0                   add    eax,edx
- 8048142:       5d                      pop    ebp
- 8048143:       c3                      ret
+0000000000400278 <quadruple>:
+  400278:       f3 0f 1e fa             endbr64
+  40027c:       55                      push   rbp
+  40027d:       48 89 e5                mov    rbp,rsp
+  400280:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+  400283:       48 b8 e4 03 40 00 00    movabs rax,0x4003e4
+  40028a:       00 00 00 
+  40028d:       8b 00                   mov    eax,DWORD PTR [rax]
+  40028f:       0f af 45 fc             imul   eax,DWORD PTR [rbp-0x4]
+  400293:       89 c1                   mov    ecx,eax
+  400295:       48 b8 e0 03 40 00 00    movabs rax,0x4003e0
+  40029c:       00 00 00 
+  40029f:       8b 10                   mov    edx,DWORD PTR [rax]
+  4002a1:       48 b8 e8 03 40 00 00    movabs rax,0x4003e8
+  4002a8:       00 00 00 
+  4002ab:       8b 00                   mov    eax,DWORD PTR [rax]
+  4002ad:       0f af c2                imul   eax,edx
+  4002b0:       01 c8                   add    eax,ecx
+  4002b2:       5d                      pop    rbp
+  4002b3:       c3                      ret
 
-08048144 :
- 8048144:       55                      push   ebp
- 8048145:       89 e5                   mov    ebp,esp
- 8048147:       a1 d4 81 04 08          mov    eax,ds:0x80481d4
- 804814c:       6b c0 0e                imul   eax,eax,0xe
- 804814f:       5d                      pop    ebp
- 8048150:       c3                      ret
+00000000004002b4 <magic>:
+  4002b4:       f3 0f 1e fa             endbr64
+  4002b8:       55                      push   rbp
+  4002b9:       48 89 e5                mov    rbp,rsp
+  4002bc:       48 b8 e0 03 40 00 00    movabs rax,0x4003e0
+  4002c3:       00 00 00 
+  4002c6:       8b 00                   mov    eax,DWORD PTR [rax]
+  4002c8:       6b c0 0e                imul   eax,eax,0xe
+  4002cb:       5d                      pop    rbp
+  4002cc:       c3                      ret
 ```
 
-Well, no surprises: it's the code of the two functions we defined in `elf.c`.
+Well, no surprises: it's the code of the two functions we defined in `elf_explain.c`.
 
 Putting it all together: the ELF header
 ---------------------------------------
@@ -209,28 +211,28 @@ At the end of the ELF header are then pointers to the SHT and PHT. Specifically,
 
 ``` {style="position: relative;"}
 ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
-  Class:                             ELF32
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
   Data:                              2's complement, little endian
   Version:                           1 (current)
   OS/ABI:                            UNIX - System V
   ABI Version:                       0
   Type:                              EXEC (Executable file)
-  Machine:                           Intel 80386
+  Machine:                           Advanced Micro Devices X86-64
   Version:                           0x1
-  Entry point address:               0x8048124
-  Start of program headers:          52 (bytes into file)
-  Start of section headers:          1112 (bytes into file)
+  Entry point address:               0x400278
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          1544 (bytes into file)
   Flags:                             0x0
-  Size of this header:               52 (bytes)
-  Size of program headers:           32 (bytes)
-  Number of program headers:         4
-  Size of section headers:           40 (bytes)
-  Number of section headers:         15
-  Section header string table index: 14
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         6
+  Size of section headers:           64 (bytes)
+  Number of section headers:         16
+  Section header string table index: 15
 ```
 
-The entry point of this file is at address 0x8048124. This is exactly what we told the linker to do --- make the function `quadruple` the entry point ( this is done with the following directive to the linker from the Makefile `-e quadruple`.
+The entry point of this file is at address 0x400278. This is exactly what we told the linker to do --- make the function `quadruple` the entry point ( this is done with the following directive to the linker from the Makefile `-e quadruple`.
 
 You might ask a question: why are we making the `quadruple()` function to be the entry point? Or in other words, why do we pick it instead of `main()`? The reason is that it gives us the way to know where `quadruple()` is in the text section so we can invoke it right after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
 
