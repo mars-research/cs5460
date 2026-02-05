@@ -1,15 +1,18 @@
 # Use gcc as a compiler
 CC=gcc
 # CFLAGS will be the options we'll pass to the compiler
-CFLAGS=-Wall -m32 -g -fno-pic
+CFLAGS=-Wall -g -fno-pic -no-pie
 
-all: main elf
+all: main elf elf1
 
 main: main.c
 	$(CC) $(CFLAGS) main.c -o main
 
 elf: elf.c
-	$(CC) -m32 -nostdlib -fno-asynchronous-unwind-tables -fno-plt -fno-pic -static-pie -Wl,-N -e quadruple -o $@ $<
+	$(CC) -nostdlib -fno-asynchronous-unwind-tables -fno-plt -fno-pic -mcmodel=large -static-pie -Wl,-N -e add -o $@ $<
+
+elf1: elf1.c
+	$(CC) -nostdlib -fno-asynchronous-unwind-tables -fno-plt -fno-pic -mcmodel=large -static-pie -Wl,-N -e linear_transform -o $@ $<
 
 clean:
-	rm -f *.o main elf
+	rm -f *.o main elf elf1

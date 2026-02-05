@@ -241,14 +241,15 @@ The execution of a program starts inside the kernel, in the exec("/bin/wc",...) 
 
 The kernel then loads the parts specified in the `LOAD` directives in the PHT into memory. After that the control can be transferred to the entry point of the program.
 
-Part 1: Build a simple ELF loader
-=========================
+Example: load an ELF file
+=============================
+While ELF might look a bit intimidating, in practice the loading algorithm is rather simple:
 
-In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
-
-Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c)
-
-Note: You don't need to perform relocation yet!
+- Read the ELF header (This Wiki page should help).
+- One of the ELF header fields tells you the offset of the program header table inside the file.
+- Read each entry of the program header table (i.e., read each program header)
+Each program header has an offset and size of a specific segment inside the ELF file (e.g., a executable code). You have to read it from the file and load it in memory.
+- When done with all segments, jump to the entry point of the program. (Note since we don’t control layout of the address space at the moment, we load the segments at some random place in memory (the place that is allocated for us by the mmap() function). Obviously the address of the entry point should be an offset within that random area.
 
 ## Using AI + Codex
 
@@ -257,6 +258,15 @@ To get started we have created a small video on how you can install codex in VS 
 [Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
 
 Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
+
+Part 1: Build a simple ELF loader
+=========================
+
+In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
+
+Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c)
+
+Note: You don't need to perform relocation yet!
 
 
 
@@ -275,9 +285,9 @@ Use a debugger and disassembly to explain:
 - why that address is invalid
 - how this relates to virtual addresses and loading location
 - Try to perform relocation and then try again! Explain why it works now!
-
-
 Submit this explanation as `explain.(txt/md/pdf)`
+
+Perform relocation and compute the result of `linear_transform(5)`
 
 Part 3: ELF Analysis
 ==================
@@ -292,7 +302,11 @@ Answer the following in `explain.(txt/md/pdf)`
 
 Part 4: (Extra Credit, 30%):
 ==================
-Modify your ELF loader to handle relocation for ELF binaries that make use of the Global Offset Table (GOT).
+For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary without the `-no-pic` and `-mcmodel=large` flag. In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
+
+When loading such a binary, the GOT will initially contain unresolved entries. Your loader must identify the GOT and apply the appropriate relocations so that each entry points to the correct runtime address. Once the GOT is properly populated, the PIC code should execute correctly from any load address.
+
+[Useful Reference](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
 
 
 Submit your work 

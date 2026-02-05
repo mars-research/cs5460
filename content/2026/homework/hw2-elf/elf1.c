@@ -1,5 +1,5 @@
 int b = 3, c = 4, d;
 
-int quadruple(int a) {
+int linear_transform(int a) {
     return a * c + b * d;
 }

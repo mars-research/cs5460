@@ -7,7 +7,11 @@
 // Further readings:
 // - https://maskray.me/blog/2024-01-14-exploring-object-file-formats
 
+#ifndef __x86_64__
+#error This code requires x86-64 support
+#endif
 
+#include <stdbool.h>
 #include <errno.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -16,23 +20,28 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <stddef.h>
 
 // ## Definitions
 //
 // Simplified from <elf.h> so things are easier to grok:
-// - https://sourceware.org/git/?p=elfutils.git;a=blob;f=libelf/elf.h
 
-#ifndef Elf32_Ehdr
-
+#ifndef Elf64_Ehdr
+void *load_base;
+typedef struct {
+    uint64_t r_offset;
+    uint64_t r_info;
+    int64_t  r_addend;
+} Elf64_Rela;
 // ### ELF Header
 typedef struct {
     uint8_t  e_ident[16];
     uint16_t e_type;
     uint16_t e_machine;
     uint32_t e_version;
-    uint32_t e_entry;
-    uint32_t e_phoff;
-    uint32_t e_shoff;
+    uint64_t e_entry;
+    uint64_t e_phoff;
+    uint64_t e_shoff;
     uint32_t e_flags;
     uint16_t e_ehsize;
     uint16_t e_phentsize;
@@ -40,78 +49,60 @@ typedef struct {
     uint16_t e_shentsize;
     uint16_t e_shnum;
     uint16_t e_shstrndx;
-} Elf32_Ehdr;
-
-#define ELFMAG "\177ELF" // ELF Magic Number
-#define SELFMAG 4        // Size of ELFMAG
+} Elf64_Ehdr;
 
 // ### Program Header
 typedef struct {
     uint32_t p_type;
-    uint32_t p_offset;
-    uint32_t p_vaddr;
-    uint32_t p_paddr;
-    uint32_t p_filesz;
-    uint32_t p_memsz;
     uint32_t p_flags;
-    uint32_t p_align;
-} Elf32_Phdr;
+    uint64_t p_offset;
+    uint64_t p_vaddr;
+    uint64_t p_paddr;
+    uint64_t p_filesz;
+    uint64_t p_memsz;
+    uint64_t p_align;
+} Elf64_Phdr;
 
-// Program Header Types (p_type)
-#define PT_LOAD 1     // Loadable segment
-
-// Program Header Flags (p_flags)
-#define PF_X (1 << 0) // Segment is executable
-#define PF_W (1 << 1) // Segment is writable
-#define PF_R (1 << 2) // Segment is readable
+#define PT_LOAD 1
 
 // ### Section Header
 typedef struct {
     uint32_t sh_name;
     uint32_t sh_type;
-    uint32_t sh_shflags;
-    uint32_t sh_shaddr;
-    uint32_t sh_shoff;
-    uint32_t sh_size;
-    uint32_t sh_shlink;
-    uint32_t sh_shinfo;
-    uint32_t sh_align;
-    uint32_t sh_entize;
-} Elf32_Shdr;
+    uint64_t sh_flags;
+    uint64_t sh_addr;
+    uint64_t sh_offset;
+    uint64_t sh_size;
+    uint32_t sh_link;
+    uint32_t sh_info;
+    uint64_t sh_addralign;
+    uint64_t sh_entsize;
+} Elf64_Shdr;
 
-// Section Header Types (sh_type)
-#define SHT_SYMTAB  2 // Symbol table
-#define SHT_STRTAB  3 // String table
-#define SHT_RELA    4 // Relocation entries with addends
-#define SHT_REL     9 // Relocation entries without addends
+#define SHT_SYMTAB  2
+#define SHT_STRTAB  3
+#define SHT_RELA    4
+#define SHT_REL     9
 
 // ### Relocation Entry
 typedef struct {
-    uint32_t r_offset;
-    uint32_t r_info;
-} Elf32_Rel;
+    uint64_t r_offset;
+    uint64_t r_info;
+} Elf64_Rel;
 
-typedef struct {
-    uint32_t r_offset;
-    uint32_t r_info;
-    uint32_t r_addend;
-} Elf32_Rela;
-
-#define ELF32_R_TYPE(val) ((val) & 0xff)
-#define ELF32_R_SYM(val)  ((val) >> 8)
-#define R_386_32          1               // Direct 32 bit
-#define R_386_RELATIVE    8               // Adjust by program base
+#define ELF64_R_TYPE(val) ((val) & 0xffffffff)
+#define ELF64_R_SYM(val)  ((val) >> 32)
+#define R_X86_64_RELATIVE 8
 
 // ### Symbol
-
 typedef struct {
     uint32_t st_name;
-    uint32_t st_value;
-    uint32_t st_size;
     uint8_t  st_info;
     uint8_t  st_other;
     uint16_t st_shndx;
-} Elf32_Sym;
+    uint64_t st_value;
+    uint64_t st_size;
+} Elf64_Sym;
 
 #endif
 
@@ -129,86 +120,127 @@ void ABORT(const char *fmt, ...) {
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
     va_end(args);
-
     abort();
 }
 
-static int page_align(int v) {
-    return (v + PAGE_SIZE - 1) & (!PAGE_SIZE - 1);
+static size_t page_align(size_t v) {
+    return (v + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1);
 }
 
-void *load_multiple(FILE *f, size_t offset, size_t size, size_t entry_size, size_t *num_ptr) {
+void *load_multiple(FILE *f, size_t offset, size_t size,
+                    size_t entry_size, size_t *num_ptr) {
     if (size % entry_size) {
-        ABORT("Size not a multiple of entries, size: %lu, entry_size: %lu\n", size, entry_size);
+        ABORT("Size not a multiple of entries\n");
     }
 
     void *entries = malloc(size);
     if (!entries) {
-        ABORT("Failed to allocate space for entries: %s\n", strerror(errno));
+        ABORT("malloc failed\n");
     }
 
     size_t num = size / entry_size;
-    size_t num_read;
-
     fseek(f, offset, SEEK_SET);
-    if ((num_read = fread(entries, entry_size, num, f)) < 0) {
-        ABORT("Failed to read entries: %s\n", strerror(errno));
-    }
-    if (num_read < num) {
-        ABORT("File has incomplete entries: %d\n", num_read);
+    if (fread(entries, entry_size, num, f) != num) {
+        ABORT("short read\n");
     }
 
     if (num_ptr) {
         *num_ptr = num;
     }
-
     return entries;
 }
 
+void *get_sm(Elf64_Sym *syms, char *strtab,
+             int num_syms, const char *name,
+             uint64_t min_vaddr) {
+    for (int i = 0; i < num_syms; ++i) {
+        if (strcmp(&strtab[syms[i].st_name], name) == 0) {
+            return (uint8_t *)load_base +
+                   (syms[i].st_value - min_vaddr);
+        }
+    }
+    return NULL;
+}
+
 int main(int argc, char* argv[]) {
-    Elf32_Ehdr elf;
-    int (*quadruple)(int a);
+    Elf64_Ehdr elf;
+    int (*add)(int a, int b);  // elf.c
+    int (*linear_transform)(int a); //elf1.c
     int ret, items;
+
     if (argc < 2 || argc > 3) {
         ABORT("Usage: %s <elf file name> [function name]\n", argv[0]);
     }
+
     const char *filename = argv[1];
     const char *funcname = argc == 3 ? argv[2] : NULL;
 
-    // ############################
-        // Open ELF file and Read ELF header
-    // ############################
+    size_t max_vaddr = 0;
+    size_t min_vaddr = UINT64_MAX;
 
-    // ############################
-        // Read program headers
-    // ############################
+    FILE* f = fopen(filename, "r");
+    if (!f) {
+        ABORT("open failed\n");
+    }
 
-    // ############################
-        // Get VA size
-    // ############################
+    fread(&elf, sizeof(Elf64_Ehdr), 1, f);
 
-    // ############################
-        // Allocate memory region
-    // ############################
+    if (elf.e_phentsize != sizeof(Elf64_Phdr)) {
+        ABORT("Unexpected PHDR size\n");
+    }
 
-    // ############################
-        // Load segments
-    // ############################
+    Elf64_Phdr *phs =
+        load_multiple(f, elf.e_phoff,
+                      elf.e_phnum * sizeof(Elf64_Phdr),
+                      sizeof(Elf64_Phdr), NULL);
 
-    // ############################
-        // Read section headers
-    // ############################
+    for (int i = 0; i < elf.e_phnum; ++i) {
+        // find the minimum and maximum virtual addresses of all loadable segments
+    }
 
-    // ######################################################
-        // Perform Relocation
-    // ######################################################
+    load_base = mmap(); // Allocate Memory
+
+    for (int i = 0; i < elf.e_phnum; i++) {
+        // Load each ELF program segment
+    }
+    free(phs);
+
+    if (elf.e_shentsize != sizeof(Elf64_Shdr)) {
+        ABORT("Unexpected SHDR size\n");
+    }
+
+    Elf64_Shdr *shs =
+        load_multiple();
+
+    size_t relnum = 0, num_syms = 0, relanum = 0;
+    Elf64_Rel *rels = NULL;
+    Elf64_Sym *syms = NULL;
+    Elf64_Rela *relas = NULL;
+    char *strtab = NULL;
+    bool string_table = false;
+
+    for (int i = 0; i < elf.e_shnum; i++) {
+        // Loads the ELF section headers and extracts relocation, symbol table, and string table sections
+    }
+    free(shs);
+
+
+uint64_t delta = (uint64_t)load_base - min_vaddr;
+
+if (relas) {
+    for (size_t j = 0; j < relanum; ++j) {
+        if (type == R_X86_64_RELATIVE) {
+            // Apply relocations
+        }
+    }
+    free(relas);
+}
+
+    fclose(f);
 
     LOG("Loaded binary\n");
 
-    if (quadruple) {
-        ret = quadruple(4);
-        printf("ret = %d\n", ret); 
-    }
+    // Call Funtion, add or linear_transform
 
     return 0; 
 }
