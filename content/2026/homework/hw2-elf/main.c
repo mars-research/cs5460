@@ -195,22 +195,49 @@ int main(int argc, char* argv[]) {
                       sizeof(Elf64_Phdr), NULL);
 
     for (int i = 0; i < elf.e_phnum; ++i) {
-        // find the minimum and maximum virtual addresses of all loadable segments
+        if (phs[i].p_type != PT_LOAD) continue;
+        if (phs[i].p_vaddr < min_vaddr)
+            // to do
+        if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
+            // to do
     }
 
-    load_base = mmap(); // Allocate Memory
+    load_base = mmap(NULL, page_align(max_vaddr - min_vaddr),
+                     PROT_READ | PROT_WRITE | PROT_EXEC,
+                     MAP_ANONYMOUS | MAP_PRIVATE, 0, 0); // Allocate Memory
+
+    
 
     for (int i = 0; i < elf.e_phnum; i++) {
-        // Load each ELF program segment
+        if (phs[i].p_type != PT_LOAD) continue;
+        void *seg = (uint8_t *)load_base + (phs[i].p_vaddr - min_vaddr);
+
+        fseek(f, phs[i].p_offset, SEEK_SET);
+        fread(seg, 1, phs[i].p_filesz, f);
+
+        if (phs[i].p_memsz > phs[i].p_filesz) {
+            // to do
+        }
     }
     free(phs);
+
+    // if (entry_point) {
+            // sum = entry_point;
+            // ret = sum(1, 2);
+            // printf("sum:%d\n", ret);
+    // }
+    // return 0; 
+    // ########################################################### 
+        // PERFORM RELOCATION BELOW (NEEDED FOR elf1.c)
+        // Below sections can be commented out for Part 1, as no relocations are applied 
+    // ###########################################################
 
     if (elf.e_shentsize != sizeof(Elf64_Shdr)) {
         ABORT("Unexpected SHDR size\n");
     }
 
     Elf64_Shdr *shs =
-        load_multiple();
+        load_multiple(f, elf.e_shoff, elf.e_shnum * sizeof(Elf64_Shdr), sizeof(Elf64_Shdr), NULL);
 
     size_t relnum = 0, num_syms = 0, relanum = 0;
     Elf64_Rel *rels = NULL;
@@ -221,20 +248,31 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < elf.e_shnum; i++) {
         // Loads the ELF section headers and extracts relocation, symbol table, and string table sections
+        Elf64_Shdr *sh = shs + i;
+        switch (sh->sh_type) {
+            case SHT_RELA:
+                // to do
+            case SHT_REL:
+                // to do
+            case SHT_SYMTAB:
+                // to do
+            case SHT_STRTAB:
+                // to do
+  }
     }
     free(shs);
 
 
-uint64_t delta = (uint64_t)load_base - min_vaddr;
+    uint64_t delta = (uint64_t)load_base - min_vaddr;
 
-if (relas) {
-    for (size_t j = 0; j < relanum; ++j) {
-        if (type == R_X86_64_RELATIVE) {
-            // Apply relocations
+    if (relas) {
+        for (size_t j = 0; j < relanum; ++j) {
+            if (type == R_X86_64_RELATIVE) {
+                // Apply relocations
+            }
         }
+        free(relas);
     }
-    free(relas);
-}
 
     fclose(f);
 

@@ -207,7 +207,7 @@ Neither the SHT nor the PHT have fixed positions, they can be located anywhere i
 
 The first bytes contain the elf magic `"\x7fELF"`, followed by the class ID (32 or 64 bit ELF file), the data format ID (little endian/big endian), the machine type, etc.
 
-At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte 256 in the ELF file, and the Program Header Table starts at byte 52 (right after the ELF header)
+At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte 1544 in the ELF file, and the Program Header Table starts at byte 64 (right after the ELF header)
 
 ``` {style="position: relative;"}
 ELF Header:
@@ -241,7 +241,28 @@ Program loading in the kernel
 
 The execution of a program starts inside the kernel, in the exec("/bin/wc",...) system call takes a path to the executable file. The kernel reads the ELF header and the program header table (PHT), followed by lots of sanity checks.
 
-The kernel then loads the parts specified in the `LOAD` directives in the PHT into memory. After that the control can be transferred to the entry point of the program.
+The kernel then loads the parts specified in the LOAD directives in the PHT into memory. If an INTERP entry is present, the interpreter is loaded too. Statically linked binaries can do without an interpreter; dynamically linked programs always need /lib/ld-linux.so as interpreter because it includes some startup code, loads shared libraries needed by the binary, and performs relocations.
+
+Finally control can be transferred to the entry point of the program or to the interpreter, if linking is required.
+
+In case of a statically linked binary that's pretty much it, however with dynamically linked binaries a lot more magic has to go on.
+
+First the dynamic linker (contained within the interpreter) looks at the .dynamic section, whose address is stored in the PHT.
+
+There it finds the NEEDED entries determining which libraries have to be loaded before the program can be run, the *REL* entries giving the address of the relocation tables, the VER* entries which contain symbol versioning information, etc.
+
+So the dynamic linker loads the needed libraries and performs relocations (either directly at program startup or later, as soon as the relocated symbol is needed, depending on the relocation type).
+
+Finally control is transferred to the address given by the symbol _start in the binary. Normally some gcc/glibc startup code lives there, which in the end calls main().
+
+## Using AI + Codex
+
+For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
+To get started we have created a small video on how you can install codex in VS code and start to play around: 
+[Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
+
+Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
+
 
 Example: load an ELF file
 =============================
@@ -253,14 +274,6 @@ While ELF might look a bit intimidating, in practice the loading algorithm is ra
 Each program header has an offset and size of a specific segment inside the ELF file (e.g., a executable code). You have to read it from the file and load it in memory.
 - When done with all segments, jump to the entry point of the program. (Note since we don’t control layout of the address space at the moment, we load the segments at some random place in memory (the place that is allocated for us by the mmap() function). Obviously the address of the entry point should be an offset within that random area.
 
-## Using AI + Codex
-
-For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
-To get started we have created a small video on how you can install codex in VS code and start to play around: 
-[Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
-
-Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
-
 Part 1: Build a simple ELF loader
 =========================
 
@@ -268,11 +281,53 @@ In this part of the assignment, your task is to build the ELF loader. Use [main.
 
 Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c)
 
-Note: You don't need to perform relocation yet!
+First we create a very simple ELF file out of elf.c --- it contains only one function, it has no data, and the code can be placed anywhere in memory and will run ok (it simply does not refer to any global addresses --- all variables are on the stack).
 
+Then we do a loop through all loadable segments of the file and find the min and max virtual addresses at which the sections can be loaded. Segments can be out-of-order with respect to their virtual addresses and we want to know the range of the addresses that will be used in the end.
+```
+for (int i = 0; i < elf.e_phnum; ++i) {
+        if (phs[i].p_type != PT_LOAD) continue;
+        if (phs[i].p_vaddr < min_vaddr)
+            // to do
+        if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
+            // to do
+    }
+```
+To load the segment in memory, we use mmap to get an executable memory from the OS. You can man mmap to read more.
+```
+code_va = mmap(NULL, page_align(max_vaddr - min_vaddr),
+                     PROT_READ | PROT_WRITE | PROT_EXEC,
+                     MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
+```
+Now let us load all the loadable program segments
+```
+for (int i = 0; i < elf.e_phnum; i++) {
+    if (phs[i].p_type != PT_LOAD) continue;
+    void *seg = (uint8_t *)load_base + (phs[i].p_vaddr - min_vaddr);
 
+    fseek(f, phs[i].p_offset, SEEK_SET);
+    fread(seg, 1, phs[i].p_filesz, f);
 
-Part 2: Explain the Crash and Perform Relocation
+    if (phs[i].p_memsz > phs[i].p_filesz) {
+      // to do
+    }
+} 
+free(phs);
+```
+
+You should figure out where the entry point of your program is (it is in one of the segments, and since you map the segments at the addresses returned by the mmap() function, you need to find where it ends up in your address space.
+
+If you found the entry point then type cast it to the function pointer that matches the function signature of the sum function and call it.
+```
+if (entry_point) {
+    sum = entry_point;
+    ret = sum(1, 2);
+    printf("sum:%d\n", ret);
+}
+```
+**Note: You don't need to perform relocation yet!**
+
+Part 2: Explain the Crash
 =========================
 Test your loader with `elf1.c`
 Before relocation, your loader will:
@@ -286,12 +341,62 @@ Use a debugger and disassembly to explain:
 - what address it is trying to access
 - why that address is invalid
 - how this relates to virtual addresses and loading location
-- **Perform relocation and compute the result of `linear_transform(5)`! Explain why it works now!**
+
 Submit this explanation as `explain.(txt/md/pdf)`
 
 
+Part 3: Perform Relocation
+=========================
 
-Part 3: ELF Analysis
+Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`!
+Let us start by loading the ELF section header table into memory used for relocation. 
+```
+Elf64_Shdr *shs =
+        load_multiple(f, elf.e_shoff, elf.e_shnum * sizeof(Elf64_Shdr), sizeof(Elf64_Shdr), NULL);
+```
+Next, we iterate over all section headers to locate and load relocation tables, the symbol table, and the associated string table.
+
+```
+for (int i = 0; i < elf.e_shnum; i++) {
+  Elf64_Shdr *sh = shs + i;
+  switch (sh->sh_type) {
+    case SHT_RELA:
+      // to do
+    case SHT_REL:
+      // to do
+    case SHT_SYMTAB:
+      // to do
+    case SHT_STRTAB:
+      // to do
+  }
+}
+```
+We are finally ready to apply relocations....
+
+```uint64_t delta = (uint64_t)load_base - min_vaddr;  // This gives us where the ELF was actually loaded
+```
+Apply all the necessary relocations. R_X86_64_RELATIVE require you to rewrite with load location plus some addend. You might have to first find out where an address needs to be patches before patching it. 
+```
+if (relas) {
+    for (size_t j = 0; j < relanum; ++j) {
+        if (type == R_X86_64_RELATIVE) {
+            // Apply relocations
+        }
+    }
+    free(relas);
+}
+fclose(f); // Remember to close your file
+```
+Now you can load successfully load `elf1` binary and call `linear_transform(5)` similar to `add(1,2) in `elf.c`.
+```
+if (entry_point) {
+    linear_transform = entry_point;
+    ret = linear_transform(5);
+    printf("linear_transform'd to :%d\n", ret);
+}
+```
+If everything goes well, you can see the result of `linear_transform(5)`, make sure to check it with different arguments.
+<!-- Part 3: ELF Analysis
 ==================
 Answer the following in `explain.(txt/md/pdf)`
 
@@ -299,12 +404,12 @@ Answer the following in `explain.(txt/md/pdf)`
 - What is the difference between sections and segments?
 - Why is `e_entry`? What does it point to?
 - Why does loading at a different base address (no relocation) break the program?
-- Show Process Virtual Memory Layout Before Loading and After Relocation.  
+- Show Process Virtual Memory Layout Before Loading and After Relocation.   -->
 
 
 Part 4: (Extra Credit, 30%):
 ==================
-For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary without the `-no-pic` and `-mcmodel=large` flag. In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
+For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf1.c`) without the `-no-pic` and `-mcmodel=large` flag. In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
 
 When loading such a binary, the GOT will initially contain unresolved entries. Your loader must identify the GOT and apply the appropriate relocations so that each entry points to the correct runtime address. Once the GOT is properly populated, the PIC code should execute correctly from any load address.
 
