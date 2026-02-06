@@ -200,6 +200,8 @@ Disassembly of section .text:
 
 Well, no surprises: it's the code of the two functions we defined in `elf_explain.c`.
 
+Here it would be interesting to remove the compiler flags `-fno-pic -mcmodel=large` and see the disassembly of text section. There won't be any absolute addresses and everything will be relative to `rip`. Read more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+
 Putting it all together: the ELF header
 ---------------------------------------
 
@@ -373,9 +375,11 @@ for (int i = 0; i < elf.e_shnum; i++) {
 ```
 We are finally ready to apply relocations....
 
-```uint64_t delta = (uint64_t)load_base - min_vaddr;  // This gives us where the ELF was actually loaded
 ```
-Apply all the necessary relocations. R_X86_64_RELATIVE require you to rewrite with load location plus some addend. You might have to first find out where an address needs to be patches before patching it. 
+uint64_t delta = (uint64_t)load_base - min_vaddr;  // This gives us where the ELF was actually loaded
+```
+Apply all the necessary relocations. R_X86_64_RELATIVE require you to rewrite with load location plus some addend. 
+**Note: You might have to first find out where an address needs to be patches before patching it.** 
 ```
 if (relas) {
     for (size_t j = 0; j < relanum; ++j) {
@@ -387,7 +391,7 @@ if (relas) {
 }
 fclose(f); // Remember to close your file
 ```
-Now you can load successfully load `elf1` binary and call `linear_transform(5)` similar to `add(1,2) in `elf.c`.
+Now you can load successfully load `elf1` binary and call `linear_transform(5)` similar to `add(1,2)` in `elf.c`.
 ```
 if (entry_point) {
     linear_transform = entry_point;
@@ -395,7 +399,7 @@ if (entry_point) {
     printf("linear_transform'd to :%d\n", ret);
 }
 ```
-If everything goes well, you can see the result of `linear_transform(5)`, make sure to check it with different arguments.
+If everything goes well, you can see the result of `linear_transform(5)`, make sure to check it with different arguments are verify your result.
 <!-- Part 3: ELF Analysis
 ==================
 Answer the following in `explain.(txt/md/pdf)`
