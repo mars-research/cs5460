@@ -415,9 +415,9 @@ Part 4: (Extra Credit, 30%):
 ==================
 For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf1.c`) without the `-no-pic` and `-mcmodel=large` flag. In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
 
-When loading such a binary, the GOT will initially contain unresolved entries. Your loader must identify the GOT and apply the appropriate relocations so that each entry points to the correct runtime address. Once the GOT is properly populated, the PIC code should execute correctly from any load address.
+Compiling without `-no-pic` and `-mcmodel=large` will result in generation of code relative to `rip`. more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
 
-[Useful Reference](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+When loading such a binary, the GOT will initially contain unresolved entries. Your loader must identify the GOT and apply the appropriate relocations so that each entry points to the correct runtime address. Once the GOT is properly populated, the PIC code should execute correctly from any load address.
 
 
 Submit your work 
