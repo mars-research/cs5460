@@ -272,7 +272,7 @@ Note: You don't need to perform relocation yet!
 
 
 
-Part 2: Explain the crash and Perform Relocation
+Part 2: Explain the Crash and Perform Relocation
 =========================
 Test your loader with `elf1.c`
 Before relocation, your loader will:
