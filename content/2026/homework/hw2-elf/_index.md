@@ -272,7 +272,7 @@ Note: You don't need to perform relocation yet!
 
 
 
-Part 2: Explain the crash
+Part 2: Explain the crash and Perform Relocation
 =========================
 Test your loader with `elf1.c`
 Before relocation, your loader will:
@@ -286,10 +286,10 @@ Use a debugger and disassembly to explain:
 - what address it is trying to access
 - why that address is invalid
 - how this relates to virtual addresses and loading location
-- Try to perform relocation and then try again! Explain why it works now!
+- **Perform relocation and compute the result of `linear_transform(5)`! Explain why it works now!**
 Submit this explanation as `explain.(txt/md/pdf)`
 
-Perform relocation and compute the result of `linear_transform(5)`
+
 
 Part 3: ELF Analysis
 ==================
