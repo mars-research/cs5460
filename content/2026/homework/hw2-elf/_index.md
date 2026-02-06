@@ -247,7 +247,7 @@ Example: load an ELF file
 =============================
 While ELF might look a bit intimidating, in practice the loading algorithm is rather simple:
 
-- Read the ELF header (This Wiki page should help).
+- Read the ELF header (This [Wiki](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) page should help).
 - One of the ELF header fields tells you the offset of the program header table inside the file.
 - Read each entry of the program header table (i.e., read each program header)
 Each program header has an offset and size of a specific segment inside the ELF file (e.g., a executable code). You have to read it from the file and load it in memory.
