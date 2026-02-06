@@ -413,12 +413,40 @@ Answer the following in `explain.(txt/md/pdf)`
 
 Part 4: (Extra Credit, 30%):
 ==================
-For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf1.c`) without the `-no-pic` and `-mcmodel=large` flag. In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
+For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf_extra_credit.c`). In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
 
-Compiling without `-no-pic` and `-mcmodel=large` will result in generation of code relative to `rip`. more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+After compiling the input program (`elf_extra_credit.c`) as position-independent code and disassembling using `objdump -d -rR -M intel elf_extra_credit`
+```
+elf1:     file format elf64-x86-64
+
+Disassembly of section .text:
+
+0000000000001000 <linear_transform>:
+    1000:       f3 0f 1e fa             endbr64
+    1004:       55                      push   rbp
+    1005:       48 89 e5                mov    rbp,rsp
+    1008:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+    100b:       48 8b 05 de 2f 00 00    mov    rax,QWORD PTR [rip+0x2fde]        # 3ff0 <_GLOBAL_OFFSET_TABLE_+0x20>
+    1012:       8b 00                   mov    eax,DWORD PTR [rax]
+    1014:       0f af 45 fc             imul   eax,DWORD PTR [rbp-0x4]
+    1018:       89 c1                   mov    ecx,eax
+    101a:       48 8b 05 c7 2f 00 00    mov    rax,QWORD PTR [rip+0x2fc7]        # 3fe8 <_GLOBAL_OFFSET_TABLE_+0x18>
+    1021:       8b 10                   mov    edx,DWORD PTR [rax]
+    1023:       48 8b 05 ce 2f 00 00    mov    rax,QWORD PTR [rip+0x2fce]        # 3ff8 <_GLOBAL_OFFSET_TABLE_+0x28>
+    102a:       8b 00                   mov    eax,DWORD PTR [rax]
+    102c:       0f af c2                imul   eax,edx
+    102f:       01 c8                   add    eax,ecx
+    1031:       5d                      pop    rbp
+    1032:       c3                      ret
+```
+You see, In this code, all global variable accesses go through the Global Offset Table. First, a RIP-relative load retrieves a pointer from the GOT. Second, the program dereferences that pointer to obtain the actual value of the global variable. This indirection is required because the final runtime addresses of global symbols are not known at compile time and may vary depending on where the binary is loaded.
 
 When loading such a binary, the GOT will initially contain unresolved entries. Your loader must identify the GOT and apply the appropriate relocations so that each entry points to the correct runtime address. Once the GOT is properly populated, the PIC code should execute correctly from any load address.
 
+**Linker Flags and Their Purpose**
+Another thing to note here is that the flags we have used to compile `elf_extra_credit.c`
+
+The -Wl, prefix is required to pass options directly to the linker. In particular, the --no-relax flag instructs the linker to disable relaxation optimizations. On x86-64, the linker normally attempts to optimize PIC code by removing unnecessary GOT indirections when it can prove that a symbol is local and non-interposable. This optimization can rewrite GOT-based accesses into direct RIP-relative memory references.
 
 Submit your work 
 ----------------

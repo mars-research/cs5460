@@ -3,7 +3,7 @@ CC=gcc
 # CFLAGS will be the options we'll pass to the compiler
 CFLAGS=-Wall -g -fno-pic -no-pie
 
-all: main elf elf1 elf_explain
+all: main elf elf1 elf_explain elf_extra_credit
 
 main: main.c
 	$(CC) $(CFLAGS) main.c -o main
@@ -17,5 +17,8 @@ elf1: elf1.c
 elf_explain: elf_explain.c
 	$(CC) -nostdlib -fno-asynchronous-unwind-tables -fno-plt -fno-pic -mcmodel=large -static-pie -Wl,-N -e quadruple -o $@ $<
 
+elf_extra_credit: elf_extra_credit.c
+	$(CC) -Wl,--no-relax -nostdlib -fpic elf_extra_credit.c -e linear_transform -o $@ $<
+	
 clean:
-	rm -f *.o main elf elf1 elf_explain
+	rm -f *.o main elf elf1 elf_explain elf_extra_credit
