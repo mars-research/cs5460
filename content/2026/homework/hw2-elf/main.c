@@ -162,18 +162,47 @@ void *get_sm(Elf64_Sym *syms, char *strtab,
     return NULL;
 }
 
+static const char *default_func_for_file(const char *filename) {
+    if (strcmp(filename, "elf") == 0) {
+        return "add";
+    }
+    if (strcmp(filename, "elf1") == 0) {
+        return "linear_transform";
+    }
+    if (strcmp(filename, "elf_extra_credit") == 0) {
+        return "linear_transform";
+    }
+    if (strcmp(filename, "ml_main") == 0) {
+        return "ml_func";
+    }
+    return NULL;
+}
+
 int main(int argc, char* argv[]) {
+    // Argument handling:
+    //   ./main elf                 -> calls add
+    //   ./main elf1                -> calls linear_transform
+    //   ./main elf_extra_credit    -> calls linear_transform
+    //   ./main <elf> <funcname>    -> calls funcname
+    const char *filename = NULL;
+    const char *funcname = NULL;
+
+    if (argc < 2 || argc > 3) {
+        ABORT("Usage: %s <elf file name> [function name]\n", argv[0]);
+    }
+
+    filename = argv[1];
+    funcname = (argc == 3) ? argv[2] : default_func_for_file(filename);
+    if (!funcname) {
+        ABORT("No default function for '%s'. Pass a function name explicitly.\n", filename);
+    }
+
 //     Elf64_Ehdr elf;
 //     int (*add)(int a, int b);  // elf.c
 //     int (*linear_transform)(int a); //elf1.c
 //     int ret, items;
 
-//     if (argc < 2 || argc > 3) {
-//         ABORT("Usage: %s <elf file name> [function name]\n", argv[0]);
-//     }
-
-//     const char *filename = argv[1];
-//     const char *funcname = argc == 3 ? argv[2] : NULL;
+//     // filename + funcname are set above for flexible invocation.
 
 //     size_t max_vaddr = 0;
 //     size_t min_vaddr = UINT64_MAX;
@@ -281,6 +310,14 @@ int main(int argc, char* argv[]) {
 //     LOG("Loaded binary\n");
 
 //     // Call Funtion, add or linear_transform
+//     // Example:
+//     // if (strcmp(funcname, "add") == 0) {
+//     //     add = get_sm(syms, strtab, num_syms, funcname, min_vaddr);
+//     //     ret = add(1, 2);
+//     // } else if (strcmp(funcname, "linear_transform") == 0) {
+//     //     linear_transform = get_sm(syms, strtab, num_syms, funcname, min_vaddr);
+//     //     ret = linear_transform(4);
+//     // }
 
 //     return 0; 
 }
