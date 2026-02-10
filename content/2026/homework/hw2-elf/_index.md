@@ -8,7 +8,15 @@
 Homework 2: ELF files
 =====================
 
-This assignment will make you more familiar with organisation of ELF files. Technically, you can do this assignment on any operating system that supports the Unix API (Linux CADE machines, your laptop that runs Linux or Linux VM, and even MacOS, etc.). **You don't need to set up xv6 for this assignment** Submission through Gradescope.
+This assignment will make you more familiar with the organization of ELF files. You can complete it on any operating system that supports the Unix API—for example:
+
+- Linux CADE machines
+- Your own laptop running Linux (or a Linux VM)
+- macOS only if your Mac is Intel (x86-64)
+
+You do not need to set up xv6 for this assignment.
+
+Submit your programs and shell through Gradescope.
 
 **YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK**. It's ok to show your work to your future employer as a private Git repo, however any public release is prohibited.
 
