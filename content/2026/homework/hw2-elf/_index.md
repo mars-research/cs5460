@@ -18,10 +18,10 @@ Part 1: Take a look at ELF files
 
 At a high level this homework first shows you how to implement a simple ELF loader [main.c](./main.c) file) (we use it to load a simple ELF object file compiled from [elf.c](./elf.c)), and then asks you to relocate it to run at the address at which you load it. However, before starting on this lets make ourselves familiar with ELF files.
 
-We provide a simple [Makefile](Makefile) that compiles [elf.c](./elf.c) and [main.c](./main.c) as ELF executables. Look over the makefile and then compile both files by running:
+We provide a simple [Makefile](Makefile) that compiles [elf_explain.c](./elf_explain.c). Lets go over this. 
 
 ``` {style="position: relative;"}
-make
+make elf_explain
 ```
 
 Lets take a look at the ELF files we compiled. We will use the readelf tool
@@ -96,7 +96,7 @@ The elf_explain.c is a simple program, but it still has .text, `.data`, `.bss`, 
 
 `elf_explain.c` has two initialized and one uninitialized global variables; therefore, the ELF file contains a .data section of 8 bytes for the initialized variables, and a .bss section of 8 bytes, of which 4 bytes are used by the uninitialized variable and the remaining space is added due to alignment and linker padding.
 
-The program is linked elf.c to run at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
+The program is linked to run `elf.c` at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
 
 The symbol table contains the following symbols
 

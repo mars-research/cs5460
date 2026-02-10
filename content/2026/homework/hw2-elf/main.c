@@ -163,124 +163,124 @@ void *get_sm(Elf64_Sym *syms, char *strtab,
 }
 
 int main(int argc, char* argv[]) {
-    Elf64_Ehdr elf;
-    int (*add)(int a, int b);  // elf.c
-    int (*linear_transform)(int a); //elf1.c
-    int ret, items;
+//     Elf64_Ehdr elf;
+//     int (*add)(int a, int b);  // elf.c
+//     int (*linear_transform)(int a); //elf1.c
+//     int ret, items;
 
-    if (argc < 2 || argc > 3) {
-        ABORT("Usage: %s <elf file name> [function name]\n", argv[0]);
-    }
+//     if (argc < 2 || argc > 3) {
+//         ABORT("Usage: %s <elf file name> [function name]\n", argv[0]);
+//     }
 
-    const char *filename = argv[1];
-    const char *funcname = argc == 3 ? argv[2] : NULL;
+//     const char *filename = argv[1];
+//     const char *funcname = argc == 3 ? argv[2] : NULL;
 
-    size_t max_vaddr = 0;
-    size_t min_vaddr = UINT64_MAX;
+//     size_t max_vaddr = 0;
+//     size_t min_vaddr = UINT64_MAX;
 
-    FILE* f = fopen(filename, "r");
-    if (!f) {
-        ABORT("open failed\n");
-    }
+//     FILE* f = fopen(filename, "r");
+//     if (!f) {
+//         ABORT("open failed\n");
+//     }
 
-    fread(&elf, sizeof(Elf64_Ehdr), 1, f);
+//     fread(&elf, sizeof(Elf64_Ehdr), 1, f);
 
-    if (elf.e_phentsize != sizeof(Elf64_Phdr)) {
-        ABORT("Unexpected PHDR size\n");
-    }
+//     if (elf.e_phentsize != sizeof(Elf64_Phdr)) {
+//         ABORT("Unexpected PHDR size\n");
+//     }
 
-    Elf64_Phdr *phs =
-        load_multiple(f, elf.e_phoff,
-                      elf.e_phnum * sizeof(Elf64_Phdr),
-                      sizeof(Elf64_Phdr), NULL);
+//     Elf64_Phdr *phs =
+//         load_multiple(f, elf.e_phoff,
+//                       elf.e_phnum * sizeof(Elf64_Phdr),
+//                       sizeof(Elf64_Phdr), NULL);
 
-    for (int i = 0; i < elf.e_phnum; ++i) {
-        if (phs[i].p_type != PT_LOAD) continue;
-        if (phs[i].p_vaddr < min_vaddr)
-            // to do
-        if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
-            // to do
-    }
+//     for (int i = 0; i < elf.e_phnum; ++i) {
+//         if (phs[i].p_type != PT_LOAD) continue;
+//         if (phs[i].p_vaddr < min_vaddr)
+//             // to do
+//         if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
+//             // to do
+//     }
 
-    load_base = mmap(NULL, page_align(max_vaddr - min_vaddr),
-                     PROT_READ | PROT_WRITE | PROT_EXEC,
-                     MAP_ANONYMOUS | MAP_PRIVATE, 0, 0); // Allocate Memory
+//     load_base = mmap(NULL, page_align(max_vaddr - min_vaddr),
+//                      PROT_READ | PROT_WRITE | PROT_EXEC,
+//                      MAP_ANONYMOUS | MAP_PRIVATE, 0, 0); // Allocate Memory
 
     
 
-    for (int i = 0; i < elf.e_phnum; i++) {
-        if (phs[i].p_type != PT_LOAD) continue;
-        void *seg = (uint8_t *)load_base + (phs[i].p_vaddr - min_vaddr);
+//     for (int i = 0; i < elf.e_phnum; i++) {
+//         if (phs[i].p_type != PT_LOAD) continue;
+//         void *seg = (uint8_t *)load_base + (phs[i].p_vaddr - min_vaddr);
 
-        fseek(f, phs[i].p_offset, SEEK_SET);
-        fread(seg, 1, phs[i].p_filesz, f);
+//         fseek(f, phs[i].p_offset, SEEK_SET);
+//         fread(seg, 1, phs[i].p_filesz, f);
 
-        if (phs[i].p_memsz > phs[i].p_filesz) {
-            // to do
-        }
-    }
-    free(phs);
+//         if (phs[i].p_memsz > phs[i].p_filesz) {
+//             // to do
+//         }
+//     }
+//     free(phs);
 
-    // if (entry_point) {
-            // sum = entry_point;
-            // ret = sum(1, 2);
-            // printf("sum:%d\n", ret);
-    // }
-    // return 0; 
-    // ########################################################### 
-        // PERFORM RELOCATION BELOW (NEEDED FOR elf1.c)
-        // Below sections can be commented out for Part 1, as no relocations are applied 
-    // ###########################################################
+//     // if (entry_point) {
+//             // sum = entry_point;
+//             // ret = sum(1, 2);
+//             // printf("sum:%d\n", ret);
+//     // }
+//     // return 0; 
+//     // ########################################################### 
+//         // PERFORM RELOCATION BELOW (NEEDED FOR elf1.c)
+//         // Below sections can be commented out for Part 1, as no relocations are applied 
+//     // ###########################################################
 
-    if (elf.e_shentsize != sizeof(Elf64_Shdr)) {
-        ABORT("Unexpected SHDR size\n");
-    }
+//     if (elf.e_shentsize != sizeof(Elf64_Shdr)) {
+//         ABORT("Unexpected SHDR size\n");
+//     }
 
-    Elf64_Shdr *shs =
-        load_multiple(f, elf.e_shoff, elf.e_shnum * sizeof(Elf64_Shdr), sizeof(Elf64_Shdr), NULL);
+//     Elf64_Shdr *shs =
+//         load_multiple(f, elf.e_shoff, elf.e_shnum * sizeof(Elf64_Shdr), sizeof(Elf64_Shdr), NULL);
 
-    size_t relnum = 0, num_syms = 0, relanum = 0;
-    Elf64_Rel *rels = NULL;
-    Elf64_Sym *syms = NULL;
-    Elf64_Rela *relas = NULL;
-    char *strtab = NULL;
-    bool string_table = false;
+//     size_t relnum = 0, num_syms = 0, relanum = 0;
+//     Elf64_Rel *rels = NULL;
+//     Elf64_Sym *syms = NULL;
+//     Elf64_Rela *relas = NULL;
+//     char *strtab = NULL;
+//     bool string_table = false;
 
-    for (int i = 0; i < elf.e_shnum; i++) {
-        // Loads the ELF section headers and extracts relocation, symbol table, and string table sections
-        Elf64_Shdr *sh = shs + i;
-        switch (sh->sh_type) {
-            case SHT_RELA:
-                // to do
-            case SHT_REL:
-                // to do
-            case SHT_SYMTAB:
-                // to do
-            case SHT_STRTAB:
-                // to do
-  }
-    }
-    free(shs);
+//     for (int i = 0; i < elf.e_shnum; i++) {
+//         // Loads the ELF section headers and extracts relocation, symbol table, and string table sections
+//         Elf64_Shdr *sh = shs + i;
+//         switch (sh->sh_type) {
+//             case SHT_RELA:
+//                 // to do
+//             case SHT_REL:
+//                 // to do
+//             case SHT_SYMTAB:
+//                 // to do
+//             case SHT_STRTAB:
+//                 // to do
+//   }
+//     }
+//     free(shs);
 
 
-    uint64_t delta = (uint64_t)load_base - min_vaddr;
+//     uint64_t delta = (uint64_t)load_base - min_vaddr;
 
-    if (relas) {
-        for (size_t j = 0; j < relanum; ++j) {
-            if (type == R_X86_64_RELATIVE) {
-                // Apply relocations
-            }
-        }
-        free(relas);
-    }
+//     if (relas) {
+//         for (size_t j = 0; j < relanum; ++j) {
+//             if (type == R_X86_64_RELATIVE) {
+//                 // Apply relocations
+//             }
+//         }
+//         free(relas);
+//     }
 
-    fclose(f);
+//     fclose(f);
 
-    LOG("Loaded binary\n");
+//     LOG("Loaded binary\n");
 
-    // Call Funtion, add or linear_transform
+//     // Call Funtion, add or linear_transform
 
-    return 0; 
+//     return 0; 
 }
 
 // vim: et:ts=4:sw=4
