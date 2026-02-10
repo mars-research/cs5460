@@ -103,7 +103,7 @@ The elf_explain.c is a simple program, but it still has .text, `.data`, `.bss`, 
 
 `elf_explain.c` has two initialized and one uninitialized global variables; therefore, the ELF file contains a .data section of 8 bytes for the initialized variables, and a .bss section of 8 bytes, of which 4 bytes are used by the uninitialized variable and the remaining space is added due to alignment and linker padding.
 
-The program is linked to run `elf.c` at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
+The program is linked to run `elf_explain.c` at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
 
 The symbol table contains the following symbols
 
