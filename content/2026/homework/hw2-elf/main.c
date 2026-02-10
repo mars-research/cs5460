@@ -222,9 +222,9 @@ int main(int argc, char* argv[]) {
 //     free(phs);
 
 //     // if (entry_point) {
-//             // sum = entry_point;
-//             // ret = sum(1, 2);
-//             // printf("sum:%d\n", ret);
+//             // add = entry_point;
+//             // ret = add(1, 2);
+//             // printf("add:%d\n", ret);
 //     // }
 //     // return 0; 
 //     // ########################################################### 
