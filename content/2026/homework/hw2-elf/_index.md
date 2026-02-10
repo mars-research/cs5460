@@ -295,12 +295,14 @@ First we create a very simple ELF file out of elf.c --- it contains only one fun
 Then we do a loop through all loadable segments of the file and find the min and max virtual addresses at which the sections can be loaded. Segments can be out-of-order with respect to their virtual addresses and we want to know the range of the addresses that will be used in the end.
 ```
 for (int i = 0; i < elf.e_phnum; ++i) {
-        if (phs[i].p_type != PT_LOAD) continue;
-        if (phs[i].p_vaddr < min_vaddr)
-            // to do
-        if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
-            // to do
+    if (phs[i].p_type != PT_LOAD) continue;
+    if (phs[i].p_vaddr < min_vaddr){
+        // TO DO...
     }
+    if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr){
+        // TO DO...
+    }
+}
 ```
 To load the segment in memory, we use mmap to get an executable memory from the OS. You can man mmap to read more.
 ```
@@ -318,7 +320,7 @@ for (int i = 0; i < elf.e_phnum; i++) {
     fread(seg, 1, phs[i].p_filesz, f);
 
     if (phs[i].p_memsz > phs[i].p_filesz) {
-      // to do
+      // TO DO...
     }
 } 
 free(phs);
@@ -370,13 +372,13 @@ for (int i = 0; i < elf.e_shnum; i++) {
   Elf64_Shdr *sh = shs + i;
   switch (sh->sh_type) {
     case SHT_RELA:
-      // to do
+      // TO DO...
     case SHT_REL:
-      // to do
+      // TO DO...
     case SHT_SYMTAB:
-      // to do
+      // TO DO...
     case SHT_STRTAB:
-      // to do
+      // TO DO...
   }
 }
 ```
