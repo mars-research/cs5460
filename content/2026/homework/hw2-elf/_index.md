@@ -16,9 +16,9 @@ This assignment will make you more familiar with organisation of ELF files. Tech
 Part 1: Take a look at ELF files
 --------------------------------
 
-At a high level this homework first shows you how to implement a simple ELF loader [main.c](./main.c) file) (we use it to load a simple ELF object file compiled from [elf.c](./elf.c)), and then asks you to relocate it to run at the address at which you load it. However, before starting on this lets make ourselves familiar with ELF files.
+At a high level this homework first shows you how to implement a simple ELF loader [main.c](./main.c) file (We use it to load a simple ELF object file compiled from [elf.c](./elf.c), and then asks you to relocate it to run at the address at which you load it [elf1.c](./elf1.c)). However, before starting on this let's make ourselves familiar with ELF files.
 
-We provide a simple [Makefile](Makefile) that compiles [elf_explain.c](./elf_explain.c). Lets go over this. 
+We provide a simple [Makefile](Makefile) that compiles [elf_explain.c](./elf_explain.c). Let's go over this. 
 
 ``` {style="position: relative;"}
 make elf_explain
