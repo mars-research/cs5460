@@ -226,10 +226,10 @@ int main(int argc, char* argv[]) {
 //     for (int i = 0; i < elf.e_phnum; ++i) {
 //         if (phs[i].p_type != PT_LOAD) continue;
 //         if (phs[i].p_vaddr < min_vaddr){
-//             // to do
+//             // TO DO...
 //         }
 //         if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr){
-//             // to do
+//             // TO DO...
 //         }
 //     }
 
@@ -247,7 +247,7 @@ int main(int argc, char* argv[]) {
 //         fread(seg, 1, phs[i].p_filesz, f);
 
 //         if (phs[i].p_memsz > phs[i].p_filesz) {
-//             // to do
+//             // TO DO...
 //         }
 //     }
 //     free(phs);
@@ -282,13 +282,13 @@ int main(int argc, char* argv[]) {
 //         Elf64_Shdr *sh = shs + i;
 //         switch (sh->sh_type) {
 //             case SHT_RELA:
-//                 // to do
+//                 // TO DO...
 //             case SHT_REL:
-//                 // to do
+//                 // TO DO...
 //             case SHT_SYMTAB:
-//                 // to do
+//                 // TO DO...
 //             case SHT_STRTAB:
-//                 // to do
+//                 // TO DO...
 //   }
 //     }
 //     free(shs);
