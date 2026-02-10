@@ -329,9 +329,9 @@ You should figure out where the entry point of your program is (it is in one of 
 If you found the entry point then type cast it to the function pointer that matches the function signature of the sum function and call it.
 ```
 if (entry_point) {
-    sum = entry_point;
-    ret = sum(1, 2);
-    printf("sum:%d\n", ret);
+    add = entry_point;
+    ret = add(1, 2);
+    printf("add:%d\n", ret);
 }
 ```
 **Note: You don't need to perform relocation yet!**
