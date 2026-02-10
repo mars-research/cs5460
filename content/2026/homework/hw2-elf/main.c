@@ -196,10 +196,12 @@ int main(int argc, char* argv[]) {
 
 //     for (int i = 0; i < elf.e_phnum; ++i) {
 //         if (phs[i].p_type != PT_LOAD) continue;
-//         if (phs[i].p_vaddr < min_vaddr)
+//         if (phs[i].p_vaddr < min_vaddr){
 //             // to do
-//         if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr)
+//         }
+//         if (phs[i].p_vaddr + phs[i].p_memsz > max_vaddr){
 //             // to do
+//         }
 //     }
 
 //     load_base = mmap(NULL, page_align(max_vaddr - min_vaddr),
