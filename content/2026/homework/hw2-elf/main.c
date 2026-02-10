@@ -281,8 +281,6 @@ int main(int argc, char* argv[]) {
 //         // Loads the ELF section headers and extracts relocation, symbol table, and string table sections
 //         Elf64_Shdr *sh = shs + i;
 //         switch (sh->sh_type) {
-//             case SHT_RELA:
-//                 // TO DO...
 //             case SHT_REL:
 //                 // TO DO...
 //             case SHT_SYMTAB:

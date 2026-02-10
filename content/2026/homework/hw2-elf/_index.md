@@ -368,6 +368,9 @@ Part 3: Perform Relocation
 =========================
 
 Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`!
+
+Specifically, our goal is to learn how to relocate a binary. In the step above we loaded the binary in memory, but it crashes as it was linked to run at an address which is different from the one we loaded it at. Below we will relocate `elf1` to run correctly by patching all references to the global variables that need to be relocated.
+
 Let us start by loading the ELF section header table into memory used for relocation. 
 ```
 Elf64_Shdr *shs =
@@ -390,6 +393,81 @@ for (int i = 0; i < elf.e_shnum; i++) {
   }
 }
 ```
+
+The section table contains a number of entries that contain various information used by the linker (as we discussed above). Specifically, each entry has the following C type definition:
+```
+// ### Section Header
+typedef struct {
+    uint32_t sh_name;
+    uint32_t sh_type;
+    uint64_t sh_flags;
+    uint64_t sh_addr;
+    uint64_t sh_offset;
+    uint64_t sh_size;
+    uint32_t sh_link;
+    uint32_t sh_info;
+    uint64_t sh_addralign;
+    uint64_t sh_entsize;
+} Elf64_Shdr;
+```
+The sh_type defines the type of the entry. The following types are defined by the ELF standard (we only list a subset of types we need in this homework, see ELF standard for a complete list):
+```
+#define SHT_SYMTAB  2 // Symbol table
+#define SHT_STRTAB  3 // String table
+#define SHT_RELA    4 // Relocation entries with addends
+#define SHT_REL     9 // Relocation entries without addends
+```
+To relocate a file we will have to iterate through all section header entries of our ELF file and pick the one that has the `SHT_REL` type.
+Relocation entires in the table are continuous and the number of entries in a given table can be found by dividing the size of the table (given by `sh_size` in the section header) by the size of each entry (given by `sh_entsize`).
+
+Each relocation entry has the following type:
+```
+// ### Relocation Entry
+typedef struct {
+    uint64_t r_offset;
+    uint64_t r_info;
+} Elf64_Rel;
+```
+The value stored in r_info, as the upper byte designates the entry in the symbol table to which the relocation applies, whereas the lower byte stores the type of relocation that should be applied.
+```
+#define ELF64_R_TYPE(val) ((val) & 0xffffffff)
+#define ELF64_R_SYM(val)  ((val) >> 32)
+```
+We use the following macros to access type and symbol table entry.
+The value in r_offset gives the relative position of the symbol that is being relocated, within its section.
+
+The real messy part about relocation is that there can be different kinds of relocation actions. You can find the complete list defined by the ELF standard here: [x64: Relocation Types](https://docs.oracle.com/cd/E19120-01/open.solaris/819-0690/chapter7-2/index.html).
+
+In our example, the elf is compiled to require the R_X86_64_RELATIVE relocation. Specifically, this relocation type just asks you to read the value (addend) from the relocation address specified by the r_offset field of the relocation entry and add it to the base address at which the ELF is loaded. This is simple – no need to access the symbol table, just read the value that is already there, add the base address and write it back.
+
+Just to illustrate it with an example of relocating the access to `b` in the `magic` function (`elf_explain.c`):
+```
+00000000004002b4 <magic>:
+  4002b4:       f3 0f 1e fa             endbr64
+  4002b8:       55                      push   rbp
+  4002b9:       48 89 e5                mov    rbp,rsp
+  4002bc:       48 b8 e0 03 40 00 00    movabs rax,0x4003e0
+  4002c3:       00 00 00 
+  4002c6:       8b 00                   mov    eax,DWORD PTR [rax]
+  4002c8:       6b c0 0e                imul   eax,eax,0xe
+  4002cb:       5d                      pop    rbp
+  4002cc:       c3                      ret
+```
+Right now `b` is in the data section at address `0x4003e0`. You can see the compiler generates `movabs` because it knows that this address will need to be patched by the loader depending on where your program is loaded. 
+The relocation table contains the following entries
+```
+readelf -r elf_explain
+
+Relocation section '.rela.text' at offset 0x218 contains 4 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000400285  000000000008 R_X86_64_RELATIVE                    4003e4
+000000400297  000000000008 R_X86_64_RELATIVE                    4003e0
+0000004002a3  000000000008 R_X86_64_RELATIVE                    4003e8
+0000004002be  000000000008 R_X86_64_RELATIVE   
+```
+Relocation section tells us that at address `0x4002be` we need to patch an address. Since we loaded it at address we’ve got from `mmap()` (i.e., the load_base in our code) we will relocate by (load_base - min_vaddr). Also, note that the offsets are in the virtual address space of the program, but since we loaded the segments starting from `load_base` you have to compute the correct offsets making sure they point into the loaded code in memory.
+
+
 We are finally ready to apply relocations....
 
 ```
