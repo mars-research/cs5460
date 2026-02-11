@@ -274,15 +274,14 @@ Finally control is transferred to the address given by the symbol _start in the 
 
 ## Using AI + Codex
 
-For this assignment you are allowed to use AI + Codex to implement certain aspects on your code. This section will teach you how to get codex installed in your system. 
-To get started we have created a small video on how you can install codex in VS code and start to play around: 
-[Installing and Using Codex: Sample Prompt](https://drive.google.com/file/d/1z8Nbytbv5Bl7_j9UPSewapzwZF95UVvP/view?usp=drive_link)
-
-Once you have installed codex, we suggest writing small programs and ask codex to complete/edit files. Give it small tasks as you start to get a feel for it. As always there is the option of first trying to implement the shell on your own from scratch and when you get stuck on certain parts, prompting and asking codex to help you out. Essentially think of codex as your programming buddy. 
+For this assignment you are allowed to use Codex to implement certain aspects on your code. Refer to [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#using-ai--codex) for instructions on how to get started with Codex. 
 
 
-Example: load an ELF file
-=============================
+Part 1: Build a simple ELF loader
+=========================
+
+### Example: load an ELF file
+
 While ELF might look a bit intimidating, in practice the loading algorithm is rather simple:
 
 - Read the ELF header (This [Wiki](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) page should help).
@@ -290,9 +289,6 @@ While ELF might look a bit intimidating, in practice the loading algorithm is ra
 - Read each entry of the program header table (i.e., read each program header)
 Each program header has an offset and size of a specific segment inside the ELF file (e.g., a executable code). You have to read it from the file and load it in memory.
 - When done with all segments, jump to the entry point of the program. (Note since we don’t control layout of the address space at the moment, we load the segments at some random place in memory (the place that is allocated for us by the mmap() function). Obviously the address of the entry point should be an offset within that random area.
-
-Part 1: Build a simple ELF loader
-=========================
 
 In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
 
@@ -348,7 +344,8 @@ if (entry_point) {
 
 Part 2: Explain the Crash
 =========================
-Test your loader with `elf1.c`
+Test your loader with [elf1.c](./elf1.c). You can use `Makefile`: `make elf1`. Specifically you need to make sure to use the same flags as mentioned in the `Makefile`.
+
 Before relocation, your loader will:
 
 - successfully load the program
