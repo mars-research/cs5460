@@ -215,7 +215,7 @@ Disassembly of section .text:
 
 Well, no surprises: it's the code of the two functions we defined in `elf_explain.c`.
 
-Here it would be interesting to remove the compiler flags `-fno-pic -mcmodel=large` and see the disassembly of text section. There won't be any absolute addresses and everything will be relative to `rip`. Read more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+Here it would be interesting to remove the compiler flags `-fno-pic -mcmodel=large` and see the disassembly of text section. There won't be any absolute addresses and everything will be relative to `rip`. With PIC enabled (and without the large code model), the compiler usually avoids putting fixed 64-bit addresses directly into the instruction stream. Instead of `movabs rax, 0x...` (an absolute address), it will typically access globals using RIP-relative addressing, like `[rip + offset]`. That means the code uses addresses relative to the current instruction pointer `rip`, so it can be loaded at different locations in memory without changing the instructions. This is the main idea behind position-independent code. Read more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
 
 Putting it all together: the ELF header
 ---------------------------------------
