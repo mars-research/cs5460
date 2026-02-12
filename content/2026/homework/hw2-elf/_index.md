@@ -567,8 +567,6 @@ Submit your work
 ----------------
 Submit your solution through Gradescope. Please zip all of your files (main.c, Makefile) and submit them. The structure of the zip file should be the following:
 ``` {style="position: relative;"}
-
-  - Makefile
   - main.c
   - explain.(txt/md/pdf)
 ```
