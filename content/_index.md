@@ -128,15 +128,18 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 
 <!--
 - [**Homework 2 - ELF**](./homework/hw2-elf/)
+-->
 
-**Feb 11** 
-- [Lecture 06 - Segmentation and Paging (part 3)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video](https://youtube.com/live/q6-70qitj5I))
+**Feb 10** 
+- [Lecture 06 - Segmentation and Paging (part 3)](./lectures/lecture06-address-translation/lecture06-address-translation.pdf) ([video](https://youtube.com/live/pRw-vuaSK_Q))
 
-**Feb 13**
-- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/tOOFmZLfKTw))
+**Feb 12**
+- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/5TQVzzKdBak))
 - Reading: [Appendix B: The boot loader](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf) and [Chapter 1: Code: the first address space](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf).
 - Reading (optional): [How Does an Intel Processor Boot](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/)?
 - Reading (optional): [Intel SGX explained](https://eprint.iacr.org/2016/086.pdf) (sections 2.9.1 The Motherboard, 2.9.2 The Intel Management Engine (ME), and 2.13 Platform Initialization (Booting))
+
+<!--
 
 **Feb 18**
 - [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/IY4ij-9B_7c))
