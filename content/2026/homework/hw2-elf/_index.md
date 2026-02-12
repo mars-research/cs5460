@@ -360,6 +360,29 @@ Use a debugger and disassembly to explain:
 
 Submit this explanation as `explain.(txt/md/pdf)`
 
+### Debugging with VS Code. 
+
+`./main elf1` either crashed or computed the wrong result. Specifically, you should start the program using Visual Studio debugger as we did for [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#debugging-c-with-vscode).
+
+Pass `elf1` as input to `args` in the `launch.json` file as shown in the image below. Update the `program` and `cwd` fields to the respective directory where you have `main.c` and other files to execute.
+
+![](./debug_new_intel.png)
+
+
+Refer to [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#breakpoints-and-single-stepping) for how to set a breakpoint on main and start the program using VS debugger. 
+
+Once debugging has started, right-click anywhere in the file and select `Open Disassembly View` as shown in the image below to view the assembly code and source code side by side.
+
+![](./debuggerimage2.png)
+
+![](./debuggerimage3.png)
+
+Register information can also be viewed under the variables section on the top left of the window as shown in the above image.
+
+Clicking the small icon on any of the variables will display the binary data (aka "memory") as shown in the image below.
+
+![](./debuggerimage4.png)
+
 
 Part 3: Perform Relocation
 =========================
