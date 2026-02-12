@@ -12,7 +12,7 @@ This assignment will make you more familiar with the organization of ELF files. 
 
 - Linux CADE machines
 - Your own laptop running Linux (or a Linux VM)
-- macOS only if your Mac is Intel (x86-64)
+- macOS but only if your Mac is Intel (x86-64) or you can setup a cross-compilation environment (use nix for this)
 
 You do not need to set up xv6 for this assignment.
 
@@ -20,14 +20,20 @@ Submit your programs and shell through Gradescope.
 
 **YOU CANNOT PUBLICLY RELEASE SOLUTIONS TO THIS HOMEWORK**. It's ok to show your work to your future employer as a private Git repo, however any public release is prohibited.
 
+## Using AI + Codex
+
+For this assignment you are allowed to use Codex to implement certain aspects on your code. Refer to [HW 1](../hw1-shell/#using-ai--codex) for instructions on how to get started with Codex. 
+
+
 
 Part 1: Take a look at ELF files
 --------------------------------
 
-At a high level this homework first shows you how to implement a simple ELF loader [main.c](./main.c) file. We first use it to load a simple ELF object file compiled from
+At a high level this homework first shows you how to implement a simple ELF loader by filling in the gaps in the [main.c](./main.c) file. We first use it to load a simple ELF object file
+
 1. [elf.c](./elf.c) (requires no relocation).
 
-and then later ask you to relocate it to run at the address at which you load it 
+and then ask you to relocate another simple ELF file to run at the address at which you load it 
 
 2. [elf1.c](./elf1.c) (requires relocation). 
 
@@ -272,15 +278,14 @@ So the dynamic linker loads the needed libraries and performs relocations (eithe
 
 Finally control is transferred to the address given by the symbol _start in the binary. Normally some gcc/glibc startup code lives there, which in the end calls main().
 
-## Using AI + Codex
-
-For this assignment you are allowed to use Codex to implement certain aspects on your code. Refer to [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#using-ai--codex) for instructions on how to get started with Codex. 
-
-
 Part 1: Build a simple ELF loader
 =========================
 
 ### Example: load an ELF file
+
+In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
+
+Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c) using our [Makefile](./Makefile) or the same compilation flags. 
 
 While ELF might look a bit intimidating, in practice the loading algorithm is rather simple:
 
@@ -290,11 +295,7 @@ While ELF might look a bit intimidating, in practice the loading algorithm is ra
 Each program header has an offset and size of a specific segment inside the ELF file (e.g., a executable code). You have to read it from the file and load it in memory.
 - When done with all segments, jump to the entry point of the program. (Note since we don’t control layout of the address space at the moment, we load the segments at some random place in memory (the place that is allocated for us by the mmap() function). Obviously the address of the entry point should be an offset within that random area.
 
-In this part of the assignment, your task is to build the ELF loader. Use [main.c](./main.c) as a template that provides required header files, structure definitions, and some helper functions and extend it with the functionality of the loader.
-
-Specifically, we ask you to load an ELF file like `elf` which you can compile from [elf.c](./elf.c)
-
-First we create a very simple ELF file out of elf.c --- it contains only one function, it has no data, and the code can be placed anywhere in memory and will run ok (it simply does not refer to any global addresses --- all variables are on the stack).
+First we create a very simple ELF file out of [elf.c](./elf.c) --- it contains only one function, it has no data, and the code can be placed anywhere in memory and will run ok (it simply does not refer to any global addresses --- all variables are on the stack).
 
 Then we do a loop through all loadable segments of the file and find the min and max virtual addresses at which the sections can be loaded. Segments can be out-of-order with respect to their virtual addresses and we want to know the range of the addresses that will be used in the end.
 ```
@@ -340,7 +341,15 @@ if (entry_point) {
     printf("add:%d\n", ret);
 }
 ```
-**Note: You don't need to perform relocation yet!**
+
+At this point you should be able to build and run your program like 
+
+```
+
+```
+
+and if everything is good you should see the correct result for the add function. 
+
 
 Part 2: Explain the Crash
 =========================
