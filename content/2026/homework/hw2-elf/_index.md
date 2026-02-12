@@ -366,7 +366,7 @@ Submit this explanation as `explain.(txt/md/pdf)`
 
 Pass `elf1` as input to `args` in the `launch.json` file as shown in the image below. Update the `program` and `cwd` fields to the respective directory where you have `main.c` and other files to execute.
 
-![](./debug_new_intel.png)
+![](./debug_new_1.png)
 
 
 Refer to [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#breakpoints-and-single-stepping) for how to set a breakpoint on main and start the program using VS debugger. 
