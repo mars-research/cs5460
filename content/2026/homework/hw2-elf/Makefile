@@ -18,7 +18,7 @@ elf_explain: elf_explain.c
 	$(CC) -nostdlib -fno-asynchronous-unwind-tables -fno-plt -fno-pic -mcmodel=large -static-pie -Wl,-N -e quadruple -o $@ $<
 
 elf_extra_credit: elf_extra_credit.c
-	$(CC) -Wl,--no-relax -nostdlib -fpic elf_extra_credit.c -e linear_transform -o $@ $<
+	$(CC) -Wl,--no-relax -nostdlib -fpic -e linear_transform -o $@ $<
 	
 clean:
 	rm -f *.o main elf elf1 elf_explain elf_extra_credit
