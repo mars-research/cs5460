@@ -345,7 +345,7 @@ if (entry_point) {
 At this point you should be able to build and run your program like 
 
 ```
-
+./main elf
 ```
 
 and if everything is good you should see the correct result for the add function. 
@@ -353,23 +353,27 @@ and if everything is good you should see the correct result for the add function
 
 Part 2: Explain the Crash
 =========================
-Test your loader with [elf1.c](./elf1.c). You can use `Makefile`: `make elf1`. Specifically you need to make sure to use the same flags as mentioned in the `Makefile`.
 
-Before relocation, your loader will:
+Now, you basic loader is working, so our next step is to dig deeper into relocation. To understand what is involved, run your loader on the `elf1` which you should compile from [elf1.c](./elf1.c). Specifically, use our  `Makefile`
 
-- successfully load the program
-- crash or compute the wrong result
+```
+make elf1
+```
 
-Use a debugger and disassembly to explain:
+Or make sure you use the same flags as mentioned in the `Makefile`. In contrast to `elf`, `elf1` uses global variables and hence to run successfully it needs to be relocated. If you invoke your loader on `elf1` it will either crash or compute a wrong result. 
 
-- Which instruction fails
+Before working on relocation we ask you to use a debugger (in a disassembly mode) to explain:
+
+- Which instruction fails (or accesses wrong region of memory)
 - what address it is trying to access
 - why that address is invalid
 - how this relates to virtual addresses and loading location
 
-Submit this explanation as `explain.(txt/md/pdf)`
+Submit your explanation as `explain.(txt/md/pdf)`
 
-### Debugging with VS Code. 
+### Debugging with VS Code or GDB
+
+#### VS Code
 
 `./main elf1` either crashed or computed the wrong result. Specifically, you should start the program using Visual Studio debugger as we did for [HW01](https://mars-research.github.io/cs5460/2026/homework/hw1-shell/#debugging-c-with-vscode).
 
@@ -391,6 +395,9 @@ Register information can also be viewed under the variables section on the top l
 Clicking the small icon on any of the variables will display the binary data (aka "memory") as shown in the image below.
 
 ![](./debuggerimage4.png)
+
+#### GDB
+
 
 
 Part 3: Perform Relocation
