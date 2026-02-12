@@ -387,7 +387,21 @@ Clicking the small icon on any of the variables will display the binary data (ak
 Part 3: Perform Relocation
 =========================
 
-Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`!
+Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`! 
+
+**Note (Toolchain check):** Before you start, confirm that your build produces the relocation entries this checkpoint relies on—specifically an `R_X86_64_RELATIVE` entry. Rebuild `elf1` using the exact flags from the provided `Makefile`, then inspect the relocations with:
+
+`readelf -rW elf1`.
+```
+manvik@DESKTOP-KSD9ND5:~/classes/os/hw2$ readelf -rW elf1
+
+Relocation section '.rela.text' at offset 0x218 contains 3 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+000000000040026d  0000000000000008 R_X86_64_RELATIVE                         4003b4
+000000000040027f  0000000000000008 R_X86_64_RELATIVE                         4003b0
+000000000040028b  0000000000000008 R_X86_64_RELATIVE                         4003b8
+```
+If you don’t see any `R_X86_64_RELATIVE` relocations, you’re likely using a compiler/linker version that emits a different relocation pattern for these flags. In that case, please build and test on the **CADE** machines, which have a known-good toolchain configuration that produces the expected `R_X86_64_RELATIVE` entries with the provided compilation flags.
 
 Specifically, our goal is to learn how to relocate a binary. In the step above we loaded the binary in memory, but it crashes as it was linked to run at an address which is different from the one we loaded it at. Below we will relocate `elf1` to run correctly by patching all references to the global variables that need to be relocated.
 
