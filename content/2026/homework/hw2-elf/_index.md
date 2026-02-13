@@ -253,7 +253,7 @@ Neither the SHT nor the PHT have fixed positions, they can be located anywhere i
 
 The first bytes contain the elf magic `"\x7fELF"`, followed by the class ID (32 or 64 bit ELF file), the data format ID (little endian/big endian), the machine type, etc.
 
-At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte 5056 in the ELF file, and the Program Header Table starts at byte 64 (right after the ELF header)
+At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte `5056` in the ELF file, and the Program Header Table starts at byte `64` (right after the ELF header)
 
 ``` {style="position: relative;"}
 ELF Header:
@@ -278,7 +278,7 @@ ELF Header:
   Section header string table index: 16
 ```
 
-The entry point of this file is at address 0x318. This is exactly what we told the linker to do --- make the function `quadruple` the entry point (this is done with the following directive to the linker from the Makefile `-e quadruple`).
+The entry point of this file is at address `0x318`. This is exactly what we told the linker to do --- make the function `quadruple` the entry point (this is done with the following directive to the linker from the Makefile `-e quadruple`).
 
 You might ask a question: why are we making the `quadruple()` function to be the entry point? Or in other words, why do we pick it instead of `main()`? The reason is that it gives us the way to know where `quadruple()` is in the text section so we can invoke it right after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
 
