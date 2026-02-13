@@ -12,7 +12,7 @@ This assignment will make you more familiar with the organization of ELF files. 
 
 - Linux CADE machines
 - Your own laptop running Linux (or a Linux VM)
-- macOS but only if your Mac is Intel (x86-64) or you can setup a cross-compilation environment (use nix for this)
+- macOS but only if your Mac is Intel (x86-64) or you can setup a cross-compilation environment (we suggest you use nix for this)
 
 You do not need to set up xv6 for this assignment.
 
@@ -25,31 +25,50 @@ Submit your programs and shell through Gradescope.
 For this assignment you are allowed to use Codex to implement certain aspects on your code. Refer to [HW 1](../hw1-shell/#using-ai--codex) for instructions on how to get started with Codex. 
 
 
-
 Part 1: Take a look at ELF files
 --------------------------------
 
-At a high level this homework first shows you how to implement a simple ELF loader by filling in the gaps in the [main.c](./main.c) file. We first use it to load a simple ELF object file
+At a high level this homework first shows you how to implement a simple ELF loader by filling in the gaps in the [main.c](./main.c) file. We first ask you to load a simple ELF object file that requires no relocation (i.e., it does not use any global variables or functions)
 
-1. [elf.c](./elf.c) (requires no relocation).
+1. [elf.c](./elf.c) (loading, no relocation).
 
-and then ask you to relocate another simple ELF file to run at the address at which you load it 
+and then ask you to load and relocate another ELF file that needs relocation to run:  
 
 2. [elf1.c](./elf1.c) (requires relocation). 
 
 However, before starting on this let's make ourselves familiar with ELF files.
 
-We provide a simple [Makefile](Makefile) that compiles [elf_explain.c](./elf_explain.c). Let's go over this. 
+We provide a simple [Makefile](Makefile) that compiles [elf_explain.c](./elf_explain.c).  Look over the makefile and then run:
+
 
 ``` {style="position: relative;"}
 make elf_explain
 ```
 
-Lets take a look at the ELF files we compiled. We will use the readelf tool
+We compile `elf_explain` with the following flags: 
+
+```
+$(CC) -ffreestanding -mcmodel=large -nostdlib -Wl,-pie -Wl,-e,quadruple -o $@ $<
+```
+
+We pass `-ffreestanding` and `-nostdlib` to avoid linking against standard libraries and usual C runtime to make everything simpler, but also this is how you compile your kernel that has to boot on bare metal without support from anythign else. 
+
+Specifically, we use `-nostdlib` to tell GCC (and the linker it invokes) not to use the system's standard startup files and standard libraries when linking. 
+Concretely, it prevents automatic linking of things like: CRT startup objects (often `crt1.o`, `crti.o`, `crtn.o`, etc.) that set up the process before calling main
+the standard libraries (like libc, libgcc, and friends) that GCC would normally add automatically. 
+
+The `-ffreestanding` flag tells the compiler you're building for a freestanding environment (like a kernel or embedded/bare-metal program), not a normal hosted userspace program. Here, the compiler must not assume the full hosted C environment exists (in C, the freestanding-required headers are very limited; many library functions like `printf`, `malloc`, etc. are not assumed available unless you provide them). 
+
+We then use `-Wl, <flag>` to pass specific flags to the linker. In particular, the `-pie` flag passed to the linker tells the linker to generate a Position Independent Executable (PIE) that can be loaded at any memory address. We use this flag to make sure that the ELF we get has relocation information (i.e., to load the file at any address the loader will have to relocate it). 
+
+Finally, the `-mcmodel=large` to tell the compiler explicitly to generate absolute 64-bit addresses instead of RIP relative addresses. The default, `-mcmodel=small` assumes that the code fits in 2GBs, so x86-64 instructions often access code/data using RIP-relative addressing with a 32-bit displacement, which effectively limits what can be reached directly to about +/-2 GiB from the current instruction. Large model tells the compiler that the data section can be anywhere in the address space so it has to use absolute 64bit addresses. We use this flag just to make sure that you can play with relocations, i.e., similar to the lecture you will see that part of the instruction that holds an absolute address needs to be patched (see more below). 
+
+Now let's use `readelf` to take a look at what's inside the ELF file:
 
 ``` {style="position: relative;"}
 $ readelf -a elf_explain
 ```
+
 ELF is the file format used for object files (`.o`'s), binaries, shared libraries and core dumps in Linux.
 
 It's actually pretty simple and well thought-out.
@@ -241,10 +260,10 @@ Well, no surprises here. It is the code of the two functions we defined in elf_e
 For example, in the disassembly you can see this pattern:
 ```
  354:   48 b8 00 10 20 00 00    movabs rax,0x201000 ; load absolute address of b
+ 35b:   00 00 00                                    ; it's 64 bits 
 ```
 
-Here it would be interesting to compare the disassembly under our current build flags. For `elf_explain`, we compile with `-mcmodel=large` and link as PIE (`-Wl,-pie`). With the large code model, the compiler often loads full 64-bit absolute addresses into registers (e.g., `movabs rax, 0x...`) when referencing globals, which is why you may see fixed-looking addresses in the 
-`.text` section. If we remove `-mcmodel=large` (and/or build with PIC-friendly settings), the compiler can usually access globals using RIP-relative addressing like `[rip + offset]` (often via the GOT) and avoids fixed 64-bit addresses in the instruction stream. This is the main idea behind position-independent code. Read more about this. Read more about this [Here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+Here it would be interesting to compare the disassembly under our current build flags. For `elf_explain`, we compile with `-mcmodel=large` and link as PIE (`-Wl,-pie`). With the large code model, the compiler often loads full 64-bit absolute addresses into registers (e.g., `movabs rax, 0x...`) when referencing globals, which is why you may see fixed-looking addresses in the `.text` section. If we remove `-mcmodel=large` (and/or build with PIC-friendly settings), the compiler can usually access globals using RIP-relative addressing like `[rip + offset]` (often this RIP relative address will point into GOT but not always, you can force the compiler to generate RIP relative addresses that will directly go into the data section, for example linker might even "relax" or optimize memory accesses at link time to make sure they bypass GOT and hit the data section directly for the local symbols, i.e., global variables that are provided by the data section in the same file) and avoids fixed 64-bit addresses in the instruction stream. This is the main idea behind position-independent code. Read more about this in the [Eli Bendersky's blog post on Position Independent Code (PIC) in shared libraries on x64](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
 
 Putting it all together: the ELF header
 ---------------------------------------
@@ -586,7 +605,7 @@ Answer the following in `explain.(txt/md/pdf)`
 - Show Process Virtual Memory Layout Before Loading and After Relocation.   -->
 
 
-Part 4: (Extra Credit, 30%):
+Part 4: (Extra Credit, 10%):
 ==================
 For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf_extra_credit.c`). In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
 
@@ -623,14 +642,17 @@ Another thing to note here is that the flags we have used to compile `elf_extra_
 
 The -Wl, prefix is required to pass options directly to the linker. In particular, the --no-relax flag instructs the linker to disable relaxation optimizations. On x86-64, the linker normally attempts to optimize PIC code by removing unnecessary GOT indirections when it can prove that a symbol is local and non-interposable. This optimization can rewrite GOT-based accesses into direct RIP-relative memory references.
 
+When submitting your extra credit provide a detailed explanation for how your solution works as `explain-extra1.{txt,md,pdf}`. 
+
 Submit your work 
 ----------------
 Submit your solution through Gradescope. Please zip all of your files as mentioned below and submit them. The structure of the zip file should be the following:
 ``` {style="position: relative;"}
   - main.c
-  - explain.(txt/md/pdf)
+  - explain.{txt,md,pdf}
+  - explain-extra1.{txt,md,pdf}
 ```
 
 ![](./images/spacer.gif)
 
-Updated: February, 2025
+Updated: February, 2026
