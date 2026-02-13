@@ -89,53 +89,67 @@ If you scroll down to the **Section headers** you will see all "sections" of the
 
 ```
 Section Headers:
-  [Nr] Name              Type             Address           Offset Size              EntSize          Flags  Link  Info  Align
-  [ 0]                   NULL             0000000000000000  00000000 0000000000000000  0000000000000000           0     0     0
-  [ 1] .note.gnu.pr[...] NOTE             0000000000400190  00000190 0000000000000020  0000000000000000   A       0     0     8
-  [ 2] .note.gnu.bu[...] NOTE             00000000004001b0  000001b0 0000000000000024  0000000000000000   A       0     0     4
-  [ 3] .gnu.hash         GNU_HASH         00000000004001d8  000001d8 000000000000001c  0000000000000000   A       4     0     8
-  [ 4] .dynsym           DYNSYM           00000000004001f8  000001f8 0000000000000018  0000000000000018   A       5     1     8
-  [ 5] .dynstr           STRTAB           0000000000400210  00000210 0000000000000001  0000000000000000   A       0     0     1
-  [ 6] .rela.text        RELA             0000000000400218  00000218 0000000000000060  0000000000000018  AI       4     7     8
-  [ 7] .text             PROGBITS         0000000000400278  00000278 0000000000000055  0000000000000000 WAX       0     0     1
-  [ 8] .eh_frame         PROGBITS         00000000004002d0  000002d0 0000000000000000  0000000000000000   A       0     0     8
-  [ 9] .dynamic          DYNAMIC          00000000004002d0  000002d0 0000000000000110  0000000000000010  WA       5     0     8
-  [10] .data             PROGBITS         00000000004003e0  000003e0 0000000000000008  0000000000000000  WA       0     0     4
-  [11] .bss              NOBITS           00000000004003e8  000003e8 0000000000000008  0000000000000000  WA       0     0     4
-  [12] .comment          PROGBITS         0000000000000000  000003e8 000000000000002b  0000000000000001  MS       0     0     1
-  [13] .symtab           SYMTAB           0000000000000000  00000418 0000000000000120  0000000000000018          14     4     8
-  [14] .strtab           STRTAB           0000000000000000  00000538 0000000000000042  0000000000000000           0     0     1
-  [15] .shstrtab         STRTAB           0000000000000000  0000057a 000000000000008d  0000000000000000           0     0     1
+  [Nr] Name              Type            Address          Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            0000000000000000 000000 000000 00      0   0  0
+  [ 1] .interp           PROGBITS        0000000000000238 000238 00001c 00   A  0   0  1
+  [ 2] .note.gnu.build-id NOTE            0000000000000254 000254 000024 00   A  0   0  4
+  [ 3] .gnu.hash         GNU_HASH        0000000000000278 000278 00001c 00   A  4   0  8
+  [ 4] .dynsym           DYNSYM          0000000000000298 000298 000018 18   A  5   1  8
+  [ 5] .dynstr           STRTAB          00000000000002b0 0002b0 000001 00   A  0   0  1
+  [ 6] .rela.dyn         RELA            00000000000002b8 0002b8 000060 18   A  4   0  8
+  [ 7] .text             PROGBITS        0000000000000318 000318 00004d 00  AX  0   0  1
+  [ 8] .eh_frame_hdr     PROGBITS        0000000000000368 000368 00001c 00   A  0   0  4
+  [ 9] .eh_frame         PROGBITS        0000000000000388 000388 000058 00   A  0   0  8
+  [10] .dynamic          DYNAMIC         0000000000200ef0 000ef0 000110 10  WA  5   0  8
+  [11] .data             PROGBITS        0000000000201000 001000 000008 00  WA  0   0  4
+  [12] .bss              NOBITS          0000000000201008 001008 000008 00  WA  0   0  4
+  [13] .comment          PROGBITS        0000000000000000 001008 00002d 01  MS  0   0  1
+  [14] .symtab           SYMTAB          0000000000000000 001038 000288 18     15  19  8
+  [15] .strtab           STRTAB          0000000000000000 0012c0 00006b 00      0   0  1
+  [16] .shstrtab         STRTAB          0000000000000000 00132b 000095 00      0   0  1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
   C (compressed), x (unknown), o (OS specific), E (exclude),
-  D (mbind), l (large), p (processor specific)
+  l (large), p (processor specific)
 ```
 
 The elf_explain.c is a simple program, but it still has .text, `.data`, `.bss`, and `.rel.text` (relocation) sections and a bunch of sections that contain symbol information and a ton of other stuff.
 
 `elf_explain.c` has two initialized and one uninitialized global variables; therefore, the ELF file contains a .data section of 8 bytes for the initialized variables, and a .bss section of 8 bytes, of which 4 bytes are used by the uninitialized variable and the remaining space is added due to alignment and linker padding.
 
-The program is linked to run `elf_explain.c` at address 0x400000, which is the default base address for 64-bit ELF executables on UNIX-like systems.
-
 The symbol table contains the following symbols
 
 ``` {style="position: relative;"}
-Symbol table '.symtab' contains 12 entries:
+Symbol table '.symtab' contains 27 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS elf_explain.c
-     2: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
-     3: 00000000004002d0     0 OBJECT  LOCAL  DEFAULT    9 _DYNAMIC
-     4: 00000000004003e0     4 OBJECT  GLOBAL DEFAULT   10 b
-     5: 0000000000400278    60 FUNC    GLOBAL DEFAULT    7 quadruple
-     6: 00000000004003e4     4 OBJECT  GLOBAL DEFAULT   10 c
-     7: 00000000004003e8     0 NOTYPE  GLOBAL DEFAULT   11 __bss_start
-     8: 00000000004003e8     4 OBJECT  GLOBAL DEFAULT   11 d
-     9: 00000000004002b4    25 FUNC    GLOBAL DEFAULT    7 magic
-    10: 00000000004003e8     0 NOTYPE  GLOBAL DEFAULT   10 _edata
-    11: 00000000004003f0     0 NOTYPE  GLOBAL DEFAULT   11 _end
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000238     0 SECTION LOCAL  DEFAULT    1
+     2: 0000000000000254     0 SECTION LOCAL  DEFAULT    2
+     3: 0000000000000278     0 SECTION LOCAL  DEFAULT    3
+     4: 0000000000000298     0 SECTION LOCAL  DEFAULT    4
+     5: 00000000000002b0     0 SECTION LOCAL  DEFAULT    5
+     6: 00000000000002b8     0 SECTION LOCAL  DEFAULT    6
+     7: 0000000000000318     0 SECTION LOCAL  DEFAULT    7
+     8: 0000000000000368     0 SECTION LOCAL  DEFAULT    8
+     9: 0000000000000388     0 SECTION LOCAL  DEFAULT    9
+    10: 0000000000200ef0     0 SECTION LOCAL  DEFAULT   10
+    11: 0000000000201000     0 SECTION LOCAL  DEFAULT   11
+    12: 0000000000201008     0 SECTION LOCAL  DEFAULT   12
+    13: 0000000000000000     0 SECTION LOCAL  DEFAULT   13
+    14: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS elf_explain.c
+    15: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS
+    16: 0000000000200ef0     0 OBJECT  LOCAL  DEFAULT   10 _DYNAMIC
+    17: 0000000000000368     0 NOTYPE  LOCAL  DEFAULT    8 __GNU_EH_FRAME_HDR
+    18: 0000000000201000     0 OBJECT  LOCAL  DEFAULT   11 _GLOBAL_OFFSET_TABLE_
+    19: 0000000000201000     4 OBJECT  GLOBAL DEFAULT   11 b
+    20: 0000000000000318    56 FUNC    GLOBAL DEFAULT    7 quadruple
+    21: 0000000000201004     4 OBJECT  GLOBAL DEFAULT   11 c
+    22: 0000000000201008     0 NOTYPE  GLOBAL DEFAULT   12 __bss_start
+    23: 0000000000201008     4 OBJECT  GLOBAL DEFAULT   12 d
+    24: 0000000000000350    21 FUNC    GLOBAL DEFAULT    7 magic
+    25: 0000000000201008     0 NOTYPE  GLOBAL DEFAULT   11 _edata
+    26: 0000000000201010     0 NOTYPE  GLOBAL DEFAULT   12 _end
 ```
 
 I.e., it contains names of the two functions quadruple and magic, three global variables b, c, and d. Other symbols like \_\_bss\_start, \_edata, and \_end are added by the linker to mark the start and end of the BSS, TEXT, and DATA sections.
@@ -145,83 +159,92 @@ Execution view: Program Header Table (PHT)
 
 The Program Header Table contains information for the kernel on how to start the program. The `LOAD` directives determinate what parts of the ELF file get mapped into program memory.
 
-In our elf example the program header defines four segments, but only two of them should be loaded by the operating system in memory to run.
+In our ELF example, the program header lists several segments, but only the two `PT_LOAD` segments are actually mapped into memory by the operating system as the program’s code and data regions. 
 
 ``` {style="position: relative;"}
-
 Program Headers:
-  Type           Offset             VirtAddr           PhysAddr           FileSiz            MemSiz              Flags  Align
-  LOAD           0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000258 0x0000000000000260  RWE    0x8
-  DYNAMIC        0x00000000000002d0 0x00000000004002d0 0x00000000004002d0 0x0000000000000110 0x0000000000000110  RW     0x8
-  NOTE           0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000020 0x0000000000000020  R      0x8
-  NOTE           0x00000000000001b0 0x00000000004001b0 0x00000000004001b0 0x0000000000000024 0x0000000000000024  R      0x4
-  GNU_PROPERTY   0x0000000000000190 0x0000000000400190 0x0000000000400190 0x0000000000000020 0x0000000000000020  R      0x8
-  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000 0x0000000000000000 0x0000000000000000  RW     0x10
+  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
+  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x0001f8 0x0001f8 R   0x8
+  INTERP         0x000238 0x0000000000000238 0x0000000000000238 0x00001c 0x00001c R   0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x0003e0 0x0003e0 R E 0x200000
+  LOAD           0x000ef0 0x0000000000200ef0 0x0000000000200ef0 0x000118 0x000120 RW  0x200000
+  DYNAMIC        0x000ef0 0x0000000000200ef0 0x0000000000200ef0 0x000110 0x000110 RW  0x8
+  NOTE           0x000254 0x0000000000000254 0x0000000000000254 0x000024 0x000024 R   0x4
+  GNU_EH_FRAME   0x000368 0x0000000000000368 0x0000000000000368 0x00001c 0x00001c R   0x4
+  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10
+  GNU_RELRO      0x000ef0 0x0000000000200ef0 0x0000000000200ef0 0x000110 0x000110 R   0x1
 ```
 
 
-The only loadable section is linked to be loaded at address 0x400190. We can also look at the mappings of sections to segments (we will discuss what sections are below):
+The two `PT_LOAD` segments have virtual addresses `0x0` and `0x200ef0`
 
 ``` {style="position: relative;"}
  Section to Segment mapping:
   Segment Sections...
-   00     .note.gnu.property .note.gnu.build-id .gnu.hash .dynsym .dynstr .rela.text .text .eh_frame .dynamic .data .bss 
-   01     .dynamic 
-   02     .note.gnu.property 
-   03     .note.gnu.build-id 
-   04     .note.gnu.property 
-   05     
+   00
+   01     .interp
+   02     .interp .note.gnu.build-id .gnu.hash .dynsym .dynstr .rela.dyn .text .eh_frame_hdr .eh_frame
+   03     .dynamic .data .bss
+   04     .dynamic
+   05     .note.gnu.build-id
+   06     .eh_frame_hdr
+   07
+   08     .dynamic
 ```
 
 
-In other works, inside the first loadable segment the linker placed the following sections: .note.gnu.build-id, .gnu.hash, .dynsym, .dynstr, .rel.text, .text, .eh\_frame, .dynamic, .data, and .bss. We can inspect the elf binary with the objdump tool to see what is inside the `.text` section:
+In other words, inside the first loadable segment the linker placed the following sections: .note.gnu.build-id, .gnu.hash, .dynsym, .dynstr, .rel.text, .text, .eh\_frame, .dynamic, .data, and .bss. We can inspect the elf binary with the objdump tool to see what is inside the `.text` section:
 
 
 ``` {style="position: relative;"}
-
-$ objdump -d -M intel elf_explain
+[u1584242@lab1-7 ~/hw2_os]$ objdump -d -M intel elf_explain
 
 elf_explain:     file format elf64-x86-64
 
 
 Disassembly of section .text:
 
-0000000000400278 <quadruple>:
-  400278:       f3 0f 1e fa             endbr64
-  40027c:       55                      push   rbp
-  40027d:       48 89 e5                mov    rbp,rsp
-  400280:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
-  400283:       48 b8 e4 03 40 00 00    movabs rax,0x4003e4
-  40028a:       00 00 00 
-  40028d:       8b 00                   mov    eax,DWORD PTR [rax]
-  40028f:       0f af 45 fc             imul   eax,DWORD PTR [rbp-0x4]
-  400293:       89 c1                   mov    ecx,eax
-  400295:       48 b8 e0 03 40 00 00    movabs rax,0x4003e0
-  40029c:       00 00 00 
-  40029f:       8b 10                   mov    edx,DWORD PTR [rax]
-  4002a1:       48 b8 e8 03 40 00 00    movabs rax,0x4003e8
-  4002a8:       00 00 00 
-  4002ab:       8b 00                   mov    eax,DWORD PTR [rax]
-  4002ad:       0f af c2                imul   eax,edx
-  4002b0:       01 c8                   add    eax,ecx
-  4002b2:       5d                      pop    rbp
-  4002b3:       c3                      ret
+0000000000000318 <quadruple>:
+ 318:   55                      push   rbp
+ 319:   48 89 e5                mov    rbp,rsp
+ 31c:   89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+ 31f:   48 b8 04 10 20 00 00    movabs rax,0x201004
+ 326:   00 00 00
+ 329:   8b 00                   mov    eax,DWORD PTR [rax]
+ 32b:   0f af 45 fc             imul   eax,DWORD PTR [rbp-0x4]
+ 32f:   89 c2                   mov    edx,eax
+ 331:   48 b8 00 10 20 00 00    movabs rax,0x201000
+ 338:   00 00 00
+ 33b:   8b 08                   mov    ecx,DWORD PTR [rax]
+ 33d:   48 b8 08 10 20 00 00    movabs rax,0x201008
+ 344:   00 00 00
+ 347:   8b 00                   mov    eax,DWORD PTR [rax]
+ 349:   0f af c1                imul   eax,ecx
+ 34c:   01 d0                   add    eax,edx
+ 34e:   5d                      pop    rbp
+ 34f:   c3                      ret
 
-00000000004002b4 <magic>:
-  4002b4:       f3 0f 1e fa             endbr64
-  4002b8:       55                      push   rbp
-  4002b9:       48 89 e5                mov    rbp,rsp
-  4002bc:       48 b8 e0 03 40 00 00    movabs rax,0x4003e0
-  4002c3:       00 00 00 
-  4002c6:       8b 00                   mov    eax,DWORD PTR [rax]
-  4002c8:       6b c0 0e                imul   eax,eax,0xe
-  4002cb:       5d                      pop    rbp
-  4002cc:       c3                      ret
+0000000000000350 <magic>:
+ 350:   55                      push   rbp
+ 351:   48 89 e5                mov    rbp,rsp
+ 354:   48 b8 00 10 20 00 00    movabs rax,0x201000
+ 35b:   00 00 00
+ 35e:   8b 00                   mov    eax,DWORD PTR [rax]
+ 360:   6b c0 0e                imul   eax,eax,0xe
+ 363:   5d                      pop    rbp
+ 364:   c3                      ret
 ```
 
-Well, no surprises: it's the code of the two functions we defined in `elf_explain.c`.
+Well, no surprises here. It is the code of the two functions we defined in elf_explain.c. The interesting part is how the code accesses global variables. Because we compile elf_explain with `-mcmodel=large`, the compiler often uses an addressing mode where it loads a full absolute address into a register and then dereferences it, instead of using RIP-relative addressing.
 
-Here it would be interesting to remove the compiler flags `-fno-pic -mcmodel=large` and see the disassembly of text section. There won't be any absolute addresses and everything will be relative to `rip`. With PIC enabled (and without the large code model), the compiler usually avoids putting fixed 64-bit addresses directly into the instruction stream. Instead of `movabs rax, 0x...` (an absolute address), it will typically access globals using RIP-relative addressing, like `[rip + offset]`. That means the code uses addresses relative to the current instruction pointer `rip`, so it can be loaded at different locations in memory without changing the instructions. This is the main idea behind position-independent code. Read more about this [here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
+For example, in the disassembly you can see this pattern:
+```
+ 354:   48 b8 00 10 20 00 00    movabs rax,0x201000 ; load absolute address of b
+```
+
+Here it would be interesting to compare the disassembly under our current build flags. For `elf_explain`, we compile with `-mcmodel=large` and link as PIE (`-Wl,-pie`). With the large code model, the compiler often loads full 64-bit absolute addresses into registers (e.g., `movabs rax, 0x...`) when referencing globals, which is why you may see fixed-looking addresses in the 
+`.text` section. If we remove `-mcmodel=large` (and/or build with PIC-friendly settings), the compiler can usually access globals using RIP-relative addressing like `[rip + offset]` (often via the GOT) and avoids fixed 64-bit addresses in the instruction stream. This is the main idea behind position-independent code. Read more about this. Read more about this [Here](https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64)
 
 Putting it all together: the ELF header
 ---------------------------------------
@@ -230,41 +253,41 @@ Neither the SHT nor the PHT have fixed positions, they can be located anywhere i
 
 The first bytes contain the elf magic `"\x7fELF"`, followed by the class ID (32 or 64 bit ELF file), the data format ID (little endian/big endian), the machine type, etc.
 
-At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte 1544 in the ELF file, and the Program Header Table starts at byte 64 (right after the ELF header)
+At the end of the ELF header are then pointers to the SHT and PHT. Specifically, the Section Header Table which is used by the linker starts at byte 5056 in the ELF file, and the Program Header Table starts at byte 64 (right after the ELF header)
 
 ``` {style="position: relative;"}
 ELF Header:
-  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
   Class:                             ELF64
   Data:                              2's complement, little endian
   Version:                           1 (current)
   OS/ABI:                            UNIX - System V
   ABI Version:                       0
-  Type:                              EXEC (Executable file)
+  Type:                              DYN (Shared object file)
   Machine:                           Advanced Micro Devices X86-64
   Version:                           0x1
-  Entry point address:               0x400278
+  Entry point address:               0x318
   Start of program headers:          64 (bytes into file)
-  Start of section headers:          1544 (bytes into file)
+  Start of section headers:          5056 (bytes into file)
   Flags:                             0x0
   Size of this header:               64 (bytes)
   Size of program headers:           56 (bytes)
-  Number of program headers:         6
+  Number of program headers:         9
   Size of section headers:           64 (bytes)
-  Number of section headers:         16
-  Section header string table index: 15
+  Number of section headers:         17
+  Section header string table index: 16
 ```
 
-The entry point of this file is at address 0x400278. This is exactly what we told the linker to do --- make the function `quadruple` the entry point ( this is done with the following directive to the linker from the Makefile `-e quadruple`.
+The entry point of this file is at address 0x318. This is exactly what we told the linker to do --- make the function `quadruple` the entry point (this is done with the following directive to the linker from the Makefile `-e quadruple`).
 
 You might ask a question: why are we making the `quadruple()` function to be the entry point? Or in other words, why do we pick it instead of `main()`? The reason is that it gives us the way to know where `quadruple()` is in the text section so we can invoke it right after loading the file. Without making it an entry point we would have to read the symbol table which is doable but would take some additional time.
 
 Program loading in the kernel
 -----------------------------
 
-The execution of a program starts inside the kernel, in the exec("/bin/wc",...) system call takes a path to the executable file. The kernel reads the ELF header and the program header table (PHT), followed by lots of sanity checks.
+The execution of a program starts inside the kernel, in the `exec("/bin/wc",...)` system call takes a path to the executable file. The kernel reads the ELF header and the program header table (PHT), followed by lots of sanity checks.
 
-The kernel then loads the parts specified in the LOAD directives in the PHT into memory. If an INTERP entry is present, the interpreter is loaded too. Statically linked binaries can do without an interpreter; dynamically linked programs always need /lib/ld-linux.so as interpreter because it includes some startup code, loads shared libraries needed by the binary, and performs relocations.
+The kernel then loads the parts specified in the LOAD directives in the PHT into memory. If an `INTERP` entry is present, the interpreter is loaded too. Statically linked binaries can do without an interpreter; dynamically linked programs always need /lib/ld-linux.so as interpreter because it includes some startup code, loads shared libraries needed by the binary, and performs relocations.
 
 Finally control can be transferred to the entry point of the program or to the interpreter, if linking is required.
 
