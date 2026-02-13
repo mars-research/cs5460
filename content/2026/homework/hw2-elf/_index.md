@@ -644,6 +644,84 @@ The -Wl, prefix is required to pass options directly to the linker. In particula
 
 When submitting your extra credit provide a detailed explanation for how your solution works as `explain-extra1.{txt,md,pdf}`. 
 
+Part 5: (Extra Credit 2, 30%):
+==================
+
+Finally, this last extra credit, asks you to relocate an undefined symbol. Specifically, we change `elf_extra_credit.c` in such a manner that one of the global variables is defined as extern, see [`elf_extra_credit2.c`](./elf_extra_credit2.c) and is provided in another file [`elf_extra_credit2lib.c`](./elf_extra_credit2lib.c). 
+
+We combile both files with absolute addresses (this is a little easier, as if you try to use position independent code, the GOT is undefined at the compilation step and you will have to figure out how to define it). 
+
+After compiling the input program (`elf_extra_credit2.c`) and disassembling using `objdump -d -r -M intel elf_extra_credit2`
+
+```
+elf_extra_credit2.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <linear_transform>:
+   0:   55                      push   rbp
+   1:   48 89 e5                mov    rbp,rsp
+   4:   89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+   7:   48 b8 00 00 00 00 00    movabs rax,0x0
+   e:   00 00 00
+                        9: R_X86_64_64  c
+  11:   8b 00                   mov    eax,DWORD PTR [rax]
+  13:   0f af 45 fc             imul   eax,DWORD PTR [rbp-0x4]
+  17:   89 c2                   mov    edx,eax
+  19:   48 b8 00 00 00 00 00    movabs rax,0x0
+  20:   00 00 00
+                        1b: R_X86_64_64 b
+  23:   8b 08                   mov    ecx,DWORD PTR [rax]
+  25:   48 b8 00 00 00 00 00    movabs rax,0x0
+  2c:   00 00 00
+                        27: R_X86_64_64 d
+  2f:   8b 00                   mov    eax,DWORD PTR [rax]
+  31:   0f af c1                imul   eax,ecx
+  34:   01 d0                   add    eax,edx
+  36:   5d                      pop    rbp
+  37:   c3                      ret
+```
+
+None of the addresses of `c`, `b` and `d` are known (the relocation entry is `R_X86_64_64`). Moreover if you use `readelf`: 
+
+```
+readelf -a elf_extra_credit2.o
+```
+
+```
+Symbol table '.symtab' contains 12 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS elf_extra_credit2.c
+     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1
+     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    3
+     4: 0000000000000000     0 SECTION LOCAL  DEFAULT    4
+     5: 0000000000000000     0 SECTION LOCAL  DEFAULT    6
+     6: 0000000000000000     0 SECTION LOCAL  DEFAULT    7
+     7: 0000000000000000     0 SECTION LOCAL  DEFAULT    5
+     8: 0000000000000000     4 OBJECT  GLOBAL DEFAULT    3 c
+     9: 0000000000000004     4 OBJECT  GLOBAL DEFAULT  COM d
+    10: 0000000000000000    56 FUNC    GLOBAL DEFAULT    1 linear_transform
+    11: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND b
+```
+
+`c` and `d` are in the data section at offsets 0 and 4, but `b` shows up as undefined. It's defined in `elf_extra_credit2lib.o`. 
+
+Your goal is to load both ELF files into memory, go through relocation entries and the symbol table (`.symtab`) to figure out where the symbols are in memory and relocatre them correctly. You should also figure out how to use the symbol table to invoke the `linear_transform()` function. You code should run like this and compute the linear transform function correctly: 
+
+```
+main2 elf_extra_credit2.o elf_extra_credit2lib.o
+
+```
+
+And then call `linear_transform()` inside `main2`: 
+
+```
+ret = linear_transform(10); 
+printf("linear_transform'd to :%d\n", ret);
+```
+
 Submit your work 
 ----------------
 Submit your solution through Gradescope. Please zip all of your files as mentioned below and submit them. The structure of the zip file should be the following:
@@ -651,6 +729,7 @@ Submit your solution through Gradescope. Please zip all of your files as mention
   - main.c
   - explain.{txt,md,pdf}
   - explain-extra1.{txt,md,pdf}
+  - main2.c
 ```
 
 ![](./images/spacer.gif)
