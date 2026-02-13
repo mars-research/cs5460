@@ -398,14 +398,18 @@ Clicking the small icon on any of the variables will display the binary data (ak
 
 #### GDB
 
-
+Honestly, we don't mind if you use GDB to debug this crash, but we only get to GDB in HW3, so if you know how to do it go for it, if not, we'll get there in about a week. 
 
 Part 3: Perform Relocation
 =========================
 
-Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`! 
+Ok now we are ready to perform relocation and compute the result of `linear_transform(5)`, a function that accesses global variables!
 
-**Note (Toolchain check):** Before you start, confirm that your build produces the relocation entries this checkpoint relies on—specifically an `R_X86_64_RELATIVE` entry. Rebuild `elf1` using the exact flags from the provided `Makefile`, then inspect the relocations with:
+Same as above, use our [Makefile](./Makefile) to build `elf1`
+
+**Note (Toolchain check):** Before you start, confirm that your build environment produces the relocation entries. Over the years the GCC toolchain changed back and forth, we checked that our flags work on CADE (gcc 8.5) and on recent versions of GCC (like 15.2) but we also seen versions that generate code without the relocation entries. Specifically, you need to make sure that `elf1` has  `R_X86_64_RELATIVE` entries. 
+
+Rebuild `elf1` using the exact flags from the provided `Makefile`, then inspect the relocations with:
 
 `readelf -rW elf1`.
 ```
@@ -417,16 +421,19 @@ Relocation section '.rela.text' at offset 0x218 contains 3 entries:
 000000000040027f  0000000000000008 R_X86_64_RELATIVE                         4003b0
 000000000040028b  0000000000000008 R_X86_64_RELATIVE                         4003b8
 ```
-If you don’t see any `R_X86_64_RELATIVE` relocations, you’re likely using a compiler/linker version that emits a different relocation pattern for these flags. In that case, please build and test on the **CADE** machines, which have a known-good toolchain configuration that produces the expected `R_X86_64_RELATIVE` entries with the provided compilation flags.
+If you don't see any `R_X86_64_RELATIVE` relocations, you're likely using a compiler/linker version that emits a different relocation pattern for these flags. In that case, please build and test on the **CADE** machines, which have a known-good toolchain configuration that produces the expected `R_X86_64_RELATIVE` entries with the provided compilation flags.
 
-Specifically, our goal is to learn how to relocate a binary. In the step above we loaded the binary in memory, but it crashes as it was linked to run at an address which is different from the one we loaded it at. Below we will relocate `elf1` to run correctly by patching all references to the global variables that need to be relocated.
+Our goal is to learn how to relocate a binary. In the step above we loaded the binary in memory, but it crashes as it was linked to run at an address which is different from the one we loaded it at. Below we will relocate `elf1` to run correctly by patching all references to the global variables.
+
 
 Let us start by loading the ELF section header table into memory used for relocation. 
 ```
 Elf64_Shdr *shs =
         load_multiple(f, elf.e_shoff, elf.e_shnum * sizeof(Elf64_Shdr), sizeof(Elf64_Shdr), NULL);
 ```
+
 Next, we iterate over all section headers to locate and load relocation tables, the symbol table, and the associated string table.
+
 
 ```
 for (int i = 0; i < elf.e_shnum; i++) {
