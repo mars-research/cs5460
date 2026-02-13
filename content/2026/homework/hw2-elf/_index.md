@@ -625,7 +625,7 @@ The -Wl, prefix is required to pass options directly to the linker. In particula
 
 Submit your work 
 ----------------
-Submit your solution through Gradescope. Please zip all of your files (main.c, Makefile) and submit them. The structure of the zip file should be the following:
+Submit your solution through Gradescope. Please zip all of your files as mentioned below and submit them. The structure of the zip file should be the following:
 ``` {style="position: relative;"}
   - main.c
   - explain.(txt/md/pdf)
