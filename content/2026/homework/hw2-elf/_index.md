@@ -647,11 +647,11 @@ When submitting your extra credit provide a detailed explanation for how your so
 Part 5: (Extra Credit 2, 30%):
 ==================
 
-Finally, this last extra credit, asks you to relocate an undefined symbol. Specifically, we change `elf_extra_credit.c` in such a manner that one of the global variables is defined as extern, see [`elf_extra_credit2.c`](./elf_extra_credit2.c) and is provided in another file [`elf_extra_credit2lib.c`](./elf_extra_credit2lib.c). 
+Finally, this last extra credit, asks you to relocate an undefined symbol. Specifically, we change [`elf_extra_credit.c`](./elf_extra_credit.c) in such a manner that one of the global variables is defined as extern, see [`elf_extra_credit2.c`](./elf_extra_credit2.c) and is provided in another file [`elf_extra_credit2lib.c`](./elf_extra_credit2lib.c). 
 
 We combile both files with absolute addresses (this is a little easier, as if you try to use position independent code, the GOT is undefined at the compilation step and you will have to figure out how to define it). 
 
-After compiling the input program (`elf_extra_credit2.c`) and disassembling using `objdump -d -r -M intel elf_extra_credit2`
+After compiling the input program [`elf_extra_credit2.c`](./elf_extra_credit2.c) and disassembling using `objdump -d -r -M intel elf_extra_credit2`
 
 ```
 elf_extra_credit2.o:     file format elf64-x86-64
