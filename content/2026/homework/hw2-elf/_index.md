@@ -651,7 +651,7 @@ Finally, this last extra credit, asks you to relocate an undefined symbol. Speci
 
 We combile both files with absolute addresses (this is a little easier, as if you try to use position independent code, the GOT is undefined at the compilation step and you will have to figure out how to define it). 
 
-After compiling the input program [`elf_extra_credit2.c`](./elf_extra_credit2.c) and disassembling using `objdump -d -r -M intel elf_extra_credit2`
+After compiling the input program [`elf_extra_credit2.c`](./elf_extra_credit2.c) and disassembling using `objdump -d -r -M intel elf_extra_credit2.o`
 
 ```
 elf_extra_credit2.o:     file format elf64-x86-64
