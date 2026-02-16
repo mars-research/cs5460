@@ -607,7 +607,7 @@ Answer the following in `explain.(txt/md/pdf)`
 
 Part 4: (Extra Credit, 10%):
 ==================
-For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary(`elf_extra_credit.c`). In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
+For extra credit, extend your loader to support position-independent code (PIC). To do this, compile the input binary [`elf_extra_credit.c`](./elf_extra_credit.c). In this case, the compiler will generate RIP-relative memory accesses that go through the Global Offset Table (GOT) instead of using absolute addresses.
 
 After compiling the input program (`elf_extra_credit.c`) as position-independent code and disassembling using `objdump -d -rR -M intel elf_extra_credit`
 ```
