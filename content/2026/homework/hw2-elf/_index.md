@@ -466,9 +466,47 @@ objdump -d -M intel elf1
 Surprise! It's the same machine code so you're actually single stepping instructions from the  `linear_transform()` function. Now single step more and see which instruction crashes or accesses invalid data. Now you have all the info to explain the crash. 
 
 
-#### GDB
+### GDB Debug Instructions
 
-Honestly, we don't mind if you use GDB to debug this crash, but we only get to GDB in HW3, so if you know how to do it go for it, if not, we'll get there in about a week. 
+You can debug the Part 2 crash directly in terminal GDB.
+
+1. Build and start GDB, passing `elf1` as the argument to `main`:
+
+```bash
+make main elf1
+gdb --args ./main elf1
+```
+
+`--args` is important: it tells GDB to run `./main` and pass `elf1` to `argv[1]`.
+
+2. In GDB, switch to Intel syntax and run:
+
+```gdb
+set disassembly-flavor intel
+run
+```
+
+You should see `Loaded binary` and then a `SIGSEGV`.
+
+3. Inspect the crash location and nearby instructions:
+
+```gdb
+x/i $rip
+x/10i $rip
+```
+
+4. Inspect registers:
+
+```gdb
+info registers
+```
+
+5. Compare what GDB is executing with `elf1`'s disassembly:
+
+```bash
+objdump -d -M intel elf1
+```
+
 
 Part 3: Perform Relocation
 =========================
