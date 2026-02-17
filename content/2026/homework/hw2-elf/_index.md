@@ -438,6 +438,34 @@ Clicking the small icon on any of the variables will display the binary data (ak
 
 ![](./debuggerimage4.png)
 
+One interesting wrinkle here that you might notice that VScode refuses to step into the code that you loaded from `elf1` i.e., you reach the 
+
+```
+call rax
+```
+instruction that calls the entry point of the `elf1` but vscode instead of stepping in simply segfaults. This is a bit annoying but can be understood -- vscode does not step into code sections for which it does not have symbols and since `elf1` was loaded from a completely different file it has no idea what is going on there. 
+
+We can however force it to step into `elf1` by talking to the debug console directly and sending direct commands to GDB (VScode uses GDB underneath and you can send it direct commands). From the debug console do something like 
+
+```
+-exec si
+```
+
+Here `si` is a "step instruction" command for GDB and GDB will execute it. Well, now let's check if we're really executing bits of `elf1` or the `linear_transform()` function. We need to disassemble instructions right under the program counter (RIP register). GDB can do this so send this command which asks GDB to sidassemble 32 bytes of memory under the program counter: 
+
+```
+-exec disassemble $pc, $pc+32 
+``` 
+
+You can compare it with the disassembly produced by the objdump of the `elf1` like
+
+```
+objdump -d -M intel elf1
+```
+
+Surprise! It's the same machine code so you're actually single stepping instructions from the  `linear_transform()` function. Now single step more and see which instruction crashes or accesses invalid data. Now you have all the info to explain the crash. 
+
+
 #### GDB
 
 Honestly, we don't mind if you use GDB to debug this crash, but we only get to GDB in HW3, so if you know how to do it go for it, if not, we'll get there in about a week. 
