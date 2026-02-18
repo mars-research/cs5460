@@ -28,6 +28,8 @@ For this assignment you are allowed to use Codex to implement certain aspects on
 Part 1: Take a look at ELF files
 --------------------------------
 
+*All files for this homework can be downloaded in [hw2-elf.tar.gz](./hw2-elf.tar.gz).*
+
 At a high level this homework first shows you how to implement a simple ELF loader by filling in the gaps in the [main.c](./main.c) file. We first ask you to load a simple ELF object file that requires no relocation (i.e., it does not use any global variables or functions)
 
 1. [elf.c](./elf.c) (loading, no relocation).
