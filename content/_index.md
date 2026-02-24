@@ -135,15 +135,15 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 - Reading (optional): [How Does an Intel Processor Boot](https://binarydebt.wordpress.com/2018/10/06/how-does-an-x86-processor-boot/)?
 - Reading (optional): [Intel SGX explained](https://eprint.iacr.org/2016/086.pdf) (sections 2.9.1 The Motherboard, 2.9.2 The Intel Management Engine (ME), and 2.13 Platform Initialization (Booting))
 
-<!--
+**Feb 17**
+- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/3IFRmtCADKQ))
 
-**Feb 18**
-- [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/IY4ij-9B_7c))
-
-**Feb 20**
--[Lecture 08 - System Init](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/t7UnnRWz4k4))
+**Feb 29**
+-[Lecture 08 - System Init](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/CSPrCRZogns))
 - Reading: [Chapter 1: Operating system organization](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: [Chapter 2: Page tables](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
+
+<!--
 
 **Feb 25**
 - [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
