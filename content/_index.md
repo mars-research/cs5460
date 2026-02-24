@@ -138,38 +138,39 @@ You can submit late homework assignments (not quizzes or in-class activities) 3 
 **Feb 17**
 - [Lecture 07 - System Boot](./lectures/lecture07-system-boot/lecture07-system-boot.pdf) ([video](https://youtube.com/live/3IFRmtCADKQ))
 
-**Feb 29**
+**Feb 19**
 -[Lecture 08 - System Init](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/CSPrCRZogns))
 - Reading: [Chapter 1: Operating system organization](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 - Reading: [Chapter 2: Page tables](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
 
-<!--
+**Feb 24**
+- [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/HpEuxWAcEzk))
 
-**Feb 25**
-- [Lecture 08 - System Init (part2)](./lectures/lecture08-kernel-page-table/lecture08-kernel-page-table.pdf) ([video](https://youtube.com/live/ZIkLnn0QcbU))
-- [**Homework 3 - Boot Into C**](./homework/hw3-boot-into-c/)
+
+<!--
 
 **Feb 27**
 - [Lecture 09 - Interrupts and Exceptions](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/89fLiN1xc8o))
 - Reading: [Chapter 3: Traps, interrupts and drivers](https://xv6-64.gitlab.io/xv6-64-book/xv6-64-book.pdf)
-
+- [**Homework 3 - Boot Into C**](./homework/hw3-boot-into-c/)
 
 **March 4**
 - [Midterm review](./lectures/lecture-midterm-recap/lecture-midterm-recap.pdf) ([video](https://youtube.com/live/aj5OOUeraTc)
 - Reading: [Exams from previous years](https://users.cs.utah.edu/~aburtsev/5460/exams.html)
-
 -->
+
 
 **March 5**
 - **Midterm exam** (regular time and place)
 - Exam rules: _paper books and printouts are allowed, no devices_. 
 
-<!--
 **March 11**
 - No class (Spring Break)
 
 **March 13**
 - No class (Spring Break)
+
+<!--
 
 **March 18**
 - [Lecture 09 - Interrupts and Exceptions (part 2)](./lectures/lecture09-interrupts/lecture09-interrupts.pdf) ([video](https://youtube.com/live/Gf84CFB3uWw))
